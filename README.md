@@ -12,6 +12,7 @@ Reducing Hospital Readmissions
 		->These programs are not data-driven in understanding where readmission problems exist.
 		-> They are mostly based on changes made to hospital processes and not focus on post discharge care.
 		-> The payment reforms do not support to fund the post discharge care.
+
 	Solution:
 		The solution can be divided into a 2 step process:
 		1) Analyze the data to identify the types and causes of readmissions and predict the chances of readmission using patients' feedback records.
@@ -24,6 +25,7 @@ Reducing Hospital Readmissions
 
 
 User Stories:
+
 	As a doctor, I can view feedback and prediction index of readmission for my patients,
 	so that, I can decide measures to be taken to mitigate chances of readmission.
 
