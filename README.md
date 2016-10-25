@@ -8,6 +8,7 @@ Reducing Hospital Readmissions
 	Research shows that 15-20% of people who are discharged from hospital are readmitted within 30 days or less. 
 	Many of these readmissions are preventable. Patients don’t mind fewer hospitalizations and a huge amount of money can be saved by avoiding such readmissions. 
 	Hospitals also can avoid being penalized by reducing readmission rate.
+	
 	There are many programs that try to achieve this but they have following weaknesses : 
 		->These programs are not data-driven in understanding where readmission problems exist.
 		-> They are mostly based on changes made to hospital processes and not focus on post discharge care.
