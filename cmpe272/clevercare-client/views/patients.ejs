@@ -1,0 +1,138 @@
+<div id="patientsDiv" ng-controller="patientsController">
+  
+  <div class="container bootcards-container" id="main">
+      
+    <div class="row">
+
+      <div class="col-sm-7 bootcards-list" id="list" data-title="Patients">    
+        <div class="panel panel-default">         
+          <div class="panel-body">
+            <div class="search-form">
+              <div class="row">
+                  <div class="col-xs-9">
+                    <div class="form-group">
+                      <input type="text" class="form-control" ng-model="patientScreen.searchTerm" placeholder="Search patients...">
+                      <i class="fa fa-search"></i>
+                    </div>
+                  </div>
+                  <div class="col-xs-3">
+                  <a class="btn btn-primary btn-block" href="#"
+                     ng-click="$event.preventDefault();searchClicked()">
+                    <i class=""></i> 
+                    <span>Search</span>
+                  </a>
+                  </div>
+              </div>                
+            </div>        
+          </div>
+
+          <div class="list-group">
+            <a class="list-group-item pjax" ng-repeat="patient in patientScreen.patientList"
+                href="#" ng-click="$event.preventDefault();listItemClicked(patient)">
+                
+              <div class="row">
+                <div class="col-sm-6">
+                  <i class="fa fa-3x fa-building-o pull-left"></i>
+                  <h4 class="list-group-item-heading">Name: {{patient.name}}</h4>
+                  <p class="list-group-item-text">Contact number: {{patient.contactNumber}}</p>
+                </div>
+                <div class="col-sm-6">
+                  <p class="list-group-item-text">status: {{patient.status}}</p>
+                  <p class="list-group-item-text">Follow Up Due On: {{patient.followUpDueOn}}</p>
+                </div>
+              </div>
+              
+            </a>
+            
+          </div>
+                 
+        </div>
+      </div>
+    
+      <div class="col-sm-5 bootcards-cards" id="listDetails">
+
+        
+        <div class="row">
+        <div id="patientCard">
+          
+          <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+              <h3 class="panel-title pull-left">Patient Details</h3>
+              
+              <a class="btn btn-primary pull-right hidden-xs" href="#" ng-click="$event.preventDefault();showAdvanced($event)" 
+                data-toggle="modal"
+                data-target="#followUpModal">
+                <i class="fa fa-pencil"></i>
+                <span>Follow Up</span>
+              </a>
+            </div>
+            <div class="list-group">
+            
+              <div class="list-group-item">
+                <i class="fa fa-2x fa-building-o pull-left"></i>
+                <label>Name</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.name}}</h4>
+              </div>
+              
+              <div class="list-group-item">
+                <label>Contact Number</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.contactNumber}}</h4>
+              </div>
+              
+              <div class="list-group-item">
+                <label>Email</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.email}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Age</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.age}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Disease</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.disease}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Status</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.status}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Discharge Notes</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.dischargeNotes}}</h4>
+              </div>
+              
+              
+            </div> 
+             
+          </div>
+        
+        </div>
+        </div>
+        <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+              <h3 class="panel-title pull-left">Patient Files</h3>
+            </div>
+
+            <div class="list-group">
+              <div class="list-group-item" >
+                <a class="list-group-item-heading btn btn-secondary" href="#" ng-click="$event.preventDefault();showPatientFile()" ng-repeat="x in patientScreen.currPatient.files">
+                <span>{{x}}</span>
+                </a> 
+              </div>
+            </div>
+          </div>
+        </div>
+               
+      </div>
+
+    </div>
+
+
+  </div>
+  
+
+</div>

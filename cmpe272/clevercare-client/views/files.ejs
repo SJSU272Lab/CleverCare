@@ -1,0 +1,100 @@
+
+<div id="filesDiv" ng-controller="dashboardController">
+
+  <div class="container bootcards-container" id="main">
+    
+    <div class="row">
+      
+      <div class="col-sm-6 bootcards-list" id="list" data-title="Files"> 
+        <div class="panel panel-default">             
+          <div class="panel-body">
+            <div class="search-form">
+              <div class="row">
+                  <div class="col-xs-9">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Search Files...">
+                      <i class="fa fa-search"></i>
+                    </div>
+                  </div>
+                  <div class="col-xs-3">
+                  <a class="btn btn-primary btn-block" href="/notes/add"
+                    data-toggle="modal"
+                    data-target="#editModal">
+                    <i class="fa fa-plus"></i> 
+                    <span>Add</span>
+                  </a>
+                  </div>
+              </div>                
+            </div>          
+          </div>
+
+          
+
+          <div class="list-group">
+            <a class="list-group-item pjax" ng-repeat="file in filesScreen.fileList"
+                href="#" ng-click="$event.preventDefault();listItemClicked(file)">
+              <i class="fa fa-2x pull-left fa-paperclip"></i>
+              <h4 class="list-group-item-heading">{{file.name}}</h4>
+              <p class="list-group-item-text">{{file.dateModified}}
+              </p>
+            </a>
+
+          </div>         
+        </div>
+      </div>
+    
+      <div class="col-sm-6 bootcards-cards" id="listDetails">
+
+        
+        <div id="activityCard">
+          
+          <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+              <h3 class="panel-title pull-left">File Details</h3>
+        
+              <!--small screen component-->
+              <div class="btn-group pull-right visible-xs">
+                  <a class="btn btn-primary" href="/notes/ucw9gtbjq7ls/edit"  
+                    data-toggle="modal"
+                    data-target="#editModal"> 
+                  <i class="fa fa-pencil"></i>
+                  <span>Edit</span>
+                </a>
+              </div>  
+        
+              <!--big screen component-->
+                <a class="btn btn-primary pull-right hidden-xs" href="/notes/ucw9gtbjq7ls/edit"
+                  data-toggle="modal"
+                  data-target="#editModal"> 
+                <i class="fa fa-pencil"></i>
+                <span>Edit</span>
+              </a>
+        
+            </div>
+            <div class="list-group">
+              <div class="list-group-item">
+                <label>File Name</label>
+                <h4 class="list-group-item-heading">{{filesScreen.currFile.name}}</h4>
+              </div>
+              <div class="list-group-item">
+                <label>Details</label>
+                <h4 class="list-group-item-heading">{{filesScreen.currFile.details}}</h4>
+              </div>
+              <div class="list-group-item">
+                <label>Last Modified Date</label>
+                <h4 class="list-group-item-heading">{{filesScreen.currFile.lastVisit}}</h4>
+              </div>
+              
+              <div class="list-group-item">
+                <label>Last Modified By</label>
+                <h4 class="list-group-item-heading">{{filesScreen.currFile.lastModifiedBy}}</h4>
+              </div>
+            </div>
+                
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+  </div>

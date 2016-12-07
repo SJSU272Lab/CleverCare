@@ -1,0 +1,23 @@
+{
+  "name": "clevercare-client",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "amqp": "^0.2.6",
+    "bcryptjs": "^2.3.0",
+    "body-parser": "~1.15.2",
+    "connect-mongo": "^1.3.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "ejs": "~2.5.2",
+    "express": "~4.14.0",
+    "express-session": "^1.14.2",
+    "fecha": "^2.3.0",
+    "mongodb": "^2.2.12",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0"
+  }
+}

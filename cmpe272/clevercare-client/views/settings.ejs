@@ -1,0 +1,47 @@
+<div id="settingsDiv" ng-controller="settingsController">
+
+
+  <div class="container bootcards-container" id="main">
+    
+<div class="row">
+
+  <div class="col-sm-4 col-sm-offset-4 bootcards-cards">
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Settings</h3>
+        <a href="#" class="btn btn-success pull-right" ng-click="$event.preventDefault();saveClicked()" ng-show="settingsData.isEditClicked">
+          Save
+        </a>
+        <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();editClicked()" ng-hide="settingsData.isEditClicked">
+          Edit
+        </a>
+      </div>
+
+      <div class="list-group">
+        <div class="list-group-item">
+          <label class="list-group-item-text">Username</label>
+          <div class="list-group-item-heading">
+            <input type="text" name="name" class="form-control" placeholder="Username"
+            ng-model="settingsData.username" ng-disabled="!settingsData.isEditClicked">
+          </div>
+        </div>
+        <div class="list-group-item">
+          <label class="list-group-item-text">Password</label>
+          <div class="list-group-item-heading">
+            <input type="password" name="name" class="form-control" placeholder="Password"
+            ng-model="settingsData.password" ng-disabled="!settingsData.isEditClicked">
+          </div>
+        </div>
+        <div class="list-group-item">
+          <p class="list-group-item-text">Type</p>
+          <h4 class="list-group-item-heading">{{settingsData.userType}}</h4>
+        </div> 
+              
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+
+ 
