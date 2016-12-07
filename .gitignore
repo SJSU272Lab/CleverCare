@@ -1,4 +1,4 @@
 .idea/
-cmpe272/clevercare-client/node_modules/
-cmpe272/clevercare-server/node_modules/
+project/clevercare-client/node_modules/
+project/clevercare-server/node_modules/
 *.log
