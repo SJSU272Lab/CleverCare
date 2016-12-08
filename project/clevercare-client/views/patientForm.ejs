@@ -1,171 +1,181 @@
 <div id="patientsDiv" ng-controller="patientFormController">
 
 
-  <div class="container bootcards-container" id="main">
-    
-<div class="row">
+    <div class="container bootcards-container" id="main">
 
-  <div class="col-sm-6 col-sm-offset-1 bootcards-cards">
-    <div class="panel panel-default">
-      <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Patient Feedback Form</h3>
-        <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();clearClicked()" >
-          Clear
-        </a>
-        <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();predictClicked()" style="margin-right: 15px">
-          Predict
-        </a>
-        
-        
-      </div>
+        <div class="row">
 
-      <div class="list-group">
-        <div class="list-group-item">
-          <label class="list-group-item-text">Gender</label>
-          <div class="list-group-item-heading">
-          <label>
-            <input type="radio" ng-model="patientFormData.gender" value="Male">
-            Male
-          </label><br/>
-          <label>
-            <input type="radio" ng-model="patientFormData.gender" value="Female">
-            Female
-          </label><br/>
-          </div>
+            <div class="col-sm-6 col-sm-offset-1 bootcards-cards">
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <h3 class="panel-title pull-left">Patient Feedback Form</h3>
+                        <a class="btn btn-primary pull-right" ng-click="$event.preventDefault();clearClicked()">
+                            Clear
+                        </a>
+                        <a class="btn btn-primary pull-right" ng-click="$event.preventDefault();predictClicked()"
+                           style="margin-right: 15px">
+                            Predict
+                        </a>
+
+
+                    </div>
+
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Gender</label>
+                            <div class="list-group-item-heading">
+                                <label>
+                                    <input type="radio" ng-model="patientFormData.gender" value="Male">
+                                    Male
+                                </label><br/>
+                                <label>
+                                    <input type="radio" ng-model="patientFormData.gender" value="Female">
+                                    Female
+                                </label><br/>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Age Category</label>
+                            <div class="list-group-item-heading">
+                                <label>
+                                    <input type="radio" ng-model="patientFormData.ageCategory" value="Adult">
+                                    Adult
+                                </label><br/>
+                                <label>
+                                    <input type="radio" ng-model="patientFormData.ageCategory" value="Old">
+                                    Old
+                                </label><br/>
+                                <label>
+                                    <input type="radio" ng-model="patientFormData.ageCategory" value="Young">
+                                    Young
+                                </label><br/>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Race</label>
+                            <div class="list-group-item-heading">
+                                <select name="race" id="race"
+                                        ng-options="raceOption for raceOption in patientFormData.raceOptions"
+                                        ng-model="patientFormData.raceSelected">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Admisson Source</label>
+                            <div class="list-group-item-heading">
+                                <select name="admissionSource" id="admissionSource"
+                                        ng-options="admissionSourceOption for admissionSourceOption in patientFormData.admissionSourceOptions"
+                                        ng-model="patientFormData.admissionSourceSelected">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Admisson Type</label>
+                            <div class="list-group-item-heading">
+                                <select name="admissionType" id="admissionType"
+                                        ng-options="admissionTypeOption for admissionTypeOption in patientFormData.admissionTypeOptions"
+                                        ng-model="patientFormData.admissionTypeSelected">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Insulin</label>
+                            <div class="list-group-item-heading">
+                                <select name="insulin" id="insulin"
+                                        ng-options="insulinOption for insulinOption in patientFormData.insulinOptions"
+                                        ng-model="patientFormData.insulinSelected">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Diabetes Med</label>
+                            <div class="list-group-item-heading">
+                                <label>
+                                    <input type="radio" ng-model="patientFormData.diabetesMed" value="Yes">
+                                    Yes
+                                </label><br/>
+                                <label>
+                                    <input type="radio" ng-model="patientFormData.diabetesMed" value="No">
+                                    No
+                                </label><br/>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Discharge Disposition</label>
+                            <div class="list-group-item-heading">
+                                <select name="dischargeDisposition" id="dischargeDisposition"
+                                        ng-options="dischargeDispositionOption for dischargeDispositionOption in patientFormData.dischargeDispositionOptions"
+                                        ng-model="patientFormData.dischargeDispositionSelected">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Medical Speciality</label>
+                            <div class="list-group-item-heading">
+                                <select name="medicalSpeciality" id="medicalSpeciality"
+                                        ng-options="medicalSpecialityOption for medicalSpecialityOption in patientFormData.medicalSpecialityOptions"
+                                        ng-model="patientFormData.medicalSpecialitySelected">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Payer Code</label>
+                            <div class="list-group-item-heading">
+                                <select name="payerCode" id="payerCode"
+                                        ng-options="payerCodeOption for payerCodeOption in patientFormData.payerCodeOptions"
+                                        ng-model="patientFormData.payerCodeSelected">
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Notes</label>
+                            <div class="list-group-item-heading">
+                                <textarea rows="4" cols="50" ng-model="patientFormData.notes"/>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 col-sm-offset-1 bootcards-cards">
+                <div>
+
+                    <div class="panel panel-default bootcards-chart">
+
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Chances of Readmission</h3>
+                        </div>
+
+                        <div>
+                            <div
+                                    donut-chart
+                                    donut-data=patientFormData.chart1Data
+                                    donut-label-color='"#000000"'
+                                    donut-background-color='"#ffffff"'
+                                    donut-colors='["#31C0BE","white"]'
+                                    donut-formatter='percentfilter'>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-
-        <div class="list-group-item">
-          <label class="list-group-item-text">Age Category</label>
-          <div class="list-group-item-heading">
-          <label>
-            <input type="radio" ng-model="patientFormData.ageCategory" value="Adult">
-            Adult
-          </label><br/>
-          <label>
-            <input type="radio" ng-model="patientFormData.ageCategory" value="Old">
-            Old
-          </label><br/>
-          <label>
-            <input type="radio" ng-model="patientFormData.ageCategory" value="Young">
-            Young
-          </label><br/>
-          </div>
-        </div>
-
-        <div class="list-group-item">
-          <label class="list-group-item-text">Race</label>
-          <div class="list-group-item-heading">
-            <select name="race" id="race"
-              ng-options="raceOption for raceOption in patientFormData.raceOptions"
-              ng-model="patientFormData.raceSelected">
-            </select>
-          </div>
-        </div>
-
-        <div class="list-group-item">
-          <label class="list-group-item-text">Admisson Source</label>
-          <div class="list-group-item-heading">
-            <select name="admissionSource" id="admissionSource"
-              ng-options="admissionSourceOption for admissionSourceOption in patientFormData.admissionSourceOptions"
-              ng-model="patientFormData.admissionSourceSelected">
-            </select>
-          </div>
-        </div>
-
-        <div class="list-group-item">
-          <label class="list-group-item-text">Admisson Type</label>
-          <div class="list-group-item-heading">
-            <select name="admissionType" id="admissionType"
-              ng-options="admissionTypeOption for admissionTypeOption in patientFormData.admissionTypeOptions"
-              ng-model="patientFormData.admissionTypeSelected">
-            </select>
-          </div>
-        </div>
-
-        <div class="list-group-item">
-          <label class="list-group-item-text">Insulin</label>
-          <div class="list-group-item-heading">
-            <select name="insulin" id="insulin"
-              ng-options="insulinOption for insulinOption in patientFormData.insulinOptions"
-              ng-model="patientFormData.insulinSelected">
-            </select>
-          </div>
-        </div>
-
-        <div class="list-group-item">
-          <label class="list-group-item-text">Diabetes Med</label>
-          <div class="list-group-item-heading">
-          <label>
-            <input type="radio" ng-model="patientFormData.diabetesMed" value="Yes">
-            Yes
-          </label><br/>
-          <label>
-            <input type="radio" ng-model="patientFormData.diabetesMed" value="No">
-            No
-          </label><br/>
-          </div>
-        </div>
-
-        <div class="list-group-item">
-          <label class="list-group-item-text">Discharge Disposition</label>
-          <div class="list-group-item-heading">
-            <select name="dischargeDisposition" id="dischargeDisposition"
-              ng-options="dischargeDispositionOption for dischargeDispositionOption in patientFormData.dischargeDispositionOptions"
-              ng-model="patientFormData.dischargeDispositionSelected">
-            </select>
-          </div>
-        </div>
-
-        <div class="list-group-item">
-          <label class="list-group-item-text">Medical Speciality</label>
-          <div class="list-group-item-heading">
-            <select name="medicalSpeciality" id="medicalSpeciality"
-              ng-options="medicalSpecialityOption for medicalSpecialityOption in patientFormData.medicalSpecialityOptions"
-              ng-model="patientFormData.medicalSpecialitySelected">
-            </select>
-          </div>
-        </div>
-
-        <div class="list-group-item">
-          <label class="list-group-item-text">Payer Code</label>
-          <div class="list-group-item-heading">
-            <select name="payerCode" id="payerCode"
-              ng-options="payerCodeOption for payerCodeOption in patientFormData.payerCodeOptions"
-              ng-model="patientFormData.payerCodeSelected">
-            </select>
-          </div>
-        </div>
-              
-      </div>
     </div>
-  </div>
-
-  <div class="col-sm-4 col-sm-offset-1 bootcards-cards">
-    <div>
-      
-        <div class="panel panel-default bootcards-chart">
-          
-          <div class="panel-heading">
-            <h3 class="panel-title">Chances of Readmission</h3>         
-          </div>
-      
-          <div>
-            <div
-              donut-chart
-              donut-data = patientFormData.chart1Data
-              donut-label-color='"#000000"' 
-              donut-background-color='"#ffffff"' 
-              donut-colors='["#31C0BE","white"]'
-              donut-formatter= 'percentfilter'>
-              </div>
-          </div>
-        </div>  
-         
-    </div>
-  </div>
-
-</div>
-  </div>
 </div>
 
  

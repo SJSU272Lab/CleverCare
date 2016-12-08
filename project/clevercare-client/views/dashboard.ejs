@@ -1,170 +1,128 @@
 <!--usertype= 'admin' 'nurse' 'inPatient' 'doctor' -->
 
 <div id="dashboardDiv" ng-controller="dashboardController">
-  
-  <div class="container bootcards-container" id="main">
-    
-<div class="row">
 
-  <div class="bootcards-cards ">
-  
-  <div ng-show="userdata.usertype == 'nurse'">
-    <div class="col-sm-4 " >
-  
-      <div class="panel panel-default bootcards-summary">
-  
-        <div class="panel-heading">
-          <h3 class="panel-title">Dashboard</h3>
-        </div>
-        <div class="col-xs-6 col-sm-6" >
-                <a class="bootcards-summary-item" href="#patients"
-                data-title="Patients" style="padding-top:35px;">
-                  <i class="fa fa-3x fa-users"></i>
-                  <h4>
-                    Patients
-                    <span class="label label-info">{{dashboardData.patientCount}}</span>
-                  </h4>
-                </a>
-              </div>
-              <div class="col-xs-6 col-sm-6" >
-                <a class="bootcards-summary-item" href="#notes"
-                data-title="Notes" style="padding-top:35px;">
-                  <i class="fa fa-3x fa-building-o"></i>
-                  <h4>
-                    Notes
-                    <span class="label label-info">{{dashboardData.noteCount}}</span> 
-                  </h4>
-                </a>
-              </div>      
-          <div class="panel-body" >
-            <div class="row">
-              
-            </div>
-          </div>
-        </div>
-         
-  
-      </div>
-  
-    </div>
-    <div ng-show="userdata.usertype == 'doctor'">
-    <div class="col-sm-4 " >
-  
-      <div class="panel panel-default bootcards-summary">
-  
-        <div class="panel-heading">
-          <h3 class="panel-title">Dashboard</h3>
-        </div>
-        <div class="col-xs-6 col-sm-6" >
-                <a class="bootcards-summary-item" href="#patients"
-                data-title="Patients" style="padding-top:35px;">
-                  <i class="fa fa-3x fa-users"></i>
-                  <h4>
-                    Patients
-                    <span class="label label-info">{{dashboardData.patientCount}}</span>
-                  </h4>
-                </a>
-              </div>
-              <div class="col-xs-6 col-sm-6" >
-                <a class="bootcards-summary-item" href="#charts"
-                data-title="Notes" style="padding-top:35px;">
-                  <i class="fa fa-3x fa-building-o"></i>
-                  <h4>
-                    Charts
-                    <span class="label label-info">{{dashboardData.noteCount}}</span> 
-                  </h4>
-                </a>
-              </div>
-              <div class="col-xs-6 col-sm-6" >
-                <a class="bootcards-summary-item" href="#notes"
-                data-title="Notes" style="padding-top:35px;">
-                  <i class="fa fa-3x fa-building-o"></i>
-                  <h4>
-                    Notes
-                    <span class="label label-info">{{dashboardData.noteCount}}</span> 
-                  </h4>
-                </a>
-              </div>
-              <div class="col-xs-6 col-sm-6" >
-                <a class="bootcards-summary-item" href="#Educational Content"
-                data-title="Notes" style="padding-top:35px;">
-                  <i class="fa fa-3x fa-building-o"></i>
-                  <h4>
-                    Educational Content
-                  </h4>
-                </a>
-              </div>      
-          <div class="panel-body" >
-            <div class="row">
-              
-            </div>
-          </div>
-        </div>
-         
-  
-      </div>
-  
-    </div>
-    <!-- first chart -->
-  
-    <div class="col-sm-3 col-sm-3 bootcards-cards">
-      
-        <div class="panel panel-default bootcards-chart">
-          
-          <div class="panel-heading">
-            <h3 class="panel-title">Progress</h3>         
-          </div>
-          <div >
-              <div 
-                donut-chart
-                donut-data = dashboardData.nurseProgressChartData
-                donut-label-color='"#000000"' 
-                donut-background-color='"#ffffff"' 
-                donut-colors='["#31C0BE","RED"]'
-                class="bootcards-chart-canvas ">
+    <div class="container bootcards-container" id="main">
+
+        <div class="row">
+
+            <div class="bootcards-cards ">
+                <div>
+                    <div class="col-sm-4 ">
+
+                        <div class="panel panel-default bootcards-summary">
+
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Dashboard</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6" ng-show="(userdata.usertype == 'nurse') ||( userdata.usertype == 'doctor')">
+                                        <a class="bootcards-summary-item" href="#patients"
+                                           data-title="Patients" style="padding-top:35px;">
+                                            <i class="fa fa-3x fa-users"></i>
+                                            <h4>
+                                                Patients
+                                                <span class="label label-info">{{dashboardData.patientCount}}</span>
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6" ng-show="userdata.usertype == 'doctor'">
+                                        <a class="bootcards-summary-item" href="#charts"
+                                           data-title="Notes" style="padding-top:35px;">
+                                            <i class="fa fa-3x fa-building-o"></i>
+                                            <h4>
+                                                Charts
+                                                <span class="label label-info">{{dashboardData.noteCount}}</span>
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6" ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
+                                        <a class="bootcards-summary-item" href="#notes"
+                                           data-title="Notes" style="padding-top:35px;">
+                                            <i class="fa fa-3x fa-building-o"></i>
+                                            <h4>
+                                                Notes
+                                                <span class="label label-info">{{dashboardData.noteCount}}</span>
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6" ng-show="userdata.usertype == 'doctor'">
+                                        <a class="bootcards-summary-item" href="#Educational Content"
+                                           data-title="Notes" style="padding-top:35px;">
+                                            <i class="fa fa-3x fa-building-o"></i>
+                                            <h4>
+                                                Educational Content
+                                            </h4>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            
-          </div>
-        </div>  
-         
+                <!-- first chart -->
+
+                <div class="col-sm-3 col-sm-3 bootcards-cards">
+
+                    <div class="panel panel-default bootcards-chart">
+
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Progress</h3>
+                        </div>
+                        <div>
+                            <div
+                                    donut-chart
+                                    donut-data=dashboardData.nurseProgressChartData
+                                    donut-label-color='"#000000"'
+                                    donut-background-color='"#ffffff"'
+                                    donut-colors='["#31C0BE","RED"]'
+                                    class="bootcards-chart-canvas ">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- first chart -->
+                <!-- recent 5 list -->
+                <div class="col-sm-5 col-sm-5 bootcards-cards">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Recent {{dashboardData.recentPatientCount}} patients to be
+                                reviewed</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr class="active">
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Due date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in dashboardData.recentFivePatient">
+                                    <td>{{x.name}}</td>
+                                    <td>{{x.status}}</td>
+                                    <td>{{x.lastVisit}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- recent 5 list -->
+
+            </div>
+
+
+        </div>
+
+
     </div>
-
-  <!-- first chart -->
-  <!-- recent 5 list -->
-  <div class="col-sm-5 col-sm-5 bootcards-cards">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Recent {{dashboardData.recentPatientCount}} patients to be reviewed</h3>
-      </div>
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr class="active"><th>Name</th><th>Status</th><th>Due date</th></tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="x in dashboardData.recentFivePatient">
-              <td>{{x.name}}</td>
-              <td>{{x.status}}</td>
-              <td>{{x.lastVisit}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      
-    </div>
-  </div>
-  <!-- recent 5 list -->
-
-</div>
-
-
-  </div>
-
-
-  
-  
-
-</div>
 </div>
 
 

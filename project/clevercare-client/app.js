@@ -30,6 +30,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+  store: new mongoStore({
+    url: "mongodb://clevercare:94260@ds113628.mlab.com:13628/smartcare"
+  })
+}));
+
 app.use('/', index);
 app.use('/users', users);
 
@@ -50,6 +62,8 @@ app.post('/submitFollowup', followup.submitFollowup);
 app.post('/scheduleFollowup', followup.scheduleFollowup);
 app.post('/submitReview',review.submitReview);
 app.post('/sendNote', review.sendNote);
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

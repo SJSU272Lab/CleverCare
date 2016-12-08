@@ -59,9 +59,7 @@
             <div class="panel-heading clearfix">
               <h3 class="panel-title pull-left">Patient Details</h3>
               
-              <a class="btn btn-primary pull-right hidden-xs" href="#" ng-click="$event.preventDefault();showAdvanced($event)" 
-                data-toggle="modal"
-                data-target="#followUpModal">
+              <a class="btn btn-primary pull-right hidden-xs" ng-click="showAdvanced()">
                 <i class="fa fa-pencil"></i>
                 <span>Follow Up</span>
               </a>
@@ -120,7 +118,7 @@
             <div class="list-group">
               <div class="list-group-item" >
                 <a class="list-group-item-heading btn btn-secondary" href="#" ng-click="$event.preventDefault();showPatientFile()" ng-repeat="x in patientScreen.currPatient.files">
-                <span>{{x}}</span>
+                <span>{{x._id}}</span>
                 </a> 
               </div>
             </div>

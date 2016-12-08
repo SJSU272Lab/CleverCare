@@ -1,4 +1,3 @@
-
 var bcrypt = require('bcryptjs');
 var express = require('express');
 
@@ -7,17 +6,15 @@ var fecha = require('fecha');
 var mq_client = require("../rpc/client.js");
 
 
+exports.authenticateUser = function (req, res) {
 
-exports.authenticateUser = function (req, res, next) {
-
-	var username = req.body.email;
-	var password = req.body.password;
+    var username = req.body.email;
+    var password = req.body.password;
 
     console.log("in signin");
 
-    var msg_payload = {username:username,password:password};
-    mq_client.make_request('login_queue',msg_payload, function(err,results){
-        console.log(results);
+    var msg_payload = {username: username, password: password};
+    mq_client.make_request('login_queue', msg_payload, function (err, results) {
         if (err) {
             res.json({
                 success: false,
@@ -33,11 +30,15 @@ exports.authenticateUser = function (req, res, next) {
             res.end();
         }
         if (results) {
-            res.json({
+            req.session.userId = results._id;
+            req.session.usertype = results.usertype;
+            var data = {
                 success: true,
                 message: 'Logged in',
-                type: results.usertype
-            });
+                usertype: results.usertype,
+                userId: results._id
+            };
+            res.json(data);
             res.end();
 
         }
@@ -63,9 +64,9 @@ exports.addDoctor = function (req, res) {
         password: passwordToSave,
         speciality: req.body.speciality,
         address: req.body.address,
-        phonenumber:req.body.phone,
-        gender:req.body.gender,
-        method:"addDoc"
+        phonenumber: req.body.phone,
+        gender: req.body.gender,
+        method: "addDoc"
 
     };
 
@@ -106,9 +107,9 @@ exports.addNurse = function (req, res) {
         email: req.body.email,
         password: passwordToSave,
         address: req.body.address,
-        phonenumber:req.body.phone,
-        gender:req.body.gender,
-        method:"addNurse"
+        phonenumber: req.body.phone,
+        gender: req.body.gender,
+        method: "addNurse"
     };
 
     mq_client.make_request('register_queue', msg_payload, function (err, results) {
@@ -146,16 +147,16 @@ exports.addPatient = function (req, res) {
         lastname: req.body.lastname,
         email: req.body.email,
         address: req.body.address,
-        phonenumber:req.body.phone,
-        gender:req.body.gender,
-        age:req.body.age,
-        disease:req.body.disease,
-        dischargeNote:req.body.dischargeNote,
-        dischargeDate:req.body.dischargeDate,
-        isReadmitted:req.body.isReadmitted,
-        last_admission_date:req.body.last_admission_date,
-        doctorId:req.body.doctorId,
-        method:"addPatient"
+        phonenumber: req.body.phone,
+        gender: req.body.gender,
+        age: req.body.age,
+        disease: req.body.disease,
+        dischargeNote: req.body.dischargeNote,
+        dischargeDate: req.body.dischargeDate,
+        isReadmitted: req.body.isReadmitted,
+        last_admission_date: req.body.last_admission_date,
+        doctorId: req.body.doctorId,
+        method: "addPatient"
     };
 
     mq_client.make_request('register_queue', msg_payload, function (err, results) {

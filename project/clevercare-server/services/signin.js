@@ -19,7 +19,6 @@ exports.doLogin = function (msg, callback) {
 
     User.findOne({email: username}, function (err, user) {
         if (err) {
-
             console.log("err in find");
             callback(err, null);
         }
