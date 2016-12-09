@@ -9,62 +9,62 @@
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left">Patient Review Form</h3>
-        <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();clearClicked()" >
+        <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();doneClicked()" >
           Done
         </a>
-        <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();predictClicked()" style="margin-right: 15px">
+        <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();scheduleFollowUpClicked()" style="margin-right: 15px">
           Schedule Follow Up
         </a>  
       </div>
 
       <div class="list-group">
         <div class="list-group-item">
-          <label >Gender: </label>
+          <label ><b>Gender: </b></label>
           <label >{{reviewScreen.gender}}</label>
         </div>
 
         <div class="list-group-item">
-          <label >Age Category: </label>
+          <label ><b>Age Category: </b></label>
           <label >{{reviewScreen.ageCategory}}</label>
         </div>
 
         <div class="list-group-item">
-          <label >Race: </label>
+          <label ><b>Race: </b></label>
           <label >{{reviewScreen.raceSelected}}</label>
         </div>
 
         <div class="list-group-item">
-          <label >Admisson Source: </label>
+          <label ><b>Admisson Source: </b></label>
           <label >{{reviewScreen.admissionSourceSelected}}</label>
         </div>
 
         <div class="list-group-item">
-          <label >Admisson Type: </label>
+          <label ><b>Admisson Type: </b></label>
           <label >{{reviewScreen.admissionTypeSelected}}</label>
         </div>
 
         <div class="list-group-item">
-          <label >Insulin: </label>
+          <label ><b>Insulin: </b></label>
           <label >{{reviewScreen.insulinSelected}}</label>
         </div>
 
         <div class="list-group-item">
-          <label >Diabetes Med: </label>
+          <label ><b>Diabetes Med: </b></label>
           <label >{{reviewScreen.diabetesMed}}</label>
         </div>
 
         <div class="list-group-item">
-          <label >Discharge Disposition: </label>
+          <label ><b>Discharge Disposition: </b></label>
           <label >{{reviewScreen.dischargeDispositionSelected}}</label>
         </div>
 
         <div class="list-group-item">
-          <label >Medical Speciality: </label>
+          <label ><b>Medical Speciality: </b></label>
           <label >{{reviewScreen.medicalSpecialitySelected}}</label>
         </div>
 
         <div class="list-group-item">
-          <label >Payer Code: </label>
+          <label ><b>Payer Code: </b></label>
           <label >{{reviewScreen.payerCodeSelected}}</label>
         </div>
 
