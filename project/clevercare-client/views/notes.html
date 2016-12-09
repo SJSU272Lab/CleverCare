@@ -1,0 +1,74 @@
+<div class="container bootcards-container" id="main" ng-controller="notesController">
+  <div class="row">	
+		<div class="col-md-5 col-sm-5 bootcards-list" id="list" data-title="Notes">	
+			<div class="panel panel-default">							
+				<div class="panel-body">
+					<div class="search-form">
+						<div class="row">
+						    <div class="col-xs-9">
+						      <div class="form-group">
+							      <input type="text" class="form-control" placeholder="Search note...">
+							      <i class="fa fa-search"></i>
+						      </div>
+						    </div>
+						    <div class="col-xs-3">
+								<input type='button' value="Add" class="btn btn-primary btn-block" ng-Click="addNote()">
+						    </div>
+						</div>						    
+					</div>					
+				</div>
+				<div class="list-group">
+					<a class="list-group-item pjax" 
+				 			href="/notes/ucw9gtbjq7ls" ng-repeat="note in notes" href="#" ng-click="$event.preventDefault();listNoteClicked(note)">
+						<h4 class="list-group-item-heading">{{note.subject}}</h4>
+						<p class="list-group-item-text">{{note.date}}
+						</p>
+					</a>
+				</div>				
+			</div>
+		</div>
+		<div class="col-md-7 col-sm-7 bootcards-cards" id="listDetails">
+			<div id="activityCard">
+				
+				<div class="panel panel-default">
+            <div class="panel-heading clearfix">
+              <h3 class="panel-title pull-left">Note Details</h3>
+        
+              <!--small screen component-->
+              <div class="btn-group pull-right visible-xs">
+                  <a class="btn btn-primary" href="/notes/ucw9gtbjq7ls/edit"  
+                    data-toggle="modal"
+                    data-target="#editModal"> 
+                  <i class="fa fa-pencil"></i>
+                  <span>Edit</span>
+                </a>
+              </div>  
+        
+              <!--big screen component-->
+                <a class="btn btn-primary pull-right hidden-xs" href="/notes/ucw9gtbjq7ls/edit"
+                  data-toggle="modal"
+                  data-target="#editModal"> 
+                <i class="fa fa-pencil"></i>
+                <span>Edit</span>
+              </a>
+        
+            </div>
+            <div class="list-group">
+              <div class="list-group-item">
+                <label>Subject</label>
+                <h4 class="list-group-item-heading">{{currentNote.subject}}</h4>
+              </div>
+              <div class="list-group-item">
+                <label>Date</label>
+                <h4 class="list-group-item-heading">{{currentNote.date}}</h4>
+              </div>
+              <div class="list-group-item">
+                <label>Details</label>
+                <h4 class="list-group-item-heading">{{currentNote.details}}</h4>
+              </div>
+            </div>     
+          </div>
+			</div>
+		</div>
+	</div>
+</div>

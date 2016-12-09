@@ -1,0 +1,261 @@
+<div id="patientsDiv" ng-controller="patientsController">
+  
+  <div class="container bootcards-container" id="main">
+      
+    <div class="row">
+
+      <div class="col-sm-7 bootcards-list" id="list" data-title="Patients">    
+        <div class="panel panel-default">         
+          <div class="panel-body">
+            <div class="search-form">
+              <div class="row">
+                  <div class="col-xs-9">
+                    <div class="form-group">
+                      <input type="text" class="form-control" ng-model="patientScreen.searchTerm" placeholder="Search patients...">
+                      <i class="fa fa-search"></i>
+                    </div>
+                  </div>
+                  <div class="col-xs-3">
+                  <a class="btn btn-primary btn-block" href="#"
+                     ng-click="$event.preventDefault();searchClicked()">
+                    <i class=""></i> 
+                    <span>Search</span>
+                  </a>
+                  </div>
+              </div>                
+            </div>        
+          </div>
+
+          <div class="list-group">
+            <a class="list-group-item pjax" ng-repeat="patient in patientScreen.patientList"
+                href="#" ng-click="$event.preventDefault();listItemClicked(patient)">
+                
+              <div class="row">
+                <div class="col-sm-6">
+                  <i class="fa fa-3x fa-building-o pull-left"></i>
+                  <h4 class="list-group-item-heading">Name: {{patient.name}}</h4>
+                  <p class="list-group-item-text">Contact number: {{patient.contactNumber}}</p>
+                </div>
+                <div class="col-sm-6">
+                  <p class="list-group-item-text">status: {{patient.status}}</p>
+                  <p class="list-group-item-text">Follow Up Due On: {{patient.followUpDueOn}}</p>
+                </div>
+              </div>
+              
+            </a>
+            
+          </div>
+                 
+        </div>
+      </div>
+    
+      <div class="col-sm-5 bootcards-cards" id="listDetails">
+
+        
+        <div class="row">
+        <div id="patientCard">
+          
+          <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+              <h3 class="panel-title pull-left">Patient Details</h3>
+              
+              <a class="btn btn-primary pull-right hidden-xs" href="#" ng-click="$event.preventDefault();showAdvanced($event)" 
+                data-toggle="modal"
+                data-target="#followUpModal">
+                <i class="fa fa-pencil"></i>
+                <span>Follow Up</span>
+              </a>
+            </div>
+            <div class="list-group">
+            
+              <div class="list-group-item">
+                <label>Name</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.name}}</h4>
+              </div>
+              
+              <div class="list-group-item">
+                <label>Contact Number</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.contactNumber}}</h4>
+              </div>
+              
+              <div class="list-group-item">
+                <label>Email</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.email}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Age</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.age}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Disease</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.disease}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Status</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.status}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Discharge Notes</label>
+                <h4 class="list-group-item-heading">{{patientScreen.currPatient.dischargeNotes}}</h4>
+              </div>
+              
+              
+            </div> 
+             
+          </div>
+        
+        </div>
+        </div>
+        <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+              <h3 class="panel-title pull-left">Patient Files</h3>
+            </div>
+
+            <div class="list-group">
+              <div class="list-group-item" >
+                <a class="list-group-item-heading btn btn-secondary" href="$event.preventDefault();#editModal" data-toggle="modal" ng-repeat="x in patientScreen.currPatient.files">
+                <span>{{x}}</span>
+                </a> 
+              </div>
+            </div>
+          </div>
+        </div>      
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="editModal" role="dialog" aria-hidden="true" ng-controller="reviewfileController">
+  <div class="modal-dialog">
+    <div class="container bootcards-container" id="main">
+     <div class="col-sm-5 bootcards-cards" id="listDetails">
+       <div class="row">
+        <div id="patientCard">
+          <div class="panel panel-default"> 
+            <div class="panel-heading clearfix">
+              <h3 class="panel-title pull-left">Patient Details</h3>
+              
+              <button class="btn btn-primary pull-right hidden-xs" data-dismiss="modal">Close</button>
+              </a>
+            </div>  
+            <div class="list-group">
+            
+              <div class="list-group-item">
+                <label>Name</label>
+                <h4 class="list-group-item-heading">{{currPatient.name}}</h4>
+              </div>
+              
+              <div class="list-group-item">
+                <label>Gender</label>
+                <h4 class="list-group-item-heading">{{currPatient.gender}}</h4>
+              </div>
+              
+              <div class="list-group-item">
+                <label>Age Category</label>
+                <h4 class="list-group-item-heading">{{currPatient.ageCategory}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Race</label>
+                <h4 class="list-group-item-heading">{{currPatient.race}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Admission Resource</label>
+                <h4 class="list-group-item-heading">{{currPatient.admissionResource}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Admission Type</label>
+                <h4 class="list-group-item-heading">{{currPatient.admissionType}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Insulin</label>
+                <h4 class="list-group-item-heading">{{currPatient.insulin}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Diabetes Med</label>
+                <h4 class="list-group-item-heading">{{currPatient.diabetesMed}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Discharge Disposition</label>
+                <h4 class="list-group-item-heading">{{currPatient.dischargeDisposition}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Medical Specialty</label>
+                <h4 class="list-group-item-heading">{{currPatient.medicalSpeicalty}}</h4>
+              </div>
+
+              <div class="list-group-item">
+                <label>Payer Code</label>
+                <h4 class="list-group-item-heading">{{currPatient.payerCode}}</h4>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div>           
+     </div>
+  </div> 
+    <!-- <form class="form-horizontal">
+    <div class="modal-header">
+
+      <div class="btn-group pull-left">
+        <button class="btn btn-danger" data-dismiss="modal">
+          Cancel
+        </button>
+      </div>
+
+      <div class="btn-group pull-right">
+        <button class="btn btn-success" data-dismiss="modal">
+          Save
+        </button>
+      </div>
+
+      <h3 class="modal-title">New Company</h3>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Name</label>
+        <div class="col-xs-9">
+          <input type="text" name="name" class="form-control" placeholder="Company name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Type</label>
+        <div class="col-xs-9">
+          <select name="type" class="form-control">
+            <option value="" selected>Select a Type...</option>
+            <option value="Prospect">Prospect</option>
+            <option value="Customer">Customer</option>
+          </select>
+        </div>
+      </div>    
+    </div>
+
+    </form>  
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-danger btn-block">
+        <i class="fa fa-trash-o"></i>
+        Delete Company
+      </button>
+    </div>  
+
+    <div class="modal-footer">
+      <small class="pull-left">Built with Bootcards - Form Card</small>
+    </div>  --> 
+
+  </div>
+</div>
+</div>
