@@ -126,7 +126,125 @@
             </div>
           </div>
         </div>
-               
+        
+        <div class="row">
+
+          <div class="panel panel-default bootcards-chart">
+            
+            <div class="panel-heading">
+              <h3 class="panel-title">Previous prediction percents</h3>         
+            </div>
+        
+            <div>
+        
+              <!--bar chart-->
+              <div class="bootcards-chart-canvas" id="chartPreviousChances"></div>
+              <script type="text/javascript">
+        
+                /*
+                 * Clear the target DOM element and draw the sample charts
+                 * Samples come from the morris.js site at http://www.oesmith.co.uk/morris.js/
+                 */
+                var chartPreviousChances = null;
+                
+                var drawChartPreviousChances = function() {
+                
+                  $("#chartPreviousChances").empty();
+                
+                  var chartData = $('[ng-controller="patientsController"]').scope().patientScreen.previousChancesData;  
+
+                  chartPreviousChances = Morris.Line({
+                    element: 'chartPreviousChances',
+                    data: chartData,
+                    xkey: 'followup',
+                    ykeys: ['percent'],
+                    parseTime:false,
+                    labels: ['percent']
+                  });
+                
+                };
+                
+                //draw the charts when the DOM is ready
+                $(document).ready( function() {
+                  drawChartPreviousChances();
+                });
+                
+                //on resize of the page: redraw the charts
+                $(window)
+                  .on('resize', function() {
+                    window.setTimeout( function() {
+                      if (chartPreviousChances !== null) { chartPreviousChances.redraw(); }
+                    }, 250);
+                  });
+                
+              </script> 
+            </div>
+          </div> 
+      <!--
+        <div class="panel panel-default bootcards-chart">
+          
+          <div class="panel-heading">
+            <h3 class="panel-title">Previous chances of readmission</h3>          
+          </div>
+      
+          <div id="bar1">
+      
+            <div class="bootcards-chart-canvas" id="chartPreviousChances"></div>
+      
+          </div>
+                   
+      
+        </div>    
+      
+      
+      <script type="text/javascript">
+      
+      /*
+       * Clear the target DOM element and draw the sample charts
+       * Samples come from the morris.js site at http://www.oesmith.co.uk/morris.js/
+       */
+      var barChart1 = null;
+      
+      var drawBarChart1 = function() {
+      
+        $("#chartPreviousChances").empty();
+      
+        barChart1 = Morris.Bar({
+          element: 'chartPreviousChances',
+          data: [
+            {name: 'Guy Bardsley', forecast: 2750, quota: 4000},
+            {name: 'Adam Callahan', forecast: 3300, quota: 4000},
+            {name: 'Arlo Geist', forecast: 4500, quota: 4000},
+            {name: 'Sheila Hutchins', forecast: 4100, quota: 4000},
+            {name: 'Jeanette Quijano', forecast: 1800, quota: 2000},
+            {name: 'Simon Sweet', forecast: 6200, quota: 4000}
+          ],
+          xkey: 'name',
+          ykeys: ['forecast', 'quota'],
+          labels: ['Forecast', 'Quota'],
+          xLabelAngle: 20,
+          hideHover: 'auto'
+        });
+      
+      };
+      
+      //draw the charts when the DOM is ready
+      $(document).ready( function() {
+        drawBarChart1();
+      });
+      
+      //on resize of the page: redraw the charts
+      $(window)
+        .on('resize', function() {
+          window.setTimeout( function() {
+            if (barChart1 !== null) { barChart1.redraw(); }
+          }, 250);
+        });
+      
+      </script>
+      -->
+        </div>
+
       </div>
 
     </div>
