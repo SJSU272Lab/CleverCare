@@ -43,9 +43,112 @@
           </div>
         </div>
          
-  
+        <div>
+      
+        <div class="panel panel-default bootcards-chart">
+          
+          <div class="panel-heading">
+            <h3 class="panel-title">Cases this week</h3>         
+          </div>
+      
+          <div>
+      
+            <!--bar chart-->
+            <div class="bootcards-chart-canvas" id="chartCasesThisWeekType"></div>
+            <script type="text/javascript">
+      
+              /*
+               * Clear the target DOM element and draw the sample charts
+               * Samples come from the morris.js site at http://www.oesmith.co.uk/morris.js/
+               */
+              var chartCasesThisWeekType = null;
+              
+              var drawChartSalesProductType = function() {
+              
+                $("#chartCasesThisWeekType").empty();
+              
+                var sales = $('[ng-controller="dashboardController"]').scope().dashboardData.productTypeData;  
+
+                chartCasesThisWeekType = Morris.Line({
+                  element: 'chartCasesThisWeekType',
+                  data: sales,
+                  xkey: 'weekday',
+                  ykeys: ['cases'],
+                  parseTime:false,
+                  labels: ['cases']
+                });
+              
+              };
+              
+              //draw the charts when the DOM is ready
+              $(document).ready( function() {
+                drawChartSalesProductType();
+              });
+              
+              //on resize of the page: redraw the charts
+              $(window)
+                .on('resize', function() {
+                  window.setTimeout( function() {
+                    if (chartCasesThisWeekType !== null) { chartCasesThisWeekType.redraw(); }
+                  }, 250);
+                });
+              
+            </script> 
+          </div>
+        </div>   
       </div>
+
+
+      </div>
+      <!-- first chart -->
   
+    <div class="col-sm-3 col-sm-3 bootcards-cards">
+      
+        <div class="panel panel-default bootcards-chart">
+          
+          <div class="panel-heading">
+            <h3 class="panel-title">Progress</h3>         
+          </div>
+          <div >
+              <div 
+                donut-chart
+                donut-data = dashboardData.nurseProgressChartData
+                donut-label-color='"#000000"' 
+                donut-background-color='"#ffffff"' 
+                donut-colors='["#31C0BE","white"]'
+                donut-formatter= 'percentfilter' class="bootcards-chart-canvas ">
+                </div>
+            
+          </div>
+        </div>  
+         
+    </div>
+
+  <!-- first chart -->
+  <!-- recent 5 list -->
+  <div class="col-sm-5 col-sm-5 bootcards-cards">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Recent 5 patients to be reviewed</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr class="active"><th>Name</th><th>Status</th><th>Due date</th></tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in dashboardData.recentFivePatient">
+              <td>{{x.name}}</td>
+              <td>{{x.status}}</td>
+              <td>{{x.lastVisit}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+  <!-- recent 5 list -->
     </div>
     <div ng-show="userdata.usertype == 'doctor'">
     <div class="col-sm-4 " >
@@ -103,9 +206,7 @@
          
   
       </div>
-  
-    </div>
-    <!-- first chart -->
+      <!-- first chart -->
   
     <div class="col-sm-3 col-sm-3 bootcards-cards">
       
@@ -120,8 +221,8 @@
                 donut-data = dashboardData.nurseProgressChartData
                 donut-label-color='"#000000"' 
                 donut-background-color='"#ffffff"' 
-                donut-colors='["#31C0BE","RED"]'
-                class="bootcards-chart-canvas ">
+                donut-colors='["#31C0BE","white"]'
+                donut-formatter= 'percentfilter' class="bootcards-chart-canvas ">
                 </div>
             
           </div>
@@ -134,7 +235,7 @@
   <div class="col-sm-5 col-sm-5 bootcards-cards">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Recent {{dashboardData.recentPatientCount}} patients to be reviewed</h3>
+        <h3 class="panel-title">Recent 5 patients to be reviewed</h3>
       </div>
       <div class="table-responsive">
         <table class="table table-hover">
@@ -154,144 +255,19 @@
     </div>
   </div>
   <!-- recent 5 list -->
-
-</div>
-
-
-  </div>
-
-
-  
-  
-
-</div>
-</div>
-
-
-<!-- second part : table 
-
-  <div class="col-sm-3">
-
-      <div>
-      
-        <div class="panel panel-default bootcards-chart">
-          
-          <div class="panel-heading">
-            <h3 class="panel-title">My Team</h3>         
-          </div>
-      
-          <div>
-      
-            
-            <div class="bootcards-chart-canvas" id="chartClosedSales2"></div>
-      
-          </div>
-          
-                  
-      
-        </div>    
-      
-        
-      
-      <script type="text/javascript">
-      
-      /*
-       * Clear the target DOM element and draw the sample charts
-       * Samples come from the morris.js site at http://www.oesmith.co.uk/morris.js/
-       */
-      var closedSalesChart = null;
-      
-      var drawChartClosedSales2 = function() {
-      
-        $("#chartClosedSales2").empty();
-      
-        //create custom Donut function with click event on the segments
-        var myDonut = Morris.Donut;
-      
-        myDonut.prototype.redraw = function() {
-      
-          var C, cx, cy, i, idx, last, max_value, min, next, seg, total, value, w, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _results;
-            this.raphael.clear();
-            cx = this.el.width() / 2;
-            cy = this.el.height() / 2;
-            w = (Math.min(cx, cy) - 10) / 3;
-            total = 0;
-            _ref = this.values;
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              value = _ref[_i];
-              total += value;
-            }
-            min = 5 / (2 * w);
-            C = 1.9999 * Math.PI - min * this.data.length;
-            last = 0;
-            idx = 0;
-            this.segments = [];
-            _ref1 = this.values;
-            for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
-              value = _ref1[i];
-              next = last + min + C * (value / total);
-              seg = new Morris.DonutSegment(cx, cy, w * 2, w, last, next, this.data[i].color || this.options.colors[idx % this.options.colors.length], this.options.backgroundColor, idx, this.raphael);
-              seg.render();
-              this.segments.push(seg);
-              seg.on('hover', this.select);
-              seg.on('click', this.select);
-              last = next;
-              idx += 1;
-            }
-            this.text1 = this.drawEmptyDonutLabel(cx, cy - 10, this.options.labelColor, 15, 800);
-            this.text2 = this.drawEmptyDonutLabel(cx, cy + 10, this.options.labelColor, 14);
-            max_value = Math.max.apply(Math, this.values);
-            idx = 0;
-            _ref2 = this.values;
-            _results = [];
-            for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-              value = _ref2[_k];
-              if (value === max_value) {
-                this.select(idx);
-                break;
-              }
-              _results.push(idx += 1);
-            }
-            return _results;
-        };
-      
-        var chart2Data = $('[ng-controller="dashboardController"]').scope().dashboardData.chart2Data;
-
-        closedSalesChart = myDonut({
-            element: 'chartClosedSales2',
-            data: chart2Data,
-            formatter: function (y, data) { 
-              //prefixes the values by an $ sign, adds thousands seperators
-      
-            nStr = y + '';
-            x = nStr.split('.');
-            x1 = x[0];
-            x2 = x.length > 1 ? '.' + x[1] : '';
-            var rgx = /(\d+)(\d{3})/;
-            while (rgx.test(x1)) {
-              x1 = x1.replace(rgx, '$1' + ',' + '$2');
-            }
-            return '' + x1 + x2;
-            }
-          });
-      
-      };
-      
-      //draw the charts when the DOM is ready
-      $(document).ready( function() {
-        drawChartClosedSales2();
-      });
-      
-      //on resize of the page: redraw the charts
-      $(window)
-        .on('resize', function() {
-          window.setTimeout( function() {
-            if (closedSalesChart !== null) { closedSalesChart.redraw(); }
-          }, 250);
-        });
-      
-      </script>     
     </div>
     
+
+</div>
+
+
   </div>
-   second chart -->
+
+
+  
+  
+
+</div>
+</div>
+
+
