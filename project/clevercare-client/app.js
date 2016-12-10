@@ -15,6 +15,7 @@ var users = require('./routes/users');
 var signin = require('./routes/signin');
 var followup = require('./routes/followup');
 var review = require('./routes/review');
+var analtytics = require('./routes/analytics');
 var app = express();
 
 // view engine setup
@@ -55,6 +56,9 @@ app.get('/listFollowUps/Review/Total',review.listFollowUpTotalForReview);
 app.get('/listFollowUps/Review/Patient/:patientId',review.listReviewedFollowupByPatient);
 app.get('/notes/:userId',signin.noOfNotes);
 app.get('/signout',signin.signout);
+app.get('/doctorAnalysis',analtytics.doctorAnalysis);
+app.get('/predictionAnalysis',analtytics.predictionAnalysis);
+
 
 app.post('/signin', signin.authenticateUser);
 app.post('/addDoctor', signin.addDoctor);

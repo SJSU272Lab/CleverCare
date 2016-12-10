@@ -24,12 +24,12 @@ rhrApp.controller('dashboardController', function dashboardController($scope, $h
     $scope.dashboardData = {};
     $scope.patientScreen = {};
 
-    $scope.dashboardData.totalreviewsData = [
-        {'name': 'George', 'reviewsdone' : '80', 'reviewspending': '20'},
-        {'name': 'David', 'reviewsdone' : '50', 'reviewspending': '10'},
+ /*   $scope.dashboardData.totalreviewsData = [
+        {'name': 'George', 'reviewsdone' : 80, 'reviewspending': 20},
+        {'name': 'David', 'reviewsdone' : 50, 'reviewspending': 10},
         {'name': 'Ngyuen', 'reviewsdone' : '70', 'reviewspending': '30'},
         {'name': 'Zing', 'reviewsdone' : '90', 'reviewspending': '15'}];
-
+*/
     /* $scope.dashboardData.previousChancesData = [{"followup": "January", "percent": 45 },
                                                     {"followup": "Feb", "percent": 12 }];*/
 
@@ -39,7 +39,6 @@ rhrApp.controller('dashboardController', function dashboardController($scope, $h
         {"month1": "4", "cases": 47 },
         {"month1": "5", "cases": 32 },
         {"month1": "6", "cases": 27}];
-
     var usertype = sessionStorage.getItem("usertype");
     var userId = sessionStorage.getItem("userId");
     var graphLabel;
@@ -110,4 +109,13 @@ rhrApp.controller('dashboardController', function dashboardController($scope, $h
         $location.path('/addUser');
         $location.replace();
     }
+
+    $http.get('/doctorAnalysis')
+        .success(function (response) {
+            $scope.dashboardData.totalreviewsData = response;
+            console.log( $scope.dashboardData.totalreviewsData);
+        })
+        .error(function (data) {
+
+        });
 });

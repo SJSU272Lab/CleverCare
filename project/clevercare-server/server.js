@@ -4,6 +4,8 @@ require('./model/mongoconnect');
 var signIn = require('./services/signin');
 var followup = require('./services/followup');
 var review = require('./services/review');
+var analytics = require('./services/analytics');
+
 ////////////////////////////
 
 var cnn = amqp.createConnection({host: '127.0.0.1'});
@@ -282,5 +284,35 @@ cnn.on('ready', function () {
 
         });
     });
+    cnn.queue('analytics_queue', function (q) {
+        q.subscribe(function (message, headers, deliveryInfo, m) {
+            util.log(util.format(deliveryInfo.routingKey, message));
+            util.log("Message: " + JSON.stringify(message));
+            util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
+
+            if (message.method === "doctorAnalysis") {
+                analytics.doctorAnalysis(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
+                });
+            }
+
+            if (message.method === "predictionAnalysis") {
+                analytics.predictionAnalysis(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
+                });
+            }
+        });
+    });
+
 
 });

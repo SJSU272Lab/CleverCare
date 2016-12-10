@@ -81,7 +81,7 @@
                 </div>
                 <!-- first chart -->
 
-                <div class="col-sm-3 col-sm-3 bootcards-cards" ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
+                <div class="col-sm-3  bootcards-cards" ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
 
                     <div class="panel panel-default bootcards-chart">
 
@@ -105,7 +105,7 @@
 
                 <!-- first chart -->
                 <!-- recent 5 list -->
-                <div class="col-sm-5 col-sm-5 bootcards-cards" ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
+                <div class="col-sm-5 bootcards-cards" ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Recent {{dashboardData.recentPatientCount}} patients to be
@@ -133,20 +133,18 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 col-sm-6 bootcards-cards">
+                <div class="col-sm-4 bootcards-cards" ng-show="userdata.usertype == 'admin'">
                     <div
                             bar-chart
                             bar-data= dashboardData.totalreviewsData
                             bar-x='name'
                             bar-y='["reviewsdone", "reviewspending"]'
                             bar-labels='["Reviewed ", "Pending"]'
-                            bar-colors='["#31C0BE", "#c7254e"]'>
+                            bar-colors='["#31C0BE", "#c7254e"]' class="bootcards-chart-canvas" >
                     </div>
                 </div>
-                <!--<div class="col-sm-6 col-sm-6 bootcards-cards">
-                    <div class="bootcards-chart-canvas" id="chartCasesThisWeekType"></div>
-                </div>-->
-                <div class="col-sm-6 col-sm-6 bootcards-cards">
+
+             <!--   <div class="col-sm-4 bootcards-cards" ng-show="userdata.usertype == 'admin'">
                     <div line-chart
                          line-data=dashboardData.reaadmissionovertimedata
                          line-xkey='month1'
@@ -155,6 +153,9 @@
                          line-labels='["cases" ]'
                          line-colors='["#31C0BE"]' class="bootcards-chart-canvas">
                     </div>
+                </div>-->
+                <div class="col-sm-4 bootcards-cards" ng-show="userdata.usertype == 'admin'">
+                <div id="container" style="min-width: 350px; height: 350px; max-width: 350px; margin: 0 auto"></div>
                 </div>
                 <!-- recent 5 list -->
             </div>
@@ -162,6 +163,57 @@
     </div>
 </div>
 
+<script type="application/javascript">
+
+    $(function () {
+
+        $(document).ready(function () {
+
+            $.get("http://localhost:3000/predictionAnalysis", function(data, status){
+                Highcharts.chart('container', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Prediction analysis'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: 'Brands',
+                        colorByPoint: true,
+                        data: [{
+                            name: '0-25%',
+                            y: data.first
+                        }, {
+                            name: '26-50%',
+                            y:data.second
+                        }, {
+                            name: '51-75%',
+                            y:data.third
+                        }, {
+                            name: '76-100%',
+                            y:data.fourth
+                        }]
+                    }]
+                });
+            });
+            // Build the chart
+
+        });
+    });
+</script>
 
 <!-- second part : table 
 
