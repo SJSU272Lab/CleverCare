@@ -1,7 +1,11 @@
-rhrApp.controller('patientFormController', function patientFormController($scope,$http,$location, $mdDialog) {
+rhrApp.controller('patientFormController', function patientFormController($scope, $http, $location, $mdDialog) {
 
     //to be removed in code cleanup
-    console.log("patientFormController : going in");
+
+    if (!sessionStorage.getItem("usertype")) {
+        $location.path('/login');
+        $location.replace();
+    }
 
     $scope.followup = sessionStorage.getItem("followup");
 
@@ -46,12 +50,12 @@ rhrApp.controller('patientFormController', function patientFormController($scope
         {label: 'Result', value: (100 - $scope.patientFormData.predictionPercent)}];
 
     //to be removed in code cleanup
-    console.log("patientFormController : moving out");
+
 
     $scope.predictClicked = function () {
 
         var followupId = sessionStorage.getItem("followup");
-        var record =  $scope.patientFormData;
+        var record = $scope.patientFormData;
         delete record.payerCodeOptions;
         delete record.medicalSpecialityOptions;
         delete record.insulinOptions;
@@ -63,10 +67,14 @@ rhrApp.controller('patientFormController', function patientFormController($scope
         delete record.predictButton;
         delete record.clearButton;
 
-        var d = {followupId: followupId,record:  record};
+        var d = {
+            followupId: followupId,
+            record: record,
+            taken_by: sessionStorage.getItem("userId")
+        };
         $http.post('/submitFollowup', d)
             .success(function (data) {
-                console.log(data);
+
                 if (data) {
                     $location.path('/dashboard');
                     $location.replace();

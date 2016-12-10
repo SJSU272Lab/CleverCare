@@ -65,6 +65,16 @@ cnn.on('ready', function () {
                     });
                 });
             }
+            if (message.method === "addAdmin") {
+                signIn.addAdmin(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
+                });
+            }
         });
     });
 
@@ -239,14 +249,37 @@ cnn.on('ready', function () {
             util.log(util.format(deliveryInfo.routingKey, message));
             util.log("Message: " + JSON.stringify(message));
             util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
-            signIn.notes(message, function (err, res) {
-                //return index sent
-                cnn.publish(m.replyTo, res, {
-                    contentType: 'application/json',
-                    contentEncoding: 'utf-8',
-                    correlationId: m.correlationId
+            if (message.method === "noOfNotes") {
+                signIn.notes(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
                 });
-            });
+            }
+            if (message.method === "updateNotes") {
+                signIn.updateNotes(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
+                });
+            }
+            if (message.method === "addNote") {
+                signIn.addNote(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
+                });
+            }
+
         });
     });
 

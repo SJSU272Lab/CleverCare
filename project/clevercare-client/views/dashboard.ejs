@@ -56,6 +56,24 @@
                                             </h4>
                                         </a>
                                     </div>
+                                    <div class="col-xs-6 col-sm-6" ng-show="userdata.usertype == 'admin'">
+                                        <a class="bootcards-summary-item" ng-click="addUser('nurse')"
+                                           data-title="Notes" style="padding-top:35px;">
+                                            <i class="fa fa-3x fa-building-o"></i>
+                                            <h4>
+                                                Add Outpatient Member
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6" ng-show="userdata.usertype == 'admin'">
+                                        <a class="bootcards-summary-item" ng-click="addUser('doctor')"
+                                           data-title="Notes" style="padding-top:35px;">
+                                            <i class="fa fa-3x fa-building-o"></i>
+                                            <h4>
+                                                Add Doctor
+                                            </h4>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +81,7 @@
                 </div>
                 <!-- first chart -->
 
-                <div class="col-sm-3 col-sm-3 bootcards-cards">
+                <div class="col-sm-3 col-sm-3 bootcards-cards" ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
 
                     <div class="panel panel-default bootcards-chart">
 
@@ -87,7 +105,7 @@
 
                 <!-- first chart -->
                 <!-- recent 5 list -->
-                <div class="col-sm-5 col-sm-5 bootcards-cards">
+                <div class="col-sm-5 col-sm-5 bootcards-cards" ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Recent {{dashboardData.recentPatientCount}} patients to be
@@ -114,14 +132,33 @@
 
                     </div>
                 </div>
+
+                <div class="col-sm-6 col-sm-6 bootcards-cards">
+                    <div
+                            bar-chart
+                            bar-data= dashboardData.totalreviewsData
+                            bar-x='name'
+                            bar-y='["reviewsdone", "reviewspending"]'
+                            bar-labels='["Reviewed ", "Pending"]'
+                            bar-colors='["#31C0BE", "#c7254e"]'>
+                    </div>
+                </div>
+                <!--<div class="col-sm-6 col-sm-6 bootcards-cards">
+                    <div class="bootcards-chart-canvas" id="chartCasesThisWeekType"></div>
+                </div>-->
+                <div class="col-sm-6 col-sm-6 bootcards-cards">
+                    <div line-chart
+                         line-data=dashboardData.reaadmissionovertimedata
+                         line-xkey='month1'
+                         line-ykeys='["cases"]'
+                         parse-time="false"
+                         line-labels='["cases" ]'
+                         line-colors='["#31C0BE"]' class="bootcards-chart-canvas">
+                    </div>
+                </div>
                 <!-- recent 5 list -->
-
             </div>
-
-
         </div>
-
-
     </div>
 </div>
 

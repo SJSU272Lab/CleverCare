@@ -112,7 +112,7 @@ exports.listFollowUpTotalForReview = function (msg, callback) {
 
 exports.listReviewedFollowupByPatient = function (msg, callback) {
 
-    Followup.find({patientId: msg.patientId, isDone: true})
+    Followup.find({patientId: msg.patientId, isDone: true, isReviewed:true})
         .sort('dueDate')
         .populate('patientId')
         .populate('patientFileId')
@@ -163,7 +163,10 @@ exports.sendNote = function (msg, callback) {
             callback(error, null);
         } else {
             console.log('Message sent: ' + info.response);
-            callback(null, info.response);
+            response = {
+                success:true
+            }
+            callback(null, response);
         }
         ;
     });

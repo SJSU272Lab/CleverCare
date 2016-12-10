@@ -1,6 +1,6 @@
-rhrApp.controller('hidingController', ['$scope', '$rootScope', function hidingController($scope, $rootScope) {
+rhrApp.controller('hidingController',  function hidingController($scope, $rootScope,$location,$http) {
     //to be removed in code cleanup
-    console.log("hidingController");
+
 
     $rootScope.showNavbar = false;
     /*
@@ -17,6 +17,19 @@ rhrApp.controller('hidingController', ['$scope', '$rootScope', function hidingCo
         $rootScope.showNavbar = false;
     }
 
+    $scope.logout = function () {
+        $http.get("/signout")
+            .success(function (response) {
+               if(response.success){
+                   sessionStorage.clear();
+                   $location.path('/');
+                   $location.replace();
+               }
+            })
+            .error(function (data) {
+
+            });
+    };
     //to be removed in code cleanup
-    console.log("hidingController : moving out");
-}]);
+
+});

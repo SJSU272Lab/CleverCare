@@ -53,16 +53,20 @@ app.get('/listFollowUps/Review',review.listFollowUpForReview);
 app.get('/listFollowUps/Review/Critical',review.listFollowUpForCriticalReview);
 app.get('/listFollowUps/Review/Total',review.listFollowUpTotalForReview);
 app.get('/listFollowUps/Review/Patient/:patientId',review.listReviewedFollowupByPatient);
-app.get('/notes/count/:userId',signin.noOfNotes);
+app.get('/notes/:userId',signin.noOfNotes);
+app.get('/signout',signin.signout);
 
 app.post('/signin', signin.authenticateUser);
 app.post('/addDoctor', signin.addDoctor);
 app.post('/addPatient', signin.addPatient);
+app.post('/addAdmin',signin.addAdmin);
+app.post('/addNurse',signin.addNurse);
 app.post('/submitFollowup', followup.submitFollowup);
 app.post('/scheduleFollowup', followup.scheduleFollowup);
 app.post('/submitReview',review.submitReview);
 app.post('/sendNote', review.sendNote);
-
+app.post('/updateNotes', signin.updateNotes);
+app.post('/addNote',signin.addNote);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

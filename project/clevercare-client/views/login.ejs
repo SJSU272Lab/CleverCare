@@ -14,10 +14,15 @@
               <input type="submit" value="Log in" class="btn btn-primary" />
               </form>
               <h3>{{msg}}</h3>
-            </div>   
+
+              <div class="alert alert-danger" ng-show="isNotMatch">
+                  <strong>Username!</strong> or <strong>Password</strong> does not exists.
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
   </div>
 </div>
  

@@ -1,0 +1,80 @@
+<div id="adduserformdiv" ng-controller="adduserController">
+  <div class="container bootcards-container" id="main">
+    <form ng-submit="addUser()">
+      <div class="col-sm-6 col-sm-offset-1 bootcards-cards">
+       <div class="panel panel-default">
+          <div class="panel-heading clearfix">
+          <h2 class="panel-title pull-left"><b>Add a {{user.usertype}}</b></h2>
+          <br><br>
+          </div>
+         <!-- <form ng-submit="addUser()"> -->
+            <div class="list-group">
+              <div class="list-group-item">
+                <label class="list-group-item-text">First Name</label>
+                <div class="list-group-item-heading">
+                  <input type="text" class="form-control" ng-model="user.firstName"/>
+                </div>
+              </div>
+              <div class="list-group-item">
+                <label class="list-group-item-text">Last Name</label>
+                <div class="list-group-item-heading">
+                  <input type="text" class="form-control" ng-model="user.lastName"/>
+                </div>
+              </div>
+               <div class="list-group-item">
+                <label class="list-group-item-text">Address</label>
+                <div class="list-group-item-heading">
+                  <input type="text" width="100" class="form-control" ng-model="user.address"/>
+                </div>
+              </div>
+              <div class="list-group-item">
+                <label class="list-group-item-text">Phone Number</label>
+                <div class="list-group-item-heading">
+                  <input type="text" class="form-control" ng-model="user.phone"/>
+                </div>
+              </div>
+              <div class="list-group-item">
+                <label class="list-group-item-text">Email</label>
+                <div class="list-group-item-heading">
+                  <input type="email" class="form-control" ng-model="user.email"/>
+                </div>
+              </div>
+              <div class="list-group-item">
+                <label class="list-group-item-text">Age</label>
+                <div class="list-group-item-heading">
+                  <input type="number" class="form-control" ng-model="user.age"/>
+                </div>
+              </div>
+              <div class="list-group-item">
+                <label class="list-group-item-text">Gender</label>
+                <div class="list-group-item-heading">
+                  <label>
+                    <input type="radio" ng-model="user.gender" value="Male"/>
+                    Male</label><br>
+                  <label>
+                    <input type="radio" ng-model="user.gender" value="Female"/>
+                    Female</label><br>
+                </div>
+              </div>
+              <div class="list-group-item" ng-show="$scope.user.usertype === 'doctor'">
+                <label class="list-group-item-text">Specialty</label>
+                <div class="list-group-item-heading">
+                  <input type="text" class="form-control" ng-model="user.specialty"/>
+                </div>
+              </div>
+              <div class="list-group-item">
+                <label class="list-group-item-text">Password</label>
+                <div class="list-group-item-heading">
+                  <input type="password" class="form-control" ng-model="user.password"/>
+                </div>
+              </div>
+              <div class="list-group-item">
+                <input type="submit" value="Add" class="btn btn-primary"/>
+              </div>
+            </div>           
+        </div>   
+      </div>   
+    </form>
+    </div>          
+  </div>
+</div>

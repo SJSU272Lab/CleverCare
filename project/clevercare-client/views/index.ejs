@@ -125,6 +125,11 @@
     <script src="/controller/patientFormController.js"></script>
     <script src="/controller/hidingController.js"></script>
     <script src="/controller/authController.js"></script>
+    <script src="/controller/adduserController.js"></script>
+    <script src="/controller/notesController.js"></script>
+    <script src="/controller/reviewController.js"></script>
+
+
 
 </head>
 
@@ -184,6 +189,12 @@
                     <a href="#settings" data-title="Settings">
                         <i class="fa fa-gears"></i>
                         Settings
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="$event.preventDefault();logout()" data-title="Logout">
+                        <i class="fa fa-gears"></i>
+                        Logout
                     </a>
                 </li>
                <!-- <li>

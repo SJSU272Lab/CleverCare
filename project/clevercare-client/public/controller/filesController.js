@@ -1,7 +1,7 @@
 rhrApp.controller('filesController', function filesController($scope) {
   
   //to be removed in code cleanup
-  console.log("filesController : going in");
+
 
   $scope.filesScreen = {};
 
@@ -16,13 +16,13 @@ rhrApp.controller('filesController', function filesController($scope) {
 
 
   //to be removed in code cleanup
-  console.log("filesController : moving out");
+
 
   $scope.listItemClicked = function(currFile) {
-  	console.log("listItemClicked : going in");
+
 
   	$scope.filesScreen.currFile = currFile;
 
-  	console.log("listItemClicked : moving out");
+
   };
 });

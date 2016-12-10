@@ -34,8 +34,20 @@ rhrApp.config(function ($routeProvider) {
             templateUrl: "patientForm.ejs",
             controller: "patientFormController"
         })
+        .when("/reviewForm", {
+            templateUrl: "reviewForm.ejs",
+            controller: "reviewController"
+        })
+        .when("/addUser", {
+            templateUrl: "addusers.ejs",
+            controller: "adduserController"
+        })
+        .when("/notes", {
+            templateUrl: "notes.ejs",
+            controller: "notesController"
+        })
         .otherwise({
-            templateUrl: "login.ejs",
+            templateUrl: "/login.ejs",
             controller: "authController"
         });
 });

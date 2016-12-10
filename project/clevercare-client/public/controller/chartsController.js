@@ -1,7 +1,7 @@
 rhrApp.controller('chartsController', function chartsController($scope) {
   
   //to be removed in code cleanup
-  console.log("chartsController : going in");
+
 
   $scope.chartsData = {};
 
@@ -9,6 +9,5 @@ rhrApp.controller('chartsController', function chartsController($scope) {
 
 
   //to be removed in code cleanup
-  console.log("chartsController : moving out");
 
 });

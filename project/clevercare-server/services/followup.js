@@ -87,7 +87,7 @@ exports.submitFollowup = function (msg, callback) {
     }
 
     var followupDetails = {
-        $set: {taken_by: msg.taken_by, isDone: true, record: msg.record, percentage: msg.percentage}
+        $set: {taken_by: msg.taken_by, isDone: true, record: msg.record, percentage: msg.percentage,status:"Review required"}
     };
     if (notes.content) {
         followupDetails.$push = {notes: notes};
@@ -136,6 +136,7 @@ exports.scheduleFollowup = function (msg, callback) {
     followupPlans.patientFileId = msg.patientFileId;//use already availabel in ejs
     followupPlans.patientId = msg.patientId;//use already availabel in ejs
     followupPlans.doctorId = msg.doctorId;//use already availabel from patient file in ejs
+    followupPlans.status = "Followup required";
    // followupPlans.dueDate = new Date() + 2 * 24 * 60 * 60 * 1000;
 
     followupPlans.save(function (err) {

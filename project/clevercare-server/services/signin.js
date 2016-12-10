@@ -15,7 +15,6 @@ var ssn = require('ssn');
 exports.doLogin = function (msg, callback) {
     var username = msg.username;
     var password = msg.password;
-    console.log("USERNAME: " + username + " PASSWORD: " + password);
 
     User.findOne({email: username}, function (err, user) {
         if (err) {
@@ -70,6 +69,45 @@ exports.addDoctor = function (msg, callback) {
                 }
                 else {
 
+                    callback(null, userDetails);
+                }
+            });
+        }
+        if (result) {
+            callback(null, null);
+        }
+    });
+};
+
+exports.addAdmin = function (msg, callback) {
+
+    var email = msg.email;
+    var userDetails = new User();
+
+    userDetails.firstname = msg.firstname;
+    userDetails.lastname = msg.lastname;
+    userDetails.email = msg.email;
+    userDetails.password = msg.password;
+    userDetails.gender = msg.gender;
+    userDetails.address = msg.address;
+    userDetails.phonenumber = msg.phonenumber;
+    userDetails.ssn = ssn.generate();
+    userDetails.usertype = "admin";
+
+    User.findOne({email: email}, function (err, result) {
+        if (err) {
+            callback(err, null);
+
+        }
+        console.log(result);
+        if (!result) {
+            userDetails.save(function (err) {
+
+                if (err) {
+
+                    callback(err, null);
+                }
+                else {
                     callback(null, userDetails);
                 }
             });
@@ -142,7 +180,7 @@ exports.addPatient = function (msg, callback) {
     User.findOneAndUpdate(query, patientDetails, options, function (err, patient) {
         if (err) callback(err, null);
         if(patient){
-            console.log(patient);
+
             var patientFile = {
                 patientId:patient._id,
                 disease:msg.disease,
@@ -157,11 +195,10 @@ exports.addPatient = function (msg, callback) {
                 if (err) callback(err, null);
                 if(patientFile){
                     var followupPlans = new Followup();
-
-
                     followupPlans.patientFileId = patientFile._id;
                     followupPlans.patientId = patientFile.patientId;
                     followupPlans.doctorId = patientFile.doctorId;
+                    followupPlans.status = msg.status;
                   //  followupPlans.dueDate = +patientFile.dischargeDate + 2*24*60*60*1000;
 
                     followupPlans.save(function (err) {
@@ -195,3 +232,48 @@ exports.notes = function (msg, callback) {
         }
     });
 };
+
+
+exports.updateNotes = function(msg,callback){
+
+    var usertype = msg.usertype;
+    var id = msg.userId;
+    var notes = msg.notes;
+    User.findOneAndUpdate({_id: new ObjectId(id), usertype:usertype},{$set: { notes: notes }}, function (err, result) {
+        console.log(result);
+        if (err) {
+            callback(err, null);
+        }
+        if (!result) {
+            callback(null, null);
+        }
+        if (result) {
+            callback(null, result);
+        }
+    });
+};
+
+exports.addNote = function(msg,callback){
+
+    var id = new ObjectId(msg.userId);
+    var usertype = msg.usertype;
+    var note = {
+        subject : msg.subject,
+        date: msg.date,
+        details: msg.details
+    }
+
+    User.findOneAndUpdate({_id: id, usertype:usertype},{$push: {"notes": note}}, function (err, result) {
+        if (err) {
+            callback(err, null);
+        }
+        console.log(result);
+        if (!result) {
+            callback(null, null);
+        }
+        if (result) {
+            callback(null, result);
+        }
+    });
+};
+

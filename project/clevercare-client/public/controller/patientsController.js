@@ -1,15 +1,20 @@
 rhrApp.controller('patientsController', function ($scope, $http, $location,$rootScope, $filter,$mdDialog) {
 
     //to be removed in code cleanup
-    console.log("patientsController : going in");
 
 
+    if (!sessionStorage.getItem("usertype")) {
+        $location.path('/login');
+        $location.replace();
+    }
     var url = {};
     $scope.userdata = {};
     $scope.patientScreen = {};
     $scope.patientScreen.searchTerm = "";
     $scope.patientScreen.patientList = [];
     $scope.patientScreen.currPatient = {};
+   // $scope.patientScreen.previousChancesData = [{"followup": "1", "percent": 45 }];
+
     var usertype = sessionStorage.getItem("usertype");
     $scope.userdata.usertype = usertype;
     if ("doctor" == usertype) {
@@ -24,20 +29,24 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
 
     $http.get(url.followups)
         .success(function (response) {
+            console.log(response);
             var patientArr = [];
             for (var i = 0; i < response.length; i++) {
-                console.log(response[i]);
                 var patient = {
                     'id': response[i]._id,
                     'patientId':response[i].patientId._id,
-                    'dischargeNotes': response[i].patientFileId.dischargeNotes,
+                    'patientFileId':response[i].patientFileId,
+                    'doctorId':response[i].doctorId._id,
+                    'dischargeNotes': response[i].patientFileId.dischargeNote,
                     'disease': response[i].patientFileId.disease ,
                     'age': response[i].patientId.age,
                     'email': response[i].patientId.email,
                     'name': response[i].patientId.firstname +" "+response[i].patientId.lastname,
                     'contactNumber': response[i].patientId.phonenumber,
                     'status': response[i].status,
-                    'followUpDueOn': $filter('date')(response[i].dueDate, "MM/dd/yyyy")
+                    'followUpDueOn': $filter('date')(response[i].dueDate, "MM/dd/yyyy"),
+                    'record':response[i].record,
+                    'percentage':response[i].percentage
                 }
                 patientArr.push(patient);
             }
@@ -45,10 +54,19 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
 
             $scope.patientScreen.currPatient = $scope.patientScreen.patientList[0];
 
-            console.log("Current patient "+ JSON.stringify($scope.patientScreen.currPatient));
             $http.get(url.listFollowupByPatient+$scope.patientScreen.currPatient.patientId)
                 .success(function (response) {
+
                     $scope.patientScreen.currPatient.files = response;
+                    $scope.patientScreen.previousChancesData = [];
+                    for(var i=0; i<$scope.patientScreen.currPatient.files.length;i++){
+                        var obj = {
+                            "followup":i+1+"",
+                            "percent": Number($scope.patientScreen.currPatient.files[i].percentage)
+                        }
+                        $scope.patientScreen.previousChancesData.push(obj);
+                    }
+                    console.log($scope.patientScreen.previousChancesData[0]);
                 })
                 .error(function(data) {
 
@@ -64,12 +82,9 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
 
 
     //to be removed in code cleanup
-    console.log("patientsController : moving out");
+
 
     $scope.searchClicked = function (currPatient) {
-        console.log("searchClicked : going in");
-
-        console.log("Search this: " + $scope.patientScreen.searchTerm);
 
         $scope.patientScreen.patientList = [
             {
@@ -129,75 +144,62 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
             }
         ];
 
-        console.log("searchClicked : moving out");
+
     };
 
     $scope.takeFollowUp = function () {
-        console.log("listItemClicked : going in");
+
 
         $scope.patientScreen.currPatient = currPatient;
 
 
-        console.log("listItemClicked : moving out");
+
     };
 
     $scope.listItemClicked = function (currPatient) {
-        console.log("listItemClicked : going in");
+
 
         $scope.patientScreen.currPatient = currPatient;
         $http.get(url.listFollowupByPatient+$scope.patientScreen.currPatient.patientId)
             .success(function (response) {
+
                 $scope.patientScreen.currPatient.files = response;
+
             })
             .error(function(data) {
 
             });
-        console.log("listItemClicked : moving out");
+
     };
 
     $scope.editPatientDetails = function (id) {
-        console.log("editPatientDetails : going in");
-        console.log("editPatientDetails : moving out");
+
     };
 
     $scope.showPatientFile = function (id) {
-        console.log("showPatientFile : going in");
-        console.log("showPatientFile : moving out");
+
     };
 
 
-    $scope.showAdvanced = function () {
-        /*$mdDialog.show({
-            controller: 'patientFormController',
-            templateUrl: 'patientForm.ejs',
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose: false,
-            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-        })
-            .then(function (answer) {
-                $scope.status = 'You said the information was "' + answer + '".';
-            }, function () {
-                $scope.status = 'You cancelled the dialog.';
-            });*/
-        console.log()
+    $scope.submitFollowup = function () {
         sessionStorage.setItem("followup",$scope.patientScreen.currPatient.id);
         $location.path('/patientForm');
         $location.replace();
     };
+    $scope.submitReview = function () {
 
-    function PatientFollowUpModalController($scope, $mdDialog) {
-        $scope.hide = function () {
-            $mdDialog.hide();
-        };
+        sessionStorage.setItem("review",JSON.stringify($scope.patientScreen.currPatient));
+        $location.path('/reviewForm');
+        $location.replace();
+    };
 
-        $scope.cancel = function () {
-            $mdDialog.cancel();
-        };
+   $scope.showPatientFile = function (index) {
 
-        $scope.answer = function (answer) {
-            $mdDialog.hide(answer);
-        };
-    }
+       $scope.files = {};
+       $scope.files =  $scope.patientScreen.currPatient.files[index].record;
+       console.log($scope.files);
+
+   }
+    
 
 });
