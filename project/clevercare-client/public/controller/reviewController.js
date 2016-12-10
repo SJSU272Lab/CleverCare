@@ -17,6 +17,14 @@ rhrApp.controller('reviewController', ["$scope", '$mdDialog', function($scope, $
   $scope.reviewScreen.medicalSpecialitySelected = 'Emergency/trauma';
   $scope.reviewScreen.payerCodeSelected = 'payerCode1';
   $scope.reviewScreen.predictionPercent = 65;
+  $scope.reviewScreen.notes = '';
+  $scope.reviewScreen.subject = '';
+
+  $scope.reviewScreen.videoOptions = [  {videoName: '--Select--', videoUrl: '' },
+                                          {videoName: 'sample.mp4', videoUrl: 'sample.mp4' },
+                                          {videoName: 'sample1.mp4', videoUrl: 'sample1.mp4' },
+                                          {videoName: 'sample2.mp4', videoUrl: 'sample2.mp4' }];
+  $scope.reviewScreen.videoSelected = $scope.reviewScreen.videoOptions[0];
 
   $scope.percentfilter = function(y, data){return $scope.reviewScreen.predictionPercent + '%';}
   
@@ -29,6 +37,12 @@ rhrApp.controller('reviewController', ["$scope", '$mdDialog', function($scope, $
   //to be removed in code cleanup
   console.log("reviewController : moving out");
 
+  $scope.videoChanged = function() {
+      console.log("videoChanged : going in");
+      $scope.reviewScreen.notes = $scope.reviewScreen.notes + " \n" + $scope.reviewScreen.videoSelected.videoUrl;
+
+      console.log("videoChanged : moving out");
+  };
 
   $scope.scheduleFollowUpClicked = function() {
       console.log("scheduleFollowUpClicked : going in");
