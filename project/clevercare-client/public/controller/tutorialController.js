@@ -3,7 +3,7 @@ rhrApp.controller('tutorialController', function tutorialController($scope, $rou
   //to be removed in code cleanup
 
   $scope.tutorialData = {};
-  $scope.tutorialData.videoName = $routeParams.videoId;
+  $scope.tutorialData.videoName = "/videos/"+$routeParams.videoId;
 
   //to be removed in code cleanup
 
