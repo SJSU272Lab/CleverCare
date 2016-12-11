@@ -17,7 +17,8 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-xs-6 col-sm-6" ng-show="(userdata.usertype == 'nurse') ||( userdata.usertype == 'doctor')">
+                                    <div class="col-xs-6 col-sm-6"
+                                         ng-show="(userdata.usertype == 'nurse') ||( userdata.usertype == 'doctor')">
                                         <a class="bootcards-summary-item" href="#patients"
                                            data-title="Patients" style="padding-top:35px;">
                                             <i class="fa fa-3x fa-users"></i>
@@ -37,7 +38,8 @@
                                             </h4>
                                         </a>
                                     </div>
-                                    <div class="col-xs-6 col-sm-6" ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
+                                    <div class="col-xs-6 col-sm-6"
+                                         ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
                                         <a class="bootcards-summary-item" href="#notes"
                                            data-title="Notes" style="padding-top:35px;">
                                             <i class="fa fa-3x fa-building-o"></i>
@@ -81,7 +83,8 @@
                 </div>
                 <!-- first chart -->
 
-                <div class="col-sm-3  bootcards-cards" ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
+                <div class="col-sm-3  bootcards-cards"
+                     ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
 
                     <div class="panel panel-default bootcards-chart">
 
@@ -105,7 +108,8 @@
 
                 <!-- first chart -->
                 <!-- recent 5 list -->
-                <div class="col-sm-5 bootcards-cards" ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
+                <div class="col-sm-5 bootcards-cards"
+                     ng-show="userdata.usertype == 'nurse' || userdata.usertype == 'doctor'">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Recent {{dashboardData.recentPatientCount}} patients to be
@@ -136,26 +140,26 @@
                 <div class="col-sm-4 bootcards-cards" ng-show="userdata.usertype == 'admin'">
                     <div
                             bar-chart
-                            bar-data= dashboardData.totalreviewsData
+                            bar-data=dashboardData.totalreviewsData
                             bar-x='name'
                             bar-y='["reviewsdone", "reviewspending"]'
                             bar-labels='["Reviewed ", "Pending"]'
-                            bar-colors='["#31C0BE", "#c7254e"]' class="bootcards-chart-canvas" >
+                            bar-colors='["#31C0BE", "#c7254e"]' class="bootcards-chart-canvas">
                     </div>
                 </div>
 
-             <!--   <div class="col-sm-4 bootcards-cards" ng-show="userdata.usertype == 'admin'">
-                    <div line-chart
-                         line-data=dashboardData.reaadmissionovertimedata
-                         line-xkey='month1'
-                         line-ykeys='["cases"]'
-                         parse-time="false"
-                         line-labels='["cases" ]'
-                         line-colors='["#31C0BE"]' class="bootcards-chart-canvas">
-                    </div>
-                </div>-->
+                <!--   <div class="col-sm-4 bootcards-cards" ng-show="userdata.usertype == 'admin'">
+                       <div line-chart
+                            line-data=dashboardData.reaadmissionovertimedata
+                            line-xkey='month1'
+                            line-ykeys='["cases"]'
+                            parse-time="false"
+                            line-labels='["cases" ]'
+                            line-colors='["#31C0BE"]' class="bootcards-chart-canvas">
+                       </div>
+                   </div>-->
                 <div class="col-sm-4 bootcards-cards" ng-show="userdata.usertype == 'admin'">
-                <div id="container" style="min-width: 350px; height: 350px; max-width: 350px; margin: 0 auto"></div>
+                    <div id="container" style="min-width: 350px; height: 350px; max-width: 350px; margin: 0 auto"></div>
                 </div>
                 <!-- recent 5 list -->
             </div>
@@ -169,7 +173,78 @@
 
         $(document).ready(function () {
 
-            $.get("http://localhost:3000/predictionAnalysis", function(data, status){
+            $.get("http://localhost:3000/predictionAnalysis", function (data, status) {
+                /* global document */
+// Load the fonts
+                Highcharts.createElement('link', {
+                    href: 'https://fonts.googleapis.com/css?family=Dosis:400,600',
+                    rel: 'stylesheet',
+                    type: 'text/css'
+                }, null, document.getElementsByTagName('head')[0]);
+
+
+                Highcharts.theme = {
+                    colors: ['#7cb5ec', '#f7a35c', '#90ee7e', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
+                        '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+                    chart: {
+                        backgroundColor: null,
+                        style: {
+                            fontFamily: 'Dosis, sans-serif'
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '16px',
+                            fontWeight: 'bold',
+                            textTransform: 'uppercase'
+                        }
+                    },
+                    tooltip: {
+                        borderWidth: 0,
+                        backgroundColor: 'rgba(219,219,216,0.8)',
+                        shadow: false
+                    },
+                    legend: {
+                        itemStyle: {
+                            fontWeight: 'bold',
+                            fontSize: '13px'
+                        }
+                    },
+                    xAxis: {
+                        gridLineWidth: 1,
+                        labels: {
+                            style: {
+                                fontSize: '12px'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        minorTickInterval: 'auto',
+                        title: {
+                            style: {
+                                textTransform: 'uppercase'
+                            }
+                        },
+                        labels: {
+                            style: {
+                                fontSize: '12px'
+                            }
+                        }
+                    },
+                    plotOptions: {
+                        candlestick: {
+                            lineColor: '#404048'
+                        }
+                    },
+
+
+                    // General
+                    background2: '#F0F0EA'
+
+                };
+
+                // Apply the theme
+                Highcharts.setOptions(Highcharts.theme);
                 Highcharts.chart('container', {
                     chart: {
                         plotBackgroundColor: null,
@@ -198,13 +273,13 @@
                             y: data.first
                         }, {
                             name: '26-50%',
-                            y:data.second
+                            y: data.second
                         }, {
                             name: '51-75%',
-                            y:data.third
+                            y: data.third
                         }, {
                             name: '76-100%',
-                            y:data.fourth
+                            y: data.fourth
                         }]
                     }]
                 });
@@ -215,130 +290,3 @@
     });
 </script>
 
-<!-- second part : table 
-
-  <div class="col-sm-3">
-
-      <div>
-      
-        <div class="panel panel-default bootcards-chart">
-          
-          <div class="panel-heading">
-            <h3 class="panel-title">My Team</h3>         
-          </div>
-      
-          <div>
-      
-            
-            <div class="bootcards-chart-canvas" id="chartClosedSales2"></div>
-      
-          </div>
-          
-                  
-      
-        </div>    
-      
-        
-      
-      <script type="text/javascript">
-      
-      /*
-       * Clear the target DOM element and draw the sample charts
-       * Samples come from the morris.js site at http://www.oesmith.co.uk/morris.js/
-       */
-      var closedSalesChart = null;
-      
-      var drawChartClosedSales2 = function() {
-      
-        $("#chartClosedSales2").empty();
-      
-        //create custom Donut function with click event on the segments
-        var myDonut = Morris.Donut;
-      
-        myDonut.prototype.redraw = function() {
-      
-          var C, cx, cy, i, idx, last, max_value, min, next, seg, total, value, w, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _results;
-            this.raphael.clear();
-            cx = this.el.width() / 2;
-            cy = this.el.height() / 2;
-            w = (Math.min(cx, cy) - 10) / 3;
-            total = 0;
-            _ref = this.values;
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              value = _ref[_i];
-              total += value;
-            }
-            min = 5 / (2 * w);
-            C = 1.9999 * Math.PI - min * this.data.length;
-            last = 0;
-            idx = 0;
-            this.segments = [];
-            _ref1 = this.values;
-            for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
-              value = _ref1[i];
-              next = last + min + C * (value / total);
-              seg = new Morris.DonutSegment(cx, cy, w * 2, w, last, next, this.data[i].color || this.options.colors[idx % this.options.colors.length], this.options.backgroundColor, idx, this.raphael);
-              seg.render();
-              this.segments.push(seg);
-              seg.on('hover', this.select);
-              seg.on('click', this.select);
-              last = next;
-              idx += 1;
-            }
-            this.text1 = this.drawEmptyDonutLabel(cx, cy - 10, this.options.labelColor, 15, 800);
-            this.text2 = this.drawEmptyDonutLabel(cx, cy + 10, this.options.labelColor, 14);
-            max_value = Math.max.apply(Math, this.values);
-            idx = 0;
-            _ref2 = this.values;
-            _results = [];
-            for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-              value = _ref2[_k];
-              if (value === max_value) {
-                this.select(idx);
-                break;
-              }
-              _results.push(idx += 1);
-            }
-            return _results;
-        };
-      
-        var chart2Data = $('[ng-controller="dashboardController"]').scope().dashboardData.chart2Data;
-
-        closedSalesChart = myDonut({
-            element: 'chartClosedSales2',
-            data: chart2Data,
-            formatter: function (y, data) { 
-              //prefixes the values by an $ sign, adds thousands seperators
-      
-            nStr = y + '';
-            x = nStr.split('.');
-            x1 = x[0];
-            x2 = x.length > 1 ? '.' + x[1] : '';
-            var rgx = /(\d+)(\d{3})/;
-            while (rgx.test(x1)) {
-              x1 = x1.replace(rgx, '$1' + ',' + '$2');
-            }
-            return '' + x1 + x2;
-            }
-          });
-      
-      };
-      
-      //draw the charts when the DOM is ready
-      $(document).ready( function() {
-        drawChartClosedSales2();
-      });
-      
-      //on resize of the page: redraw the charts
-      $(window)
-        .on('resize', function() {
-          window.setTimeout( function() {
-            if (closedSalesChart !== null) { closedSalesChart.redraw(); }
-          }, 250);
-        });
-      
-      </script>     
-    </div>
-    
-  </div>
-   second chart -->

@@ -46,6 +46,8 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
                     'status': response[i].status,
                     'followUpDueOn': $filter('date')(response[i].dueDate, "MM/dd/yyyy"),
                     'record':response[i].record,
+                    'admissionType': response[i].patientFileId.admissionType,
+                    'ageCategory' : response[i].patientId.ageCategory,
                     'percentage':response[i].percentage
                 }
                 patientArr.push(patient);

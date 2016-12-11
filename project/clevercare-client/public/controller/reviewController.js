@@ -6,6 +6,21 @@ rhrApp.controller('reviewController', ["$scope", '$mdDialog','$http', '$location
     $scope.reviewScreen = review.record;
     $scope.percentage = review.percentage;
     $scope.reviewScreen.searchTerm = "";
+////////
+    $scope.reviewScreen.notes = '';
+    $scope.reviewScreen.subject = '';
+
+    $scope.reviewScreen.videoOptions = [  {videoName: '--Select--', videoUrl: '' },
+        {videoName: 'sample.mp4', videoUrl: 'sample.mp4' },
+        {videoName: 'sample1.mp4', videoUrl: 'sample1.mp4' },
+        {videoName: 'sample2.mp4', videoUrl: 'sample2.mp4' }];
+    $scope.reviewScreen.videoSelected = $scope.reviewScreen.videoOptions[0];
+    $scope.videoChanged = function() {
+
+        $scope.reviewScreen.notes = $scope.reviewScreen.notes + " \n" + $scope.reviewScreen.videoSelected.videoUrl;
+
+    };
+//////
 
 
     $scope.percentfilter = function (y, data) {
@@ -45,21 +60,22 @@ rhrApp.controller('reviewController', ["$scope", '$mdDialog','$http', '$location
             doctorId: review.doctorId
         };
 
-        $scope.subject = "This is actual testing";
-        $scope.email = "vikasmiyani83@gmail.com";
+
+
         var note = {
-            email: $scope.email,
-            subject: $scope.subject,
-            note: $scope.sendnote
+            email: review.email,
+            subject: $scope.reviewScreen.subject,
+            note: $scope.reviewScreen.notes
         };
+
 
         $http.post('/submitReview', d)
             .success(function (data) {
-
                 if (data) {
                     $http.post('/sendNote', note)
                         .success(function (response) {
                             if (response) {
+                                console.log(response);
                                 $location.path('/patients');
                                 $location.replace();
                             }

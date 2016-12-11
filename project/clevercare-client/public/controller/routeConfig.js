@@ -46,6 +46,10 @@ rhrApp.config(function ($routeProvider) {
             templateUrl: "notes.ejs",
             controller: "notesController"
         })
+        .when("/tutorial/:videoId", {
+            templateUrl: "tutorial.ejs",
+            controller: "tutorialController"
+        })
         .otherwise({
             templateUrl: "/login.ejs",
             controller: "authController"

@@ -17,7 +17,7 @@ var userSchema = new Schema({
     age: {type: Number,default:''},
     speciality: {type: String,default:''},
     gender: {type: String,default:''},
-    notes:{type:[],default:''},
+    notes:{type:[]},
     createdate:{type: Date, default: Date.now }
 });
 

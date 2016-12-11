@@ -17,9 +17,11 @@ rhrApp.controller('notesController', function notesController($scope, $mdDialog,
 
     $http.get(url)
         .success(function (response) {
-            // response.notes.splice(0, 0);
+            response.notes.splice(0, 0);
             $scope.notes = response.notes;
+            console.log($scope.notes);
             $scope.currentNote = $scope.notes[0];
+            console.log($scope.currentNote);
         })
         .error(function (data) {
 
@@ -42,6 +44,7 @@ rhrApp.controller('notesController', function notesController($scope, $mdDialog,
             .success(function (data) {
                 if (data) {
                     $scope.notes.push(d);
+                    $scope.currentNote =$scope.notes[0];
                     $location.path('/notes');
                     $location.replace();
                 }

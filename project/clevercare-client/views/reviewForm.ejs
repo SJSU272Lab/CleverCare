@@ -3,14 +3,17 @@
 
     <div class="container bootcards-container" id="main">
 
+
         <div class="row">
 
             <div class="col-sm-6  bootcards-cards">
+
+
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
                         <h3 class="panel-title pull-left">Patient Review Form</h3>
                         <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();doneClicked()">
-                            Done
+                            Finish review
                         </a>
                         <a h href="$event.preventDefault();#scheduleModal"
                            data-toggle="modal"
@@ -65,9 +68,14 @@
                         <div class="list-group-item">
                             <label><b>Medical Speciality: </b></label>
                             <label>{{reviewScreen.medicalSpecialitySelected}}</label>
+
+
                         </div>
 
+
                         <div class="list-group-item">
+
+
                             <label><b>Payer Code: </b></label>
                             <label>{{reviewScreen.payerCodeSelected}}</label>
                         </div>
@@ -76,11 +84,49 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-sm-3 bootcards-cards">
 
-                <div class="panel panel-default bootcards-chart">
+                <div class="panel panel-default">
 
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Suggestions and notes: </h3>
+                    </div>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Select video</label>
+                            <div class="list-group-item-heading">
+                                <select name="video" id="video"
+                                        ng-options="videoOption.videoName for videoOption in reviewScreen.videoOptions"
+                                        ng-model="reviewScreen.videoSelected" ng-change="videoChanged()">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Subject: </label>
+                            <div class="list-group-item-heading">
+                                <input type="text" ng-model="reviewScreen.subject" class="form-control"
+                                       style="resize: none"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Notes: </label>
+                            <div class="list-group-item-heading">
+                                <textarea ng-model="reviewScreen.notes" class="form-control" rows="6"
+                                          style="resize: none"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-sm-3 bootcards-cards">
+                <div class="panel panel-default bootcards-chart">
                     <div class="panel-heading">
                         <h3 class="panel-title">Chances of Readmission</h3>
                     </div>
@@ -96,30 +142,6 @@
 
                 </div>
             </div>
-
-            <div class="col-sm-3 bootcards-cards">
-
-                <div class="panel panel-default bootcards-chart">
-
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Send note</h3>
-                    </div>
-
-                    <div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div>
-                                    <textarea ng-model="sendnote" class="form-control" rows="6"
-                                              style="border: none; !important; resize: none"></textarea>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
         </div>
         <div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="docsModal"
              aria-hidden="true">
@@ -127,7 +149,7 @@
                 <div class="modal-content">
                     <div style="padding-bottom: 20px"></div>
                     <div class="alert alert-success">
-                        <center>  <strong>{{message}}</strong></center>
+                        <center><strong>{{message}}</strong></center>
                     </div>
                     <div class="btn-group">
 
