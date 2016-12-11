@@ -35,7 +35,7 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
                 var patient = {
                     'id': response[i]._id,
                     'patientId':response[i].patientId._id,
-                    'patientFileId':response[i].patientFileId,
+                    'patientFileId':response[i].patientFileId._id,
                     'doctorId':response[i].doctorId._id,
                     'dischargeNotes': response[i].patientFileId.dischargeNote,
                     'disease': response[i].patientFileId.disease ,
@@ -48,7 +48,8 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
                     'record':response[i].record,
                     'admissionType': response[i].patientFileId.admissionType,
                     'ageCategory' : response[i].patientId.ageCategory,
-                    'percentage':response[i].percentage
+                    'percentage':response[i].percentage,
+                    'gender':response[i].patientId.gender
                 }
                 patientArr.push(patient);
             }
@@ -184,12 +185,12 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
 
 
     $scope.submitFollowup = function () {
-        sessionStorage.setItem("followup",$scope.patientScreen.currPatient.id);
+        sessionStorage.setItem("followupId",$scope.patientScreen.currPatient.id);
+        sessionStorage.setItem("followup",JSON.stringify($scope.patientScreen.currPatient));
         $location.path('/patientForm');
         $location.replace();
     };
     $scope.submitReview = function () {
-
         sessionStorage.setItem("review",JSON.stringify($scope.patientScreen.currPatient));
         $location.path('/reviewForm');
         $location.replace();

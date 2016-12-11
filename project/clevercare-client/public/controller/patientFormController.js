@@ -7,40 +7,40 @@ rhrApp.controller('patientFormController', function patientFormController($scope
         $location.replace();
     }
 
-    $scope.followup = sessionStorage.getItem("followup");
+    $scope.followup = JSON.parse(sessionStorage.getItem("followup"));
 
+    console.log($scope.followup);
     $scope.patientFormData = {};
 
     //dummy data
-    $scope.patientFormData.gender = 'Male';
-    $scope.patientFormData.ageCategory = 'Old';
+    $scope.patientFormData.gender = $scope.followup.gender;
+    $scope.patientFormData.ageCategory = $scope.followup.ageCategory;
 
-    $scope.patientFormData.raceOptions = ['African American', 'Asian', 'Hispanic'];
-    $scope.patientFormData.raceSelected = 'African American';
+    $scope.patientFormData.admissionTypeOptions = ['Emergency', 'Urgent', 'Elective','New born','Trauma Center'];
+    $scope.patientFormData.admissionTypeSelected = $scope.followup.admissionType;
 
-    $scope.patientFormData.admissionSourceOptions = ['Transfer from hospital', 'admissionSource2', 'admissionSource3'];
-    $scope.patientFormData.admissionSourceSelected = 'Transfer from hospital';
-
-    $scope.patientFormData.admissionTypeOptions = ['admissionType1', 'admissionType2', 'admissionType3'];
-    $scope.patientFormData.admissionTypeSelected = 'admissionType1';
-
-    $scope.patientFormData.dischargeDispositionOptions = ['Discharged/transfered', 'dischargeDispositionOption2', 'dischargeDispositionOption3'];
-    $scope.patientFormData.dischargeDispositionSelected = 'Discharged/transfered';
-
-    $scope.patientFormData.insulinOptions = ['Up', 'Down', 'Stable'];
+    $scope.patientFormData.insulinOptions = ['No','Up','Down','Steady'];
     $scope.patientFormData.insulinSelected = 'Down';
 
-    $scope.patientFormData.medicalSpecialityOptions = ['Emergency/trauma', 'medicalSpeciality2', 'medicalSpeciality3'];
-    $scope.patientFormData.medicalSpecialitySelected = 'Emergency/trauma';
+    $scope.patientFormData.diabetesMed = 'No';
 
-    $scope.patientFormData.payerCodeOptions = ['payerCode1', 'payerCode2', 'payerCode3'];
-    $scope.patientFormData.payerCodeSelected = 'payerCode1';
+    $scope.patientFormData.tirednessOptions = ['1', '2', '3','4','5'];
+    $scope.patientFormData.tirednessSelected = '1';
+
+    $scope.patientFormData.frequentUrinationOptions = ['1', '2', '3','4','5'];
+    $scope.patientFormData.frequentUrinationSelected = '1';
+
+    $scope.patientFormData.frequentExerciseOptions = ['1', '2', '3','4','5'];
+    $scope.patientFormData.frequentExerciseSelected = '1';
+
+    $scope.patientFormData.frequentBlurryVisionOptions = ['1', '2', '3','4','5'];
+    $scope.patientFormData.frequentBlurryVisionSelected = '1';
 
     $scope.patientFormData.predictButton = 'Yes';
     $scope.patientFormData.clearButton = 'Yes';
 
-    $scope.patientFormData.predictionPercent = 65;
 
+    /*$scope.patientFormData.predictionPercent = 65;
     $scope.percentfilter = function (y, data) {
         return $scope.patientFormData.predictionPercent + '%';
     }
@@ -49,21 +49,19 @@ rhrApp.controller('patientFormController', function patientFormController($scope
         {label: 'Result', value: $scope.patientFormData.predictionPercent},
         {label: 'Result', value: (100 - $scope.patientFormData.predictionPercent)}];
 
-    //to be removed in code cleanup
+    //to be removed in code cleanup*/
 
 
     $scope.predictClicked = function () {
 
-        var followupId = sessionStorage.getItem("followup");
+        var followupId = sessionStorage.getItem("followupId");
         var record = $scope.patientFormData;
-        delete record.payerCodeOptions;
-        delete record.medicalSpecialityOptions;
         delete record.insulinOptions;
-        delete record.dischargeDispositionOptions;
         delete record.admissionTypeOptions;
-        delete record.admissionSourceOptions;
-        delete record.raceOptions;
-        delete record.chart1Data;
+        delete record.tirednessOptions;
+        delete record.frequentUrinationOptions;
+        delete record.frequentExerciseOptions;
+        delete record.frequentBlurryVisionOptions;
         delete record.predictButton;
         delete record.clearButton;
 
@@ -72,6 +70,7 @@ rhrApp.controller('patientFormController', function patientFormController($scope
             record: record,
             taken_by: sessionStorage.getItem("userId")
         };
+
         $http.post('/submitFollowup', d)
             .success(function (data) {
 
@@ -82,7 +81,6 @@ rhrApp.controller('patientFormController', function patientFormController($scope
             })
             .error(function (data) {
             });
-
 
     };
 
