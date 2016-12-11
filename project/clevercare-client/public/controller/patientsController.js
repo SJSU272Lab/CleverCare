@@ -1,4 +1,4 @@
-rhrApp.controller('patientsController', function ($scope, $http, $location,$rootScope, $filter,$mdDialog) {
+rhrApp.controller('patientsController', function ($scope, $http, $location, $rootScope, $filter, $mdDialog) {
 
     //to be removed in code cleanup
 
@@ -13,7 +13,7 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
     $scope.patientScreen.searchTerm = "";
     $scope.patientScreen.patientList = [];
     $scope.patientScreen.currPatient = {};
-   // $scope.patientScreen.previousChancesData = [{"followup": "1", "percent": 45 }];
+    // $scope.patientScreen.previousChancesData = [{"followup": "1", "percent": 45 }];
 
     var usertype = sessionStorage.getItem("usertype");
     $scope.userdata.usertype = usertype;
@@ -34,21 +34,21 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
             for (var i = 0; i < response.length; i++) {
                 var patient = {
                     'id': response[i]._id,
-                    'patientId':response[i].patientId._id,
-                    'patientFileId':response[i].patientFileId,
-                    'doctorId':response[i].doctorId._id,
+                    'patientId': response[i].patientId._id,
+                    'patientFileId': response[i].patientFileId,
+                    'doctorId': response[i].doctorId._id,
                     'dischargeNotes': response[i].patientFileId.dischargeNote,
-                    'disease': response[i].patientFileId.disease ,
+                    'disease': response[i].patientFileId.disease,
                     'age': response[i].patientId.age,
                     'email': response[i].patientId.email,
-                    'name': response[i].patientId.firstname +" "+response[i].patientId.lastname,
+                    'name': response[i].patientId.firstname + " " + response[i].patientId.lastname,
                     'contactNumber': response[i].patientId.phonenumber,
                     'status': response[i].status,
                     'followUpDueOn': $filter('date')(response[i].dueDate, "MM/dd/yyyy"),
-                    'record':response[i].record,
+                    'record': response[i].record,
                     'admissionType': response[i].patientFileId.admissionType,
-                    'ageCategory' : response[i].patientId.ageCategory,
-                    'percentage':response[i].percentage
+                    'ageCategory': response[i].patientId.ageCategory,
+                    'percentage': response[i].percentage
                 }
                 patientArr.push(patient);
             }
@@ -56,21 +56,21 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
 
             $scope.patientScreen.currPatient = $scope.patientScreen.patientList[0];
 
-            $http.get(url.listFollowupByPatient+$scope.patientScreen.currPatient.patientId)
+            $http.get(url.listFollowupByPatient + $scope.patientScreen.currPatient.patientId)
                 .success(function (response) {
 
                     $scope.patientScreen.currPatient.files = response;
                     $scope.patientScreen.previousChancesData = [];
-                    for(var i=0; i<$scope.patientScreen.currPatient.files.length;i++){
+                    for (var i = 0; i < $scope.patientScreen.currPatient.files.length; i++) {
                         var obj = {
-                            "followup":i+1+"",
+                            "followup": i + 1 + "",
                             "percent": Number($scope.patientScreen.currPatient.files[i].percentage)
                         }
                         $scope.patientScreen.previousChancesData.push(obj);
                     }
                     console.log($scope.patientScreen.previousChancesData[0]);
                 })
-                .error(function(data) {
+                .error(function (data) {
 
                 });
         })
@@ -80,7 +80,6 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
 
 
     //initially keep first record selected
-
 
 
     //to be removed in code cleanup
@@ -155,20 +154,19 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
         $scope.patientScreen.currPatient = currPatient;
 
 
-
     };
 
     $scope.listItemClicked = function (currPatient) {
 
 
         $scope.patientScreen.currPatient = currPatient;
-        $http.get(url.listFollowupByPatient+$scope.patientScreen.currPatient.patientId)
+        $http.get(url.listFollowupByPatient + $scope.patientScreen.currPatient.patientId)
             .success(function (response) {
 
                 $scope.patientScreen.currPatient.files = response;
 
             })
-            .error(function(data) {
+            .error(function (data) {
 
             });
 
@@ -184,24 +182,23 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
 
 
     $scope.submitFollowup = function () {
-        sessionStorage.setItem("followup",$scope.patientScreen.currPatient.id);
+        sessionStorage.setItem("followup", $scope.patientScreen.currPatient.id);
         $location.path('/patientForm');
         $location.replace();
     };
     $scope.submitReview = function () {
-
-        sessionStorage.setItem("review",JSON.stringify($scope.patientScreen.currPatient));
+        sessionStorage.setItem("review", JSON.stringify($scope.patientScreen.currPatient));
         $location.path('/reviewForm');
         $location.replace();
     };
 
-   $scope.showPatientFile = function (index) {
+    $scope.showPatientFile = function (index) {
 
-       $scope.files = {};
-       $scope.files =  $scope.patientScreen.currPatient.files[index].record;
-       console.log($scope.files);
+        $scope.files = {};
+        $scope.files = $scope.patientScreen.currPatient.files[index].record;
+        console.log($scope.files);
 
-   }
-    
+    }
+
 
 });

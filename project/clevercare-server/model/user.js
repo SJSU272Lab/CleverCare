@@ -18,6 +18,10 @@ var userSchema = new Schema({
     speciality: {type: String,default:''},
     gender: {type: String,default:''},
     notes:{type:[]},
+    videos: {
+        type: [String],
+        'default': []
+    },
     createdate:{type: Date, default: Date.now }
 });
 

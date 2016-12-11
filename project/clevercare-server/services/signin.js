@@ -277,3 +277,20 @@ exports.addNote = function(msg,callback){
     });
 };
 
+exports.uploadVideo = function (msg, callback) {
+    var userId = msg.userId;
+    var fileName = msg.fileName;
+
+    User.findOneAndUpdate({_id: id},{$push: {"videos": fileName}}, function (err, result) {
+        if (err) {
+            callback(err, null);
+        }
+        console.log(result);
+        if (!result) {
+            callback(null, null);
+        }
+        if (result) {
+            callback(null, result);
+        }
+    });
+};
