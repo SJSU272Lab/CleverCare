@@ -7,6 +7,8 @@ var ObjectId = require('mongodb').ObjectID;
 var http = require('http');
 
 var ml_url = "localhost";
+var port = 3001;
+var path = '/v1/getScore';
 
 exports.listFollowUp = function (msg, callback) {
 
@@ -147,22 +149,13 @@ exports.submitFollowup = function (msg, callback) {
                 insulin: insulin,
                 diabetesmed: (msg.record.diabetesMed == "Yes") ? 1 : 0,
             };
-            // var body = {
-            //     gender: 1,
-            //     age_category: 1,
-            //     weight: 8,
-            //     admission_type: 1,
-            //     time_in_hospital: 10,
-            //     insulin: 1,
-            //     diabetesmed: 1,
-            // };
             var req_body = JSON.stringify(body);
             console.log(req_body);
 
             var options = {
                 host: ml_url,
-                port: 3001,
-                path: '/v1/getScore',
+                port: port,
+                path: path,
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -236,3 +229,7 @@ exports.scheduleFollowup = function (msg, callback) {
     });
 
 };
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
