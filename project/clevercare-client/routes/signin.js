@@ -348,4 +348,37 @@ exports.addNote = function (req, res) {
 
 };
 
+exports.changePassword = function (req, res) {
+
+    var msg_payload = {
+        oldpwd:req.body.oldpwd,
+        newpwd:req.body.newpwd,
+        userId:req.body.userId
+    };
+    console.log(msg_payload);
+    mq_client.make_request('change_queue', msg_payload, function (err, results) {
+        if (err) {
+            res.json({
+                success: false,
+                message: 'Error in change password.'
+            });
+            res.end();
+        }
+        if (results) {
+            res.json({
+                success: true,
+                message: 'Your password has been changed successfully.'
+            });
+            res.end();
+        } else {
+            res.json({
+                success: false,
+                message: 'password not changed'
+            });
+            res.end();
+        }
+    });
+
+};
+
 
