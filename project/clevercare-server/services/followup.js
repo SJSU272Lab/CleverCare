@@ -80,24 +80,24 @@ exports.listFollowUpTotal = function (msg, callback) {
 
 exports.submitFollowup = function (msg, callback) {
 
-    var query = {_id: msg.followupId};
+    var query = {_id: new ObjectId(msg.followupId)};
     var notes = {
         note_by: new ObjectId(msg.taken_by),//use from session when actual implementation
         content: msg.notes
     }
 
     var followupDetails = {
-        $set: {taken_by: msg.taken_by, isDone: true, record: msg.record, percentage: msg.percentage,status:"Review required"}
+        $set: {taken_by: msg.taken_by, isDone: true, record: msg.record,status:"Review required"}
     };
     if (notes.content) {
         followupDetails.$push = {notes: notes};
     }
-
+    console.log(followupDetails);
     Followup.findOneAndUpdate(query, followupDetails, function (err, result) {
         if (err) {
             callback(err, null);
         }
-        //console.log(result);
+        console.log(result);
         if (!result) {
             callback(null, null);
         }
