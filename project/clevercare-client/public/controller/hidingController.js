@@ -14,6 +14,9 @@ rhrApp.controller('hidingController',  function hidingController($scope, $rootSc
     if (sessionStorage.getItem("usertype")) {
         $rootScope.showNavbar = true;
     }
+    if (sessionStorage.getItem("usertype")) {
+        $scope.usertype = sessionStorage.getItem("usertype");
+    }
     else {
         $rootScope.showNavbar = false;
     }

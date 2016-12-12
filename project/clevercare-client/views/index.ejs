@@ -174,7 +174,7 @@
                         Dashboard
                     </a>
                 </li>
-                <li class="{{patient}}">
+                <li class="{{patient}}" ng-hide="usertype === 'admin'">
                     <a href="#patients" data-title="Patients" ng-click="patientClicked()">
                         <i class="fa fa-users"></i>
                         Patients
