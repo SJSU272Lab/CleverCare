@@ -13,11 +13,11 @@
                         <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();doneClicked()">
                             Finish review
                         </a>
-                        <a h href="$event.preventDefault();#scheduleModal"
+                        <a href="$event.preventDefault();#scheduleModal"
                            data-toggle="modal"
                            data-target="#scheduleModal" class="btn btn-primary pull-right"
                            ng-click="$event.preventDefault();scheduleFollowUpClicked()"
-                           style="margin-right: 15px">
+                           style="margin-right: 15px" ng-disabled="isScheduled == true">
                             Schedule Follow Up
                         </a>
                     </div>
@@ -138,9 +138,9 @@
                     <div class="alert alert-success">
                         <center><strong>{{message}}</strong></center>
                     </div>
-                    <div class="btn-group">
+                    <div class="btn-group" style="margin-left: 270px;margin-bottom: 10px;">
 
-                        <button class="btn btn-danger" data-dismiss="modal">
+                        <button class="btn btn-danger" data-dismiss="modal" ng-click="doneClicked()">
                             Done
                         </button>
                     </div>

@@ -1,7 +1,7 @@
 rhrApp.controller('reviewController', ["$scope", '$mdDialog', '$http', '$location', function ($scope, $mdDialog, $http, $location) {
 
     //to be removed in code cleanup
-
+    $scope.isScheduled = false;
     var review = JSON.parse(sessionStorage.getItem("review"));
     $scope.reviewScreen = review.record;
     $scope.percentage = review.percentage;
@@ -93,5 +93,8 @@ rhrApp.controller('reviewController', ["$scope", '$mdDialog', '$http', '$locatio
 
     };
 
+    $scope.doneClicked = function () {
+        $scope.isScheduled = true;
+    }
 
 }]);
