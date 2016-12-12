@@ -16,7 +16,7 @@ User Stories
   so that, I can <b>decide measures</b> to be taken to mitigate chances of readmission.
 
 * As an <b>admin</b>, I can view analysis of readmission data,
-  so that, I can <b>manage hospital resources efficiently</b> to reduce unnecessary expenses.
+  so that, I can <b>take preventive measures to reduce unnecessary expenses by avoidable readmissions</b>.
 
 * As a <b>Out Patient Department nurse</b>, I collect feedback from recently discharged patients,
   so that received data can be <b>fed to prediction engine</b> and <b>predict possibility of readmission</b> for patients.
