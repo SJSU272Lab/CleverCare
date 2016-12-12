@@ -38,14 +38,13 @@ Reducing Hospital Readmissions
 	
 
 ### Team members:
-	Team 3
-	===============
+Team 3
 
-	> [Darshit Thesiya](https://github.com/dthesiya)
+[Darshit Thesiya](https://github.com/dthesiya)
 
-	> [Siddharth Daftari](https://github.com/siddharthrdaftari)
+[Siddharth Daftari](https://github.com/siddharthrdaftari)
 
-	> [Tanmay Bhatt](https://github.com/TanmayAB)
+[Tanmay Bhatt](https://github.com/Tanmayb7)
 
-	> [Vikas Miyani](https://github.com/vikasmiyani)
+[Vikas Miyani](https://github.com/vikasmiyani)
 	
