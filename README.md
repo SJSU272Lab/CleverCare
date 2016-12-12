@@ -1,4 +1,5 @@
-## Fall16-Team3
+Fall16-Team3
+============
 
 Project Name : <b>CleverCare</b>
 
