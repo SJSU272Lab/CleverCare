@@ -1,0 +1,56 @@
+<div id="tutorialDiv" ng-controller="videoController">
+    <P class="alert alert-primary" ng-show="alertvideo == true"> Your Video uploaded</P>
+    <div class="container bootcards-container" id="main">
+
+        <div class="row">
+
+            <div class="bootcards-cards ">
+                <div class="col-sm-8 col-sm-offset-2">
+
+                    <div class="panel panel-default bootcards-media">
+                        <div class="panel-heading">Video</div>
+
+                        <div class="panel-body">
+                            <button class="button" ngf-select ng-model="video" name="video"
+                                    ngf-pattern="'video/*'"
+                                    ngf-accept="'video/mp4,video/x-m4v,video/*'"
+                                    ngf-max-size="200MB"
+                                    ngf-min-height="100"
+                                    ngf-resize="{width: 40%, height: 40%}">Select
+                            </button>
+
+                            <!--<input type="file"  fileread="video" name="video" multiple="false" id="upload_video" accept="video/mp4,video/x-m4v,video/*">-->
+                            <button id="photo-uploader" type="button" ng-click="submitVideo()"
+                                    class="btn btn-large row-space-2"
+                                    style="position: relative; z-index: 0;">
+                                <i class="icon icon-upload"></i> Click to Upload Video
+                            </button>
+                            </br>
+                            Video preview:
+                            <video controls ngf-src="video" height="50%" width="50%"></video>
+                        </div>
+                        <!--<div class="panel-footer">...</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row">-->
+
+            <!--<div class="bootcards-cards ">-->
+                <!--<div class="col-sm-8 col-sm-offset-2">-->
+
+                    <!--<div class="panel panel-default bootcards-media">-->
+                        <!--<div class="panel-heading">Video Description</div>-->
+
+                        <!--<div class="panel-body">-->
+                            <!--Description of video.-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="panel-footer">...</div>&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+
+

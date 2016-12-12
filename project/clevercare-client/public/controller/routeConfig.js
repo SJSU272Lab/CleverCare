@@ -1,4 +1,4 @@
-var rhrApp = angular.module('rhrApp', ['ngRoute', 'angular.morris', 'ngMaterial']);
+var rhrApp = angular.module('rhrApp', ['ngRoute', 'angular.morris', 'ngMaterial', 'ngFileUpload']);
 
 rhrApp.config(function ($routeProvider) {
     $routeProvider
@@ -49,6 +49,10 @@ rhrApp.config(function ($routeProvider) {
         .when("/tutorial/:videoId", {
             templateUrl: "tutorial.ejs",
             controller: "tutorialController"
+        })
+        .when("/video", {
+            templateUrl: "video.ejs",
+            controller: "videoController"
         })
         .otherwise({
             templateUrl: "/login.ejs",

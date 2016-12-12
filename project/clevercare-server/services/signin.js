@@ -163,43 +163,42 @@ exports.addPatient = function (msg, callback) {
     var doctorId = msg.doctorId;
 
     var patientDetails = {
-        firstname : msg.firstname,
-        lastname : msg.lastname,
-        email : msg.email,
-        gender : msg.gender,
-        address : msg.address,
-        phonenumber : msg.phonenumber,
-        usertype : "patient"
+        firstname: msg.firstname,
+        lastname: msg.lastname,
+        email: msg.email,
+        gender: msg.gender,
+        address: msg.address,
+        phonenumber: msg.phonenumber,
+        usertype: "patient"
     };
 
 
-
     var query = {_id: patientId};
-    var options = { upsert: true, new: true, setDefaultsOnInsert: true };
+    var options = {upsert: true, new: true, setDefaultsOnInsert: true};
 
     User.findOneAndUpdate(query, patientDetails, options, function (err, patient) {
         if (err) callback(err, null);
-        if(patient){
+        if (patient) {
 
             var patientFile = {
-                patientId:patient._id,
-                disease:msg.disease,
-                dischargeNote:msg.dischargeNote,
-                isReadmitted:msg.isReadmitted,
-                last_admission_date:msg.last_admission_date,
-                doctorId:msg.doctorId,
+                patientId: patient._id,
+                disease: msg.disease,
+                dischargeNote: msg.dischargeNote,
+                isReadmitted: msg.isReadmitted,
+                last_admission_date: msg.last_admission_date,
+                doctorId: msg.doctorId,
             };
             var query = {patientId: patientId};
-            var options = { upsert: true, new: true, setDefaultsOnInsert: true };
-            PatientFile.findOneAndUpdate(query, patientFile, options, function (err, patientFile){
+            var options = {upsert: true, new: true, setDefaultsOnInsert: true};
+            PatientFile.findOneAndUpdate(query, patientFile, options, function (err, patientFile) {
                 if (err) callback(err, null);
-                if(patientFile){
+                if (patientFile) {
                     var followupPlans = new Followup();
                     followupPlans.patientFileId = patientFile._id;
                     followupPlans.patientId = patientFile.patientId;
                     followupPlans.doctorId = patientFile.doctorId;
                     followupPlans.status = msg.status;
-                  //  followupPlans.dueDate = +patientFile.dischargeDate + 2*24*60*60*1000;
+                    //  followupPlans.dueDate = +patientFile.dischargeDate + 2*24*60*60*1000;
 
                     followupPlans.save(function (err) {
                         if (err) {
@@ -220,7 +219,7 @@ exports.notes = function (msg, callback) {
     var usertype = msg.usertype;
     var id = msg.userId;
 
-    User.findOne({_id: id, usertype:usertype},{notes:1}, function (err, result) {
+    User.findOne({_id: id, usertype: usertype}, {notes: 1}, function (err, result) {
         if (err) {
             callback(err, null);
         }
@@ -234,12 +233,12 @@ exports.notes = function (msg, callback) {
 };
 
 
-exports.updateNotes = function(msg,callback){
+exports.updateNotes = function (msg, callback) {
 
     var usertype = msg.usertype;
     var id = msg.userId;
     var notes = msg.notes;
-    User.findOneAndUpdate({_id: new ObjectId(id), usertype:usertype},{$set: { notes: notes }}, function (err, result) {
+    User.findOneAndUpdate({_id: new ObjectId(id), usertype: usertype}, {$set: {notes: notes}}, function (err, result) {
         console.log(result);
         if (err) {
             callback(err, null);
@@ -253,17 +252,17 @@ exports.updateNotes = function(msg,callback){
     });
 };
 
-exports.addNote = function(msg,callback){
+exports.addNote = function (msg, callback) {
 
     var id = new ObjectId(msg.userId);
     var usertype = msg.usertype;
     var note = {
-        subject : msg.subject,
+        subject: msg.subject,
         date: msg.date,
         details: msg.details
     }
 
-    User.findOneAndUpdate({_id: id, usertype:usertype},{$push: {"notes": note}}, function (err, result) {
+    User.findOneAndUpdate({_id: id, usertype: usertype}, {$push: {"notes": note}}, function (err, result) {
         if (err) {
             callback(err, null);
         }
@@ -280,12 +279,10 @@ exports.addNote = function(msg,callback){
 exports.uploadVideo = function (msg, callback) {
     var userId = msg.userId;
     var fileName = msg.fileName;
-
-    User.findOneAndUpdate({_id: id},{$push: {"videos": fileName}}, function (err, result) {
+    User.findOneAndUpdate({_id: userId}, {$push: {"videos": fileName}}, function (err, result) {
         if (err) {
             callback(err, null);
         }
-        console.log(result);
         if (!result) {
             callback(null, null);
         }

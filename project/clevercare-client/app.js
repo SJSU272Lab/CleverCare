@@ -8,6 +8,7 @@ var mongoStore = require("connect-mongo")(session);
 var mongo = require("mongodb").MongoClient;
 var url = require('url');
 var bodyParser = require('body-parser');
+var fileUpload = require('express-fileupload');
 
 
 var index = require('./routes/index');
@@ -16,7 +17,9 @@ var signin = require('./routes/signin');
 var followup = require('./routes/followup');
 var review = require('./routes/review');
 var analtytics = require('./routes/analytics');
+var uploadContent = require('./routes/uploadContent');
 var app = express();
+app.use(fileUpload());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -90,6 +93,8 @@ app.post('/sendNote', review.sendNote);
 app.post('/updateNotes', signin.updateNotes);
 app.post('/addNote', signin.addNote);
 
+app.post('/uploadVideo', uploadContent.uploadVideo);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -100,6 +105,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
+    console.log(err);
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
