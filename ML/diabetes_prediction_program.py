@@ -51,7 +51,7 @@ toNum = UserDefinedFunction(lambda k: binary_map[k], DoubleType())
 data = data.select('insulin', 'race', 'readmission_result').withColumn('readmission_result', toNum(data['readmission_result'])).withColumn('race', toNum(data['race'])).withColumn('insulin', toNum(data['insulin'])) 
 '''
 
-csv2libsvm.startHere("diabetes_learning_data.csv", "libsvm.txt", 7, True)
+csv2libsvm.startHere("diabetes_data_modified.csv", "libsvm.txt", 7, True)
 
 data = sqlContext.read.format("libsvm").load("libsvm.txt")
 
@@ -130,7 +130,7 @@ def getScore():
     rows = predictions.collect()
     row = rows[0]
     print(rows)
-    responsetempVar = { "result" : {"rawPrediction":row.rawPrediction.tolist(), "probability":row.probability.tolist(), "prediction":row.prediction} }
+    responsetempVar = { 'prediction' : row.prediction, 'probability' : row.probability.tolist(), 'accuracy' : accuracy }
     response = jsonify(responsetempVar)
     response.status_code = 200
     return response
