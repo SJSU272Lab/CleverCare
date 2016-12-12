@@ -1,5 +1,3 @@
-
-
 var mq_client = require("../rpc/client.js");
 
 exports.uploadVideo = function (request, response) {
@@ -10,7 +8,14 @@ exports.uploadVideo = function (request, response) {
             console.log(err);
             response.send({statusCode: 401});
         } else {
-            response.send({statusCode: 200, url: fileName});
+            var msg_payload = {fileName: fileName, userId: request.session.userId};
+            mq_client.make_request('uploadvideo_queue', msg_payload, function (err, results) {
+                if (err) {
+                    response.send({statusCode: 401, url: fileName});
+                } else {
+                    response.send({statusCode: 200, url: fileName});
+                }
+            });
         }
     });
 }

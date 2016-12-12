@@ -34,7 +34,8 @@ exports.authenticateUser = function (req, res) {
                 success: true,
                 message: 'Logged in',
                 usertype: results.usertype,
-                userId: results._id
+                userId: results._id,
+                videos: results.videos
             };
             res.json(data);
             res.end();

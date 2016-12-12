@@ -64,7 +64,7 @@ rhrApp.controller('patientsController', function ($scope, $http, $location,$root
                     $scope.patientScreen.previousChancesData = [];
                     for(var i=0; i<$scope.patientScreen.currPatient.files.length;i++){
                         var obj = {
-                            "followup":i+1+"",
+                            "followup": i + 1 + "",
                             "percent": Number($scope.patientScreen.currPatient.files[i].percentage)
                         }
                         $scope.patientScreen.previousChancesData.push(obj);
