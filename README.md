@@ -4,7 +4,7 @@ Project Name : <b>CleverCare</b>
 
 Abstract
 ========
-Reducing Hospital Readmissions
+<b>Reducing Hospital Readmissions</b>
 * One of the major contributors to healthcare costs is hospital readmissions. Research shows that 15-20% of people who are discharged from hospital are readmitted within 30 days or less. Many of these readmissions are preventable. There are some intervention techniques that can help address this issue. One of them is to use machine learning to predict the chances of readmission of a patient. The project facilitates out-patient care to take feedbacks at regular intervals from patient once he/she is discharged and calculating his/her chances of readmission using machine learning. The doctor can review these results and take appropriate action by providing some suggestions and educational content to the patient, and reschedule patient’s next feedback.
 
 
