@@ -12,14 +12,14 @@ Abstract
 User Stories
 ============
 
-* As a doctor, I can view feedback and prediction index of readmission for my patients,
-  so that, I can decide measures to be taken to mitigate chances of readmission.
+* As a <b>doctor</b>, I can view feedback and prediction index of readmission for my patients,
+  so that, I can <b>decide measures</b> to be taken to mitigate chances of readmission.
 
-* As an admin, I can view analysis of readmission data,
-  so that, I can manage hospital resources efficiently to reduce unnecessary expenses.
+* As an <b>admin</b>, I can view analysis of readmission data,
+  so that, I can <b>manage hospital resources efficiently</b> to reduce unnecessary expenses.
 
-* As Out Patient Department nurse, I collect feedback from recently discharged patients,
-  so that received data can be fed to prediction engine and predict possibility of readmission for patients.
+* As a <b>Out Patient Department nurse</b>, I collect feedback from recently discharged patients,
+  so that received data can be <b>fed to prediction engine</b> and <b>predict possibility of readmission</b> for patients.
 	
 
 Architecture diagram
