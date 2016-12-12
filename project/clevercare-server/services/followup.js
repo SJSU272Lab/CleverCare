@@ -49,7 +49,7 @@ exports.listCriticalFollowUp = function (msg, callback) {
         .exec(function (err, result) {
             if (err) {
                 callback(err, null);
-            }
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               Q
             //console.log(result);
             if (!result) {
                 callback(null, null);
