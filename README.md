@@ -20,17 +20,22 @@ Reducing Hospital Readmissions
 	
 
 ### Architecture diagram:
-	https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/272_architecture_diagram.png?raw=true
+	![Architecture Diagram](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/272_architecture_diagram.png?raw=true)
+	<img src="https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/272_architecture_diagram.png?raw=true">
 	
-	As shown in Figure 1, the different components of system are connected with each other. For example, when a user 	 submits credentials in order to log into the system, the browser forwards this request to node.js client. Further, the  	 node.js client communicates with node.js server using MOM-RabbitMQ. The node.js server validates the credentials 	  against encrypted credentials stored in mongoDb database.
+	As shown in Figure 1, the different components of system are connected with each other. For example, when a user
+	submits credentials in order to log into the system, the browser forwards this request to node.js client. Further, the
+	node.js client communicates with node.js server using MOM-RabbitMQ. The node.js server validates the credentials
+	against encrypted credentials stored in mongoDb database.
 
 
 ### Flow diagram:
-	https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/272_flow_diagram.png?raw=true
+	![Flow Diagram](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/272_flow_diagram.png)
 	
 
 ### Report:
-	A detailed description of the project with proper screenshots and explaination can be found [here](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/CleverCare_team3_report.doc)
+	A detailed description of the project with proper screenshots and explaination can be found 
+	[a here](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/CleverCare_team3_report.doc)
 	
 
 ### Team members:
