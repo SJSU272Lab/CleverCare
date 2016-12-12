@@ -3,6 +3,7 @@ rhrApp.controller('hidingController',  function hidingController($scope, $rootSc
 
 
     $rootScope.showNavbar = false;
+
     /*
      funtion{\\call service
      // returns true
@@ -16,8 +17,9 @@ rhrApp.controller('hidingController',  function hidingController($scope, $rootSc
     else {
         $rootScope.showNavbar = false;
     }
-
+    $scope.dashboard = "active";
     $scope.logout = function () {
+        $scope.dashboard = "";
         $http.get("/signout")
             .success(function (response) {
                if(response.success){
@@ -31,5 +33,23 @@ rhrApp.controller('hidingController',  function hidingController($scope, $rootSc
             });
     };
     //to be removed in code cleanup
+    $scope.dashboardClicked = function(){
+        $scope.dashboard = "active";
+        $scope.patient = "";
+        $scope.setting = "";
+    }
+
+    $scope.patientClicked = function(){
+        $scope.dashboard = "";
+        $scope.patient = "active";
+        $scope.setting = "";
+
+    }
+
+    $scope.settingClicked = function(){
+        $scope.dashboard = "";
+        $scope.patient = "";
+        $scope.setting = "active";
+    }
 
 });

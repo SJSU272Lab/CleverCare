@@ -22,7 +22,6 @@ var userSchema = new Schema({
         type: [String],
         'default': []
     },
-    admissionType:{type:String,default:'Emergency'},
     ageCategory:{type:String,default:'Adult'},
     createdate:{type: Date, default: Date.now }
 });

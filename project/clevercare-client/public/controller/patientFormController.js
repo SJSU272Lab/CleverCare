@@ -39,6 +39,7 @@ rhrApp.controller('patientFormController', function patientFormController($scope
     $scope.patientFormData.predictButton = 'Yes';
     $scope.patientFormData.clearButton = 'Yes';
 
+    $scope.patientFormData.weight = 0;
 
     /*$scope.patientFormData.predictionPercent = 65;
     $scope.percentfilter = function (y, data) {
@@ -71,6 +72,7 @@ rhrApp.controller('patientFormController', function patientFormController($scope
             taken_by: sessionStorage.getItem("userId")
         };
 
+        console.log(d);
         $http.post('/submitFollowup', d)
             .success(function (data) {
 

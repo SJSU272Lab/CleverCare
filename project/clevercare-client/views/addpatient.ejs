@@ -80,6 +80,16 @@
                             </div>
                         </div>
                         <div class="list-group-item">
+                            <label class="list-group-item-text">Admisson Type</label>
+                            <div class="list-group-item-heading">
+                                <select name="admissionType" id="admissionType"
+                                        ng-options="admissionTypeOption for admissionTypeOption in patient.admissionTypeOption"
+                                        ng-model="patient.admissionTypeSelected"
+                                        >
+                                </select>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
                             <input type="submit" value="Add patient" class="btn btn-primary"/>
                         </div>
                         <div class="list-group-item" ng-show="isPatientAdded">

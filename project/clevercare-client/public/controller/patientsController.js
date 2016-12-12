@@ -13,6 +13,7 @@ rhrApp.controller('patientsController', function ($scope, $http, $location, $roo
     $scope.patientScreen.searchTerm = "";
     $scope.patientScreen.patientList = [];
     $scope.patientScreen.currPatient = {};
+
     // $scope.patientScreen.previousChancesData = [{"followup": "1", "percent": 45 }];
 
     var usertype = sessionStorage.getItem("usertype");
@@ -54,7 +55,7 @@ rhrApp.controller('patientsController', function ($scope, $http, $location, $roo
                 patientArr.push(patient);
             }
             $scope.patientScreen.patientList = patientArr;
-
+            $scope.patientScreen.patientListBackup = $scope.patientScreen.patientList;
             $scope.patientScreen.currPatient = $scope.patientScreen.patientList[0];
 
             $http.get(url.listFollowupByPatient + $scope.patientScreen.currPatient.patientId)
@@ -88,63 +89,31 @@ rhrApp.controller('patientsController', function ($scope, $http, $location, $roo
 
     $scope.searchClicked = function (currPatient) {
 
-        $scope.patientScreen.patientList = [
-            {
-                'id': 13,
-                'dischargeNotes': 'notes1',
-                'disease': 'Common cold',
-                'age': 28,
-                'email': 'abc@gmail.com',
-                'name': 'mathew wayne',
-                'contactNumber': '1234567890',
-                'status': 'visit required',
-                'followUpDueOn': '11/06/9016'
-            },
-            {
-                'id': 73,
-                'dischargeNotes': 'notes1',
-                'disease': 'Common cold',
-                'age': 28,
-                'email': 'abc@gmail.com',
-                'name': 'allen smith',
-                'contactNumber': '1234567890',
-                'status': 'feedback required',
-                'followUpDueOn': '11/0/9016'
-            },
-            {
-                'id': 33,
-                'dischargeNotes': 'notes1',
-                'disease': 'Common cold',
-                'age': 28,
-                'email': 'abc@gmail.com',
-                'name': 'anderson cooper',
-                'contactNumber': '1234567890',
-                'status': 'feddback required',
-                'followUpDueOn': '10/01/9016'
-            },
-            {
-                'id': 43,
-                'dischargeNotes': 'notes1',
-                'disease': 'Common cold',
-                'age': 28,
-                'email': 'abc@gmail.com',
-                'name': 'barry watson',
-                'contactNumber': '1234567890',
-                'status': 'visit required',
-                'followUpDueOn': '09/03/9016'
-            },
-            {
-                'id': 53,
-                'dischargeNotes': 'notes1',
-                'disease': 'Common cold',
-                'age': 28,
-                'email': 'abc@gmail.com',
-                'name': 'bruce perry',
-                'contactNumber': '1234567890',
-                'status': 'visit required',
-                'followUpDueOn': '09/06/9016'
-            }
-        ];
+        searchString = $scope.patientScreen.searchTerm;
+        var result = [];
+
+        $scope.patientScreen.patientList = $scope.patientScreen.patientListBackup;
+
+        if(searchString == ''){
+            result = $scope.patientScreen.patientListBackup;
+        }else{
+
+            searchString = searchString.toLowerCase();
+            angular.forEach($scope.patientScreen.patientList, function(item){
+                if(item.dischargeNotes.indexOf(searchString) !== -1
+                    || item.disease.indexOf(searchString) !== -1
+                    || item.email.indexOf(searchString) !== -1
+                    || item.name.indexOf(searchString) !== -1
+                    || item.contactNumber.indexOf(searchString) !== -1
+                    || item.status.indexOf(searchString) !== -1
+                    || item.followUpDueOn.indexOf(searchString) !== -1
+                    ){
+
+                    result.push(item);
+                }
+            });
+        }
+        $scope.patientScreen.patientList = result;
 
 
     };

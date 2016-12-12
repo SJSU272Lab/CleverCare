@@ -79,6 +79,20 @@ exports.addDoctor = function (msg, callback) {
     });
 };
 
+exports.doctorList = function(msg, callback){
+    User.find({usertype: "doctor"},{firstname:1,lastname:1}, function (err, result) {
+        if (err) {
+            callback(err, null);
+        }
+        if (!result) {
+            callback(null,null);
+        }
+        if (result) {
+            callback(null, result);
+        }
+    });
+};
+
 exports.addAdmin = function (msg, callback) {
 
     var email = msg.email;
@@ -188,6 +202,7 @@ exports.addPatient = function (msg, callback) {
                 isReadmitted:msg.isReadmitted,
                 last_admission_date:msg.last_admission_date,
                 doctorId:msg.doctorId,
+                admissionType:msg.admissionType
             };
             var query = {patientId: patientId};
             var options = { upsert: true, new: true, setDefaultsOnInsert: true };

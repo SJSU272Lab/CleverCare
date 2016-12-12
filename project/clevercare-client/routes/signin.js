@@ -223,6 +223,7 @@ exports.addPatient = function (req, res) {
         isReadmitted: req.body.isReadmitted,
         last_admission_date: req.body.last_admission_date,
         doctorId: req.body.doctorId,
+        admissionType: req.body.admissionType,
         status:(req.body.status) ? req.body.status:"Followup required",
         method: "addPatient"
     };
