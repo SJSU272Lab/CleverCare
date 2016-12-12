@@ -6,14 +6,7 @@ var ObjectId = require('mongodb').ObjectID;
 
 var http = require('http');
 
-var ml_url = "http://localhost";
-
-var options = {
-    host: ml_url,
-    port: 3001,
-    path: '/v1/getScore',
-    method: 'POST'
-};
+var ml_url = "localhost";
 
 exports.listFollowUp = function (msg, callback) {
 
@@ -31,7 +24,6 @@ exports.listFollowUp = function (msg, callback) {
                 callback(null, null);
             }
             if (result) {
-                console.log(result.length);
                 callback(null, result);
             }
         });
@@ -49,13 +41,12 @@ exports.listCriticalFollowUp = function (msg, callback) {
         .exec(function (err, result) {
             if (err) {
                 callback(err, null);
-            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               Q
+            }
             //console.log(result);
             if (!result) {
                 callback(null, null);
             }
             if (result) {
-                console.log(result);
                 callback(null, result);
             }
         });
@@ -104,81 +95,104 @@ exports.submitFollowup = function (msg, callback) {
         followupDetails.$push = {notes: notes};
     }
     console.log(followupDetails);
-    Followup.findOneAndUpdate(query, followupDetails)
-        .populate('patientId')
-        .populate('patientFileId')
-        .exec(function (err, result) {
-            if (err) {
-                callback(err, null);
+    Followup.findOneAndUpdate(query, followupDetails, function (err, result) {
+        if (err) {
+            callback(err, null);
+        }
+        if (!result) {
+            callback(null, null);
+        }
+        if (result) {
+            callback(null, result);
+            var admission_type = 0;
+            switch (result.record.admissionTypeSelected) {
+                case "Emergency":
+                    admission_type = 1;
+                    break;
+                case "Urgent":
+                    admission_type = 2;
+                    break;
+                case "Elective":
+                    admission_type = 3;
+                    break;
+                case "Newborn":
+                    admission_type = 4;
+                    break;
+                case "Trauma Center":
+                    admission_type = 5;
+                    break;
             }
-            console.log(result);
-            if (!result) {
-                callback(null, null);
+            var insulin = 0;
+            switch (result.record.insulinSelected) {
+                case "Steady":
+                    insulin = 1;
+                    break;
+                case "No":
+                    insulin = 2;
+                    break;
+                case "Up":
+                    insulin = 3;
+                    break;
+                case "Down":
+                    insulin = 4;
+                    break;
             }
-            // var admission_type = 0;
-            // switch (result.patientFileId.admissionType) {
-            //     case "Emergency":
-            //         admission_type = 1;
-            //         break;
-            //     case "Urgent":
-            //         admission_type = 2;
-            //         break;
-            //     case "Elective":
-            //         admission_type = 3;
-            //         break;
-            //     case "Newborn":
-            //         admission_type = 4;
-            //         break;
-            //     case "Trauma Center":
-            //         admission_type = 5;
-            //         break;
-            // }
-            // var insulin = 0;
-            // switch (msg.notes.insulin) {
-            //     case "Steady":
-            //         insulin = 1;
-            //         break;
-            //     case "No":
-            //         insulin = 2;
-            //         break;
-            //     case "Up":
-            //         insulin = 3;
-            //         break;
-            //     case "Down":
-            //         insulin = 4;
-            //         break;
-            // }
-            if (result) {
-                console.log(result);
-                callback(null, result);
-                // var body = {
-                //     gender: (result.patientId.gender === "Female") ? 0 : 1,
-                //     age_category: (result.patientId.ageCategory === "Young") ? 0 : ((result.patientId.ageCategory === "Adult") ? 1 : 0),
-                //     weight: (msg.notes.weight > 200) ? 9 : Number(msg.notes.weight) / 25,
-                //     admission_type: admission_type,
-                //     time_in_hospital: 10,
-                //     insulin: insulin,
-                //     diabetesmed: 1,
-                // };
-                var body = {
-                    gender: 1,
-                    age_category: 1,
-                    weight: 8,
-                    admission_type: 1,
-                    time_in_hospital: 10,
-                    insulin: 1,
-                    diabetesmed: 1,
-                };
-                http.request(options, function (res) {
-                    console.log('STATUS: ' + res.statusCode);
-                    console.log('HEADERS: ' + JSON.stringify(res.headers));
-                    res.on('data', function (chunk) {
-                        console.log('BODY: ' + chunk);
+            var body = {
+                gender: (result.record.gender === "Female") ? 0 : 1,
+                age_category: (result.record.ageCategory === "Young") ? 0 : ((result.record.ageCategory === "Adult") ? 1 : 0),
+                // weight: (msg.notes.weight > 200) ? 9 : Number(msg.notes.weight) / 25,
+                weight: 5,
+                admission_type: admission_type,
+                time_in_hospital: 10,
+                insulin: insulin,
+                diabetesmed: (result.record.diabetesMed == "Yes") ? 1 : 0,
+            };
+            // var body = {
+            //     gender: 1,
+            //     age_category: 1,
+            //     weight: 8,
+            //     admission_type: 1,
+            //     time_in_hospital: 10,
+            //     insulin: 1,
+            //     diabetesmed: 1,
+            // };
+            var req_body = JSON.stringify(body);
+            console.log(req_body);
 
+            var options = {
+                host: ml_url,
+                port: 3001,
+                path: '/v1/getScore',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Length': req_body.length
+                }
+            };
+            var post_req = http.request(options, function (res) {
+                    res.setEncoding('utf8');
+                    res.on('data', function (chunc) {
+                        console.log(chunc);
+                        try {
+                            var chunk = JSON.parse(chunc);
+                            console.log(chunk.probability.length);
+                            var updateChances = {
+                                $set: {percentage: 100 * (((chunk.prediction) > 0) ? chunk.probability[0] : (1 - chunk.probability[0]))}
+                            };
+                            Followup.findOneAndUpdate(query, updateChances, function (err, result) {
+                                console.log(err);
+                            });
+                        } catch (err) {
+                            console.log(err);
+                        }
                     });
-                }).end(body);
-            }
-        });
+                }
+            );
+            // post the data
+            post_req.write(req_body);
+            post_req.end();
+        }
+    });
 };
 
 exports.listFollowUpByPatient = function (msg, callback) {
