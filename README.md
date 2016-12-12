@@ -9,23 +9,23 @@ Reducing Hospital Readmissions
 
 ### User Stories
 
-	* As a doctor, I can view feedback and prediction index of readmission for my patients,
-	so that, I can decide measures to be taken to mitigate chances of readmission.
+* As a doctor, I can view feedback and prediction index of readmission for my patients,
+  so that, I can decide measures to be taken to mitigate chances of readmission.
 
-	* As an admin, I can view analysis of readmission data,
-	so that, I can manage hospital resources efficiently to reduce unnecessary expenses.
+* As an admin, I can view analysis of readmission data,
+  so that, I can manage hospital resources efficiently to reduce unnecessary expenses.
 
-	* As Out Patient Department nurse, I collect feedback from recently discharged patients,
-	so that received data can be fed to prediction engine and predict possibility of readmission for patients.
+* As Out Patient Department nurse, I collect feedback from recently discharged patients,
+  so that received data can be fed to prediction engine and predict possibility of readmission for patients.
 	
 
 ## Architecture diagram
 ![Architecture diagram](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/272_architecture_diagram.png)
 	
-	* As shown above, the different components of system are connected with each other. 
-	* For example, when a user submits credentials in order to log into the system, the browser forwards this request to node.js client. 
-	* Further, the node.js client communicates with node.js server using MOM-RabbitMQ. 
-	* The node.js server validates the credentials against encrypted credentials stored in mongoDb database.
+* As shown above, the different components of system are connected with each other. 
+* For example, when a user submits credentials in order to log into the system, the browser forwards this request to node.js client. 
+* Further, the node.js client communicates with node.js server using MOM-RabbitMQ. 
+* The node.js server validates the credentials against encrypted credentials stored in mongoDb database.
 
 Flow Diagram
 ============
