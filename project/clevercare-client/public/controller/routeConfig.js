@@ -50,6 +50,10 @@ rhrApp.config(function ($routeProvider) {
             templateUrl: "tutorial.ejs",
             controller: "tutorialController"
         })
+        .when("/video", {
+            templateUrl: "video.ejs",
+            controller: "videoController"
+        })
         .when("/addPatient/", {
             templateUrl: "addpatient.ejs",
             controller: "addpatientController"

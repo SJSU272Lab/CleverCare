@@ -174,7 +174,6 @@ exports.addPatient = function (msg, callback) {
     };
 
 
-
     var query = {_id: patientId};
     var options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
@@ -295,17 +294,3 @@ exports.uploadVideo = function (msg, callback) {
         }
     });
 };
-
-exports.doctorList = function (msg, callback) {
-    User.find({usertype:"doctor"},{firstname:1,lastname:1},function(err, result){
-       if(err){
-           callback(err,null);
-       }
-       if(!result){
-           callback(null,null);
-       }
-       if(result){
-           callback(null,result);
-       }
-    });
-}
