@@ -57,7 +57,7 @@ exports.listFollowUpForCriticalReview = function (msg, callback) {
 };
 exports.submitReview = function (msg, callback) {
 
-    var query = {_id: msg.followupId};
+    var query = {_id: new ObjectId(msg.followupId)};
     var notes = {
         note_by: new ObjectId(msg.reviewed_by),
         content: msg.notes

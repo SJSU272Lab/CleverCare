@@ -76,7 +76,7 @@ app.get('/notes/:userId', signin.noOfNotes);
 app.get('/signout', signin.signout);
 app.get('/doctorAnalysis', analtytics.doctorAnalysis);
 app.get('/predictionAnalysis', analtytics.predictionAnalysis);
-
+app.get('/doctorList',signin.doctorList);
 
 app.post('/signin', signin.authenticateUser);
 app.post('/addDoctor', signin.addDoctor);

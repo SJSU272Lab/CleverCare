@@ -1,4 +1,4 @@
-rhrApp.controller('reviewController', ["$scope", '$mdDialog','$http', '$location', function ($scope, $mdDialog,$http,$location) {
+rhrApp.controller('reviewController', ["$scope", '$mdDialog', '$http', '$location', function ($scope, $mdDialog, $http, $location) {
 
     //to be removed in code cleanup
 
@@ -9,14 +9,18 @@ rhrApp.controller('reviewController', ["$scope", '$mdDialog','$http', '$location
 ////////
     $scope.reviewScreen.notes = '';
     $scope.reviewScreen.subject = '';
+    var tempVideos = sessionStorage.getItem("tutorials");
 
-    $scope.reviewScreen.videoOptions = [  {videoName: '--Select--', videoUrl: '' },
-        {videoName: 'sample.mp4', videoUrl: 'sample.mp4' },
-        {videoName: 'sample1.mp4', videoUrl: 'sample1.mp4' },
-        {videoName: 'sample2.mp4', videoUrl: 'sample2.mp4' }];
+    var videos = JSON.parse(tempVideos);
+    $scope.reviewScreen.videoOptions = [{videoName: '--Select--', videoUrl: ''}];
+    for (var i = 0; i < videos.length; i++) {
+        $scope.reviewScreen.videoOptions.push({
+            videoName: videos[i],
+            videoUrl: 'http://localhost:3000/#/tutorial/' + videos[i]
+        })
+    }
     $scope.reviewScreen.videoSelected = $scope.reviewScreen.videoOptions[0];
-    $scope.videoChanged = function() {
-
+    $scope.videoChanged = function () {
         $scope.reviewScreen.notes = $scope.reviewScreen.notes + " \n" + $scope.reviewScreen.videoSelected.videoUrl;
 
     };
@@ -33,7 +37,6 @@ rhrApp.controller('reviewController', ["$scope", '$mdDialog','$http', '$location
 
 
     //to be removed in code cleanup
-
 
 
     $scope.scheduleFollowUpClicked = function () {
@@ -60,28 +63,28 @@ rhrApp.controller('reviewController', ["$scope", '$mdDialog','$http', '$location
             doctorId: review.doctorId
         };
 
-
-
         var note = {
             email: review.email,
             subject: $scope.reviewScreen.subject,
             note: $scope.reviewScreen.notes
         };
 
-
+        console.log(d);
         $http.post('/submitReview', d)
             .success(function (data) {
                 if (data) {
-                    $http.post('/sendNote', note)
-                        .success(function (response) {
-                            if (response) {
-                                console.log(response);
-                                $location.path('/patients');
-                                $location.replace();
-                            }
-                        })
-                        .error(function (data) {
-                        });
+                    if (note !== '' || subject !== '') {
+                        $http.post('/sendNote', note)
+                            .success(function (response) {
+                                if (response) {
+                                    console.log(response);
+                                    $location.path('/patients');
+                                    $location.replace();
+                                }
+                            })
+                            .error(function (data) {
+                            });
+                    }
                 }
             })
             .error(function (data) {

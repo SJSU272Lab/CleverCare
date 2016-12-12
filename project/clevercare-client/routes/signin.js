@@ -96,6 +96,32 @@ exports.addDoctor = function (req, res) {
     });
 };
 
+
+exports.doctorList = function (req, res) {
+
+    var msg_payload = {};
+
+    mq_client.make_request('doctor_queue', msg_payload, function (err, results) {
+        if (err) {
+            res.json({
+                success: false,
+                message: 'Error in listing doctor.'
+            });
+            res.end();
+        }
+        if (results) {
+            res.send(results);
+            res.end();
+        } else {
+            res.json({
+                success: false,
+                message: 'doctor list not exists'
+            });
+            res.end();
+        }
+    });
+};
+
 exports.addAdmin = function (req, res) {
 
     var salt = bcrypt.genSaltSync(10);
@@ -197,7 +223,7 @@ exports.addPatient = function (req, res) {
         isReadmitted: req.body.isReadmitted,
         last_admission_date: req.body.last_admission_date,
         doctorId: req.body.doctorId,
-        status:req.body.status,
+        status:(req.body.status) ? req.body.status:"Followup required",
         method: "addPatient"
     };
 
