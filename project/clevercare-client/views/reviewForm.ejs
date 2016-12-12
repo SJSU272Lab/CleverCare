@@ -1,140 +1,153 @@
 <div id="reviewDiv" ng-controller="reviewController">
 
 
-<div class="container bootcards-container" id="main">
-    
-<div class="row">
+    <div class="container bootcards-container" id="main">
 
-  <div class="col-sm-6  bootcards-cards">
-    <div class="panel panel-default">
-      <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Patient Review Form</h3>
-        <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();doneClicked()" >
-          Finish Review
-        </a>
-        <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();scheduleFollowUpClicked()" style="margin-right: 15px">
-          Schedule Follow Up
-        </a>  
-      </div>
+        <div class="row">
 
-      <div class="list-group">
-        <div class="list-group-item">
-          <label ><b>Gender: </b></label>
-          <label >{{reviewScreen.gender}}</label>
+            <div class="col-sm-6  bootcards-cards">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <h3 class="panel-title pull-left">Patient Review Form</h3>
+                        <a href="#" class="btn btn-primary pull-right" ng-click="$event.preventDefault();doneClicked()">
+                            Finish review
+                        </a>
+                        <a h href="$event.preventDefault();#scheduleModal"
+                           data-toggle="modal"
+                           data-target="#scheduleModal" class="btn btn-primary pull-right"
+                           ng-click="$event.preventDefault();scheduleFollowUpClicked()"
+                           style="margin-right: 15px">
+                            Schedule Follow Up
+                        </a>
+                    </div>
+
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <label><b>Gender: </b></label>
+                            <label>{{reviewScreen.gender}}</label>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label><b>Age Category: </b></label>
+                            <label>{{reviewScreen.ageCategory}}</label>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label><b>Admisson Type: </b></label>
+                            <label>{{reviewScreen.admissionTypeSelected}}</label>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label><b>Insulin: </b></label>
+                            <label>{{reviewScreen.insulinSelected}}</label>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label><b>Tiredness : </b></label>
+                            <label>{{reviewScreen.tirednessSelected}}</label>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label><b>Frequent Urination : </b></label>
+                            <label>{{reviewScreen.frequentUrinationSelected}}</label>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label><b>Frequent Exercise : </b></label>
+                            <label>{{reviewScreen.frequentExerciseSelected}}</label>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label><b>Frequent Blurry Vision : </b></label>
+                            <label>{{reviewScreen.frequentBlurryVisionSelected}}</label>
+                        </div>
+
+                        <div class="list-group-item">
+                            <label><b>Diabetes Med: </b></label>
+                            <label>{{reviewScreen.diabetesMed}}</label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 bootcards-cards">
+
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Suggestions and notes: </h3>
+                    </div>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Select video</label>
+                            <div class="list-group-item-heading">
+                                <select name="video" id="video"
+                                        ng-options="videoOption.videoName for videoOption in reviewScreen.videoOptions"
+                                        ng-model="reviewScreen.videoSelected" ng-change="videoChanged()">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Subject: </label>
+                            <div class="list-group-item-heading">
+                                <input type="text" ng-model="reviewScreen.subject" class="form-control"
+                                       style="resize: none"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <label class="list-group-item-text">Notes: </label>
+                            <div class="list-group-item-heading">
+                                <textarea ng-model="reviewScreen.notes" class="form-control" rows="6"
+                                          style="resize: none"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-sm-3 bootcards-cards">
+                <div class="panel panel-default bootcards-chart">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Chances of Readmission</h3>
+                    </div>
+
+                    <div
+                            donut-chart
+                            donut-data=reviewScreen.chart1Data
+                            donut-label-color='"#000000"'
+                            donut-background-color='"#ffffff"'
+                            donut-colors='["#31C0BE","white"]'
+                            donut-formatter='percentfilter' class="bootcards-chart-canvas">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="docsModal"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div style="padding-bottom: 20px"></div>
+                    <div class="alert alert-success">
+                        <center><strong>{{message}}</strong></center>
+                    </div>
+                    <div class="btn-group">
+
+                        <button class="btn btn-danger" data-dismiss="modal">
+                            Done
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="list-group-item">
-          <label ><b>Age Category: </b></label>
-          <label >{{reviewScreen.ageCategory}}</label>
-        </div>
-
-        <div class="list-group-item">
-          <label ><b>Race: </b></label>
-          <label >{{reviewScreen.raceSelected}}</label>
-        </div>
-
-        <div class="list-group-item">
-          <label ><b>Admisson Source: </b></label>
-          <label >{{reviewScreen.admissionSourceSelected}}</label>
-        </div>
-
-        <div class="list-group-item">
-          <label ><b>Admisson Type: </b></label>
-          <label >{{reviewScreen.admissionTypeSelected}}</label>
-        </div>
-
-        <div class="list-group-item">
-          <label ><b>Insulin: </b></label>
-          <label >{{reviewScreen.insulinSelected}}</label>
-        </div>
-
-        <div class="list-group-item">
-          <label ><b>Diabetes Med: </b></label>
-          <label >{{reviewScreen.diabetesMed}}</label>
-        </div>
-
-        <div class="list-group-item">
-          <label ><b>Discharge Disposition: </b></label>
-          <label >{{reviewScreen.dischargeDispositionSelected}}</label>
-        </div>
-
-        <div class="list-group-item">
-          <label ><b>Medical Speciality: </b></label>
-          <label >{{reviewScreen.medicalSpecialitySelected}}</label>
-        </div>
-
-        <div class="list-group-item">
-          <label ><b>Payer Code: </b></label>
-          <label >{{reviewScreen.payerCodeSelected}}</label>
-        </div>
-        
-      </div>
     </div>
-  </div>
-
-  <div class="col-sm-3 bootcards-cards" >
-      
-    <div  class="panel panel-default">
-          
-      <div class="panel-heading">
-        <h3 class="panel-title">Suggestions and notes: </h3>         
-      </div>
-      <div class="list-group">
-        <div class="list-group-item">
-          <label class="list-group-item-text">Select video</label>
-          <div class="list-group-item-heading">
-            <select name="video" id="video"
-              ng-options="videoOption.videoName for videoOption in reviewScreen.videoOptions"
-              ng-model="reviewScreen.videoSelected" ng-change="videoChanged()">
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="list-group">
-        <div class="list-group-item">
-          <label class="list-group-item-text">Subject: </label>
-          <div class="list-group-item-heading">
-            <input type="text" ng-model="reviewScreen.subject" class="form-control" style="resize: none"></input>
-          </div>
-        </div>
-      </div>
-      <div class="list-group">
-        <div class="list-group-item">
-          <label class="list-group-item-text">Notes: </label>
-          <div class="list-group-item-heading">
-            <textarea ng-model="reviewScreen.notes" class="form-control" rows="6" style="resize: none"></textarea>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-3 bootcards-cards">
-    <div  class="panel panel-default bootcards-chart">
-      <div class="panel-heading">
-        <h3 class="panel-title">Chances of Readmission</h3>         
-      </div>
-  
-      <div
-        donut-chart
-        donut-data = reviewScreen.chart1Data
-        donut-label-color='"#000000"' 
-        donut-background-color='"#ffffff"' 
-        donut-colors='["#31C0BE","white"]'
-        donut-formatter= 'percentfilter' class="bootcards-chart-canvas">
-      </div>
-     
-    </div>
-  </div>
-
-  
-
 </div>
-
-  <div class="row">
-    
-  </div>
-  </div>
-</div>
-
  

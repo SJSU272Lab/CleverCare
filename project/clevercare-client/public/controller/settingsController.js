@@ -1,34 +1,52 @@
-rhrApp.controller('settingsController', function settingsController($scope) {
-  
-  //to be removed in code cleanup
-  console.log("settingsController : going in");
-  $scope.settingsData = {};
+rhrApp.controller('settingsController', function settingsController($scope,$http) {
 
-  //flag or validation vars
-  $scope.settingsData.isEditClicked = false;
+    //to be removed in code cleanup
 
-  //data vars
-  $scope.settingsData.username = 'sid';
-  $scope.settingsData.password = 'password1234';
-  $scope.settingsData.userType = 'Doctor';
+    $scope.settingsData = {};
 
-  $scope.saveClicked = function(currFile) {
-    console.log("saveClicked : going in");
-
+    //flag or validation vars
     $scope.settingsData.isEditClicked = false;
 
-    console.log("saveClicked : moving out");
-  };
+    //data vars
 
-  $scope.editClicked = function(currFile) {
-    console.log("editClicked : going in");
+    var userId = sessionStorage.getItem("userId");
+    $scope.isChanged =  false;
+    $scope.isWrong =  false;
+    $scope.msg = "";
 
-    $scope.settingsData.isEditClicked = true;
+    $scope.saveClicked = function (currFile) {
+        var d = {
+            userId:userId,
+            oldpwd: $scope.settingsData.oldpwd,
+            newpwd: $scope.settingsData.newpwd
+        };
+        console.log(d);
+        $http.post('/changePassword',d)
+            .success(function (response) {
+                if(response.success){
+                    $scope.isChanged =  response.success;
+                    $scope.msg = response.message;
+                }else{
+                    $scope.isWrong =  true;
+                    $scope.msg = "Old password doesn't match";
+                }
+            })
+            .error(function (data) {
+                $scope.isChanged =  false;
+                $scope.msg = "";
+            });
+        $scope.settingsData.isEditClicked = false;
+    };
 
-    console.log("editClicked : moving out");
-  };
+    $scope.editClicked = function (currFile) {
+        $scope.settingsData.isEditClicked = true;
+        $scope.isChanged =  false;
+        $scope.isWrong =  false;
+        $scope.msg = "";
 
-  //to be removed in code cleanup
-  console.log("settingsController : moving out");
+    };
+
+    //to be removed in code cleanup
+
 
 });

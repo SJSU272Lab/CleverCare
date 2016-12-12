@@ -4,7 +4,6 @@ var ejs = require("ejs");
 var fecha = require('fecha');
 var mq_client = require("../rpc/client.js");
 
-
 exports.listFollowUp = function (req, res) {
 
     var msg_payload = {
@@ -92,16 +91,16 @@ exports.listFollowUpTotal = function (req, res) {
 
 exports.submitFollowup = function (req, res) {
 
-    var record = {};
-    record.age = req.body.age;
-    record.gender = req.body.gender;
-
+    var percentage = req.body.record.predictionPercent;
+    var notes = req.body.record.notes;
+    delete req.body.record.predictionPercent;
+    delete req.body.record.notes;
     var msg_payload = {
         followupId: req.body.followupId,
-        percentage: req.body.percentage,
-        notes: req.body.notes,
-        taken_by: req.body.nurseId, //use from session when actual implementation
-        record: record,
+        percentage: percentage,
+        notes: notes,
+        taken_by: req.session.userId, //use from session when actual implementation
+        record: req.body.record,
         method: "submit_followup"
     };
 
@@ -114,7 +113,6 @@ exports.submitFollowup = function (req, res) {
             res.end();
         }
         if (results) {
-            console.log(results);
             res.send(results);
             res.end();
         } else {

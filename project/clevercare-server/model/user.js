@@ -17,7 +17,12 @@ var userSchema = new Schema({
     age: {type: Number,default:''},
     speciality: {type: String,default:''},
     gender: {type: String,default:''},
-    notes:{type:[String],default:''},
+    notes:{type:[]},
+    videos: {
+        type: [String],
+        'default': []
+    },
+    ageCategory:{type:String,default:'Adult'},
     createdate:{type: Date, default: Date.now }
 });
 

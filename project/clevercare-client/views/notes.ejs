@@ -1,0 +1,165 @@
+<div class="container bootcards-container" id="main" ng-controller="notesController">
+    <div class="row">
+        <div class="col-md-5 col-sm-5 bootcards-list" id="list" data-title="Notes">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="search-form">
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search note...">
+                                    <i class="fa fa-search"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <a class="btn btn-primary btn-block" href="$event.preventDefault();#newModal" data-toggle="modal">
+                                    <i class="fa fa-plus"></i>
+                                    <span>Add</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group">
+                    <a class="list-group-item pjax"
+                       ng-repeat="note in notes track by $index" href="#"
+                       ng-click="$event.preventDefault();listNoteClicked(note)">
+                        <h4  class="list-group-item-heading">{{note.subject}}</h4>
+                        <p class="list-group-item-text">{{note.date | date:'MM/dd/yyyy'}}
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-sm-7 bootcards-cards" id="listDetails">
+            <div id="activityCard">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <h3 class="panel-title pull-left">Note Details</h3>
+
+                        <!--big screen component-->
+                        <a class="btn btn-primary pull-right hidden-xs" href="$event.preventDefault();#editModal"
+                           data-toggle="modal"
+                           data-target="#editModal">
+                            <i class="fa fa-pencil"></i>
+                            <span>Edit</span>
+                        </a>
+
+                    </div>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <label>Subject</label>
+                            <h4 class="list-group-item-heading">{{currentNote.subject}}</h4>
+                        </div>
+                        <div class="list-group-item">
+                            <label>Date</label>
+                            <h4 class="list-group-item-heading">{{currentNote.date| date:'MM/dd/yyyy'}}</h4>
+                        </div>
+                        <div class="list-group-item">
+                            <label>Details</label>
+                            <h4 class="list-group-item-heading">{{currentNote.details}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal"  data-pjax="#listDetails">
+
+                    <div class="modal-header">
+
+                        <div class="btn-group pull-left">
+                            <button class="btn btn-danger" data-dismiss="modal" ng-click="cancel()">
+                                Cancel
+                            </button>
+                        </div>
+
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-success" data-dismiss="modal" ng-click="save()">
+                                Save
+                            </button>
+                        </div>
+                        <h3 class="modal-title">
+                            New Note
+                        </h3>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Subject</label>
+                            <div class="col-xs-9">
+                                <input name="subject" ng-model="newnote.subject" class="form-control" placeholder="Subject" value="Send tracking Number" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Details</label>
+                            <div class="col-xs-9">
+                                <textarea name="details" ng-model="newnote.details" class="form-control" rows="6" placeholder="Details">Send him the tracking number for their order.</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="docsModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" data-pjax="#listDetails">
+
+                    <div class="modal-header">
+
+                        <div class="btn-group pull-left">
+                            <button class="btn btn-danger" data-dismiss="modal" ng-click="cancel()">
+                                Cancel
+                            </button>
+                        </div>
+
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-success" data-dismiss="modal" ng-click="edit()">
+                                Save
+                            </button>
+                        </div>
+                        <h3 class="modal-title">
+                            Edit Note
+                        </h3>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Subject</label>
+                            <div class="col-xs-9">
+                                <input name="subject" ng-model="currentNote.subject" class="form-control" placeholder="Subject"  type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Date</label>
+                            <div class="col-xs-9">
+                                <input name="date"  ng-model="currentNote.date |  date:'MM/dd/yyyy'" class="form-control" placeholder="Date"  type="datetime">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Details</label>
+                            <div class="col-xs-9">
+                                <textarea name="details"  ng-model="currentNote.details" class="form-control" rows="6" placeholder="Details"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-block" ng-click="delete()" data-dismiss="modal" >
+                        <i class="fa fa-trash-o"></i>
+                        Delete Note
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

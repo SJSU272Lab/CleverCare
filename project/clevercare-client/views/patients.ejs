@@ -1,256 +1,240 @@
 <div id="patientsDiv" ng-controller="patientsController">
-  
-  <div class="container bootcards-container" id="main">
-      
-    <div class="row">
 
-      <div class="col-sm-7 bootcards-list" id="list" data-title="Patients">    
-        <div class="panel panel-default">         
-          <div class="panel-body">
-            <div class="search-form">
-              <div class="row">
-                  <div class="col-xs-9">
-                    <div class="form-group">
-                      <input type="text" class="form-control" ng-model="patientScreen.searchTerm" placeholder="Search patients...">
-                      <i class="fa fa-search"></i>
+    <div class="container bootcards-container" id="main">
+
+        <div class="row">
+
+            <div class="col-sm-7 bootcards-list" id="list" data-title="Patients">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="search-form">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="patientScreen.searchTerm"
+                                               placeholder="Search patients...">
+                                        <i class="fa fa-search"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <a class="btn btn-primary btn-block" href="#"
+                                       ng-click="$event.preventDefault();searchClicked()">
+                                        <i class=""></i>
+                                        <span>Search</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-xs-3">
-                  <a class="btn btn-primary btn-block" href="#"
-                     ng-click="$event.preventDefault();searchClicked()">
-                    <i class=""></i> 
-                    <span>Search</span>
-                  </a>
-                  </div>
-              </div>                
-            </div>        
-          </div>
 
-          <div class="list-group">
-            <a class="list-group-item pjax" ng-repeat="patient in patientScreen.patientList"
-                href="#" ng-click="$event.preventDefault();listItemClicked(patient)">
-                
-              <div class="row">
-                <div class="col-sm-6">
-                  <i class="fa fa-3x fa-building-o pull-left"></i>
-                  <h4 class="list-group-item-heading">Name: {{patient.name}}</h4>
-                  <p class="list-group-item-text">Contact number: {{patient.contactNumber}}</p>
+                    <div class="list-group">
+                        <a class="list-group-item pjax" ng-repeat="patient in patientScreen.patientList"
+                           href="#" ng-click="$event.preventDefault();listItemClicked(patient)">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <i class="fa fa-3x fa-building-o pull-left"></i>
+                                    <h4 class="list-group-item-heading">Name: {{patient.name}}</h4>
+                                    <p class="list-group-item-text">Contact number: {{patient.contactNumber}}</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="list-group-item-text">status: {{patient.status}}</p>
+                                    <p class="list-group-item-text">Follow Up Due On: {{patient.followUpDueOn}}</p>
+                                </div>
+                            </div>
+
+                        </a>
+
+                    </div>
+
                 </div>
-                <div class="col-sm-6">
-                  <p class="list-group-item-text">status: {{patient.status}}</p>
-                  <p class="list-group-item-text">Follow Up Due On: {{patient.followUpDueOn}}</p>
+            </div>
+
+            <div class="col-sm-5 bootcards-cards" id="listDetails">
+
+
+                <div class="row">
+                    <div id="patientCard">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                <h3 class="panel-title pull-left">Patient Details</h3>
+
+                                <a class="btn btn-primary pull-right hidden-xs" ng-click="submitFollowup()"
+                                   ng-show="userdata.usertype === 'nurse'">
+                                    <i class="fa fa-pencil"></i>
+                                    <span>Follow Up</span>
+                                </a>
+                                <a class="btn btn-primary pull-right hidden-xs" ng-click="submitReview()"
+                                   ng-show="userdata.usertype === 'doctor'">
+                                    <i class="fa fa-pencil"></i>
+                                    <span ng-show="userdata.usertype === 'doctor'">Review</span>
+                                </a>
+                            </div>
+                            <div class="list-group">
+
+                                <div class="list-group-item">
+                                    <i class="fa fa-2x fa-building-o pull-left"></i>
+                                    <label>Name</label>
+                                    <h4 class="list-group-item-heading">{{patientScreen.currPatient.name}}</h4>
+                                </div>
+
+                                <div class="list-group-item">
+                                    <label>Contact Number</label>
+                                    <h4 class="list-group-item-heading">{{patientScreen.currPatient.contactNumber}}</h4>
+                                </div>
+
+                                <div class="list-group-item">
+                                    <label>Email</label>
+                                    <h4 class="list-group-item-heading">{{patientScreen.currPatient.email}}</h4>
+                                </div>
+
+                                <div class="list-group-item">
+                                    <label>Age</label>
+                                    <h4 class="list-group-item-heading">{{patientScreen.currPatient.age}}</h4>
+                                </div>
+
+                                <div class="list-group-item">
+                                    <label>Disease</label>
+                                    <h4 class="list-group-item-heading">{{patientScreen.currPatient.disease}}</h4>
+                                </div>
+
+                                <div class="list-group-item">
+                                    <label>Status</label>
+                                    <h4 class="list-group-item-heading">{{patientScreen.currPatient.status}}</h4>
+                                </div>
+
+                                <div class="list-group-item">
+                                    <label>Discharge Notes</label>
+                                    <h4 class="list-group-item-heading">
+                                        {{patientScreen.currPatient.dischargeNotes}}</h4>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
-              </div>
-              
-            </a>
-            
-          </div>
-                 
-        </div>
-      </div>
-    
-      <div class="col-sm-5 bootcards-cards" id="listDetails">
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h3 class="panel-title pull-left">Patient Files</h3>
+                        </div>
 
-        
-        <div class="row">
-        <div id="patientCard">
-          
-          <div class="panel panel-default">
-            <div class="panel-heading clearfix">
-              <h3 class="panel-title pull-left">Patient Details</h3>
-              
-              <a class="btn btn-primary pull-right hidden-xs" href="#" ng-click="$event.preventDefault();showAdvanced($event)" 
-                data-toggle="modal"
-                data-target="#followUpModal">
-                <i class="fa fa-pencil"></i>
-                <span>Follow Up</span>
-              </a>
-            </div>
-            <div class="list-group">
-            
-              <div class="list-group-item">
-                <i class="fa fa-2x fa-building-o pull-left"></i>
-                <label>Name</label>
-                <h4 class="list-group-item-heading">{{patientScreen.currPatient.name}}</h4>
-              </div>
-              
-              <div class="list-group-item">
-                <label>Contact Number</label>
-                <h4 class="list-group-item-heading">{{patientScreen.currPatient.contactNumber}}</h4>
-              </div>
-              
-              <div class="list-group-item">
-                <label>Email</label>
-                <h4 class="list-group-item-heading">{{patientScreen.currPatient.email}}</h4>
-              </div>
+                        <div class="list-group">
+                            <div class="list-group-item"
+                                 ng-repeat="x in patientScreen.currPatient.files track by $index">
+                                <a class="list-group-item-heading btn btn-secondary"
+                                   href="$event.preventDefault();#reviewModal" data-toggle="modal"
+                                   ng-click="$event.preventDefault();showPatientFile($index)">
+                                    <span>File {{$index}}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-              <div class="list-group-item">
-                <label>Age</label>
-                <h4 class="list-group-item-heading">{{patientScreen.currPatient.age}}</h4>
-              </div>
+                <div class="row" ng-hide="userdata.usertype === 'nurse'">
 
-              <div class="list-group-item">
-                <label>Disease</label>
-                <h4 class="list-group-item-heading">{{patientScreen.currPatient.disease}}</h4>
-              </div>
+                    <div class="panel panel-default bootcards-chart">
 
-              <div class="list-group-item">
-                <label>Status</label>
-                <h4 class="list-group-item-heading">{{patientScreen.currPatient.status}}</h4>
-              </div>
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Previous prediction percents</h3>
+                        </div>
 
-              <div class="list-group-item">
-                <label>Discharge Notes</label>
-                <h4 class="list-group-item-heading">{{patientScreen.currPatient.dischargeNotes}}</h4>
-              </div>
-              
-              
-            </div> 
-             
-          </div>
-        
-        </div>
-        </div>
-        <div class="row">
-          <div class="panel panel-default">
-            <div class="panel-heading clearfix">
-              <h3 class="panel-title pull-left">Patient Files</h3>
+                        <div>
+
+
+                            <div line-chart
+                                 line-data=patientScreen.previousChancesData
+                                    line-xkey='followup'
+                                    line-ykeys='["percent"]'
+                                    parse-time="false"
+                                    line-labels='["percent" ]'
+                                    line-colors='["#31C0BE"]' class="bootcards-chart-canvas">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="list-group">
-              <div class="list-group-item" >
-                <a class="list-group-item-heading btn btn-secondary" href="#" ng-click="$event.preventDefault();showPatientFile()" ng-repeat="x in patientScreen.currPatient.files">
-                <span>{{x}}</span>
-                </a> 
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="row">
-
-          <div class="panel panel-default bootcards-chart">
-            
-            <div class="panel-heading">
-              <h3 class="panel-title">Previous prediction percents</h3>         
-            </div>
-        
-            <div>
-        
-              <!--bar chart-->
-              <div class="bootcards-chart-canvas" id="chartPreviousChances"></div>
-              <script type="text/javascript">
-        
-                /*
-                 * Clear the target DOM element and draw the sample charts
-                 * Samples come from the morris.js site at http://www.oesmith.co.uk/morris.js/
-                 */
-                var chartPreviousChances = null;
-                
-                var drawChartPreviousChances = function() {
-                
-                  $("#chartPreviousChances").empty();
-                
-                  var chartData = $('[ng-controller="patientsController"]').scope().patientScreen.previousChancesData;  
-
-                  chartPreviousChances = Morris.Line({
-                    element: 'chartPreviousChances',
-                    data: chartData,
-                    xkey: 'followup',
-                    ykeys: ['percent'],
-                    parseTime:false,
-                    labels: ['percent']
-                  });
-                
-                };
-                
-                //draw the charts when the DOM is ready
-                $(document).ready( function() {
-                  drawChartPreviousChances();
-                });
-                
-                //on resize of the page: redraw the charts
-                $(window)
-                  .on('resize', function() {
-                    window.setTimeout( function() {
-                      if (chartPreviousChances !== null) { chartPreviousChances.redraw(); }
-                    }, 250);
-                  });
-                
-              </script> 
-            </div>
-          </div> 
-      <!--
-        <div class="panel panel-default bootcards-chart">
-          
-          <div class="panel-heading">
-            <h3 class="panel-title">Previous chances of readmission</h3>          
-          </div>
-      
-          <div id="bar1">
-      
-            <div class="bootcards-chart-canvas" id="chartPreviousChances"></div>
-      
-          </div>
-                   
-      
-        </div>    
-      
-      
-      <script type="text/javascript">
-      
-      /*
-       * Clear the target DOM element and draw the sample charts
-       * Samples come from the morris.js site at http://www.oesmith.co.uk/morris.js/
-       */
-      var barChart1 = null;
-      
-      var drawBarChart1 = function() {
-      
-        $("#chartPreviousChances").empty();
-      
-        barChart1 = Morris.Bar({
-          element: 'chartPreviousChances',
-          data: [
-            {name: 'Guy Bardsley', forecast: 2750, quota: 4000},
-            {name: 'Adam Callahan', forecast: 3300, quota: 4000},
-            {name: 'Arlo Geist', forecast: 4500, quota: 4000},
-            {name: 'Sheila Hutchins', forecast: 4100, quota: 4000},
-            {name: 'Jeanette Quijano', forecast: 1800, quota: 2000},
-            {name: 'Simon Sweet', forecast: 6200, quota: 4000}
-          ],
-          xkey: 'name',
-          ykeys: ['forecast', 'quota'],
-          labels: ['Forecast', 'Quota'],
-          xLabelAngle: 20,
-          hideHover: 'auto'
-        });
-      
-      };
-      
-      //draw the charts when the DOM is ready
-      $(document).ready( function() {
-        drawBarChart1();
-      });
-      
-      //on resize of the page: redraw the charts
-      $(window)
-        .on('resize', function() {
-          window.setTimeout( function() {
-            if (barChart1 !== null) { barChart1.redraw(); }
-          }, 250);
-        });
-      
-      </script>
-      -->
         </div>
 
-      </div>
 
     </div>
+    <div class="modal fade" id="reviewModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="container bootcards-container" id="main">
+                <div class="col-sm-5 bootcards-cards" id="listDetails">
+                    <div class="row">
+                        <div id="patientCard">
+                            <div class="panel panel-default">
+                                <div class="panel-heading clearfix">
+                                    <h3 class="panel-title pull-left">Patient Details</h3>
 
+                                    <button class="btn btn-primary pull-right hidden-xs" data-dismiss="modal">Close
+                                    </button>
+                                </div>
+                                <div class="list-group">
 
-  </div>
-  
+                                    <div class="list-group-item">
+                                        <label>Gender</label>
+                                        <h4 class="list-group-item-heading">{{files.gender}}</h4>
+                                    </div>
 
+                                    <div class="list-group-item">
+                                        <label>Age Category</label>
+                                        <h4 class="list-group-item-heading">{{files.ageCategory}}</h4>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <label>Admission Type</label>
+                                        <h4 class="list-group-item-heading">{{files.admissionTypeSelected}}</h4>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <label>Insulin</label>
+                                        <h4 class="list-group-item-heading">{{files.insulinSelected}}</h4>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <label>Diabetes Med</label>
+                                        <h4 class="list-group-item-heading">{{files.diabetesMed}}</h4>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <label>Tirdness</label>
+                                        <h4 class="list-group-item-heading">{{files.tirednessSelected}}</h4>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <label>Frequent Urination</label>
+                                        <h4 class="list-group-item-heading">{{files.frequentUrinationSelected}}</h4>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <label>Frequent Exercise</label>
+                                        <h4 class="list-group-item-heading">{{files.frequentExerciseSelected}}</h4>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <label>Frequent Blurry Vision</label>
+                                        <h4 class="list-group-item-heading">{{files.frequentBlurryVisionSelected}}</h4>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <label>Diabetes Med</label>
+                                        <h4 class="list-group-item-heading">{{files.diabetesMed}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -8,7 +8,8 @@ var patientfileSchema = new Schema({
     dischargeDate: {type: Date, default: Date.now},
     isReadmitted: {type: Boolean,default: false},
     last_admission_date: {type: Date},
-    doctorId: {type: Schema.Types.ObjectId, ref: 'user'}
+    doctorId: {type: Schema.Types.ObjectId, ref: 'user'},
+    admissionType:{type:String,default:'Emergency'},
 });
 
 var Patientfile = mongoose.model('patientfile', patientfileSchema, 'patientfile');

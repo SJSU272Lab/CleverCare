@@ -1,65 +1,97 @@
-rhrApp.controller('reviewController', ["$scope", '$mdDialog', function($scope, $mdDialog) {
-  
-  //to be removed in code cleanup
-  console.log("reviewController : going in");
+rhrApp.controller('reviewController', ["$scope", '$mdDialog', '$http', '$location', function ($scope, $mdDialog, $http, $location) {
 
-  $scope.reviewScreen = {};
-  $scope.reviewScreen.searchTerm = "";
+    //to be removed in code cleanup
 
-  $scope.reviewScreen.gender = 'Male';
-  $scope.reviewScreen.ageCategory = 'Adult';
-  $scope.reviewScreen.raceSelected = 'Asian';
-  $scope.reviewScreen.admissionSourceSelected = 'Transfer from hospital';
-  $scope.reviewScreen.admissionTypeSelected = 'admissionType1';
-  $scope.reviewScreen.insulinSelected = 'Down';
-  $scope.reviewScreen.diabetesMed = 'Yes';
-  $scope.reviewScreen.dischargeDispositionSelected = 'Discharged/transfered';
-  $scope.reviewScreen.medicalSpecialitySelected = 'Emergency/trauma';
-  $scope.reviewScreen.payerCodeSelected = 'payerCode1';
-  $scope.reviewScreen.predictionPercent = 65;
-  $scope.reviewScreen.notes = '';
-  $scope.reviewScreen.subject = '';
+    var review = JSON.parse(sessionStorage.getItem("review"));
+    $scope.reviewScreen = review.record;
+    $scope.percentage = review.percentage;
+    $scope.reviewScreen.searchTerm = "";
+////////
+    $scope.reviewScreen.notes = '';
+    $scope.reviewScreen.subject = '';
+    var tempVideos = sessionStorage.getItem("tutorials");
 
-  $scope.reviewScreen.videoOptions = [  {videoName: '--Select--', videoUrl: '' },
-                                          {videoName: 'sample.mp4', videoUrl: 'sample.mp4' },
-                                          {videoName: 'sample1.mp4', videoUrl: 'sample1.mp4' },
-                                          {videoName: 'sample2.mp4', videoUrl: 'sample2.mp4' }];
-  $scope.reviewScreen.videoSelected = $scope.reviewScreen.videoOptions[0];
+    var videos = JSON.parse(tempVideos);
+    $scope.reviewScreen.videoOptions = [{videoName: '--Select--', videoUrl: ''}];
+    for (var i = 0; i < videos.length; i++) {
+        $scope.reviewScreen.videoOptions.push({
+            videoName: videos[i],
+            videoUrl: 'http://localhost:3000/#/tutorial/' + videos[i]
+        })
+    }
+    $scope.reviewScreen.videoSelected = $scope.reviewScreen.videoOptions[0];
+    $scope.videoChanged = function () {
+        $scope.reviewScreen.notes = $scope.reviewScreen.notes + " \n" + $scope.reviewScreen.videoSelected.videoUrl;
 
-  $scope.percentfilter = function(y, data){return $scope.reviewScreen.predictionPercent + '%';}
-  
-  $scope.reviewScreen.chart1Data = [
-            {label: 'Result', value: $scope.reviewScreen.predictionPercent },
-            {label: 'Result', value: (100 - $scope.reviewScreen.predictionPercent) }];
+    };
+//////
 
 
+    $scope.percentfilter = function (y, data) {
+        return Number($scope.percentage + 20).toFixed(2) + '%';
+    }
 
-  //to be removed in code cleanup
-  console.log("reviewController : moving out");
-
-  $scope.videoChanged = function() {
-      console.log("videoChanged : going in");
-      $scope.reviewScreen.notes = $scope.reviewScreen.notes + " \n" + $scope.reviewScreen.videoSelected.videoUrl;
-
-      console.log("videoChanged : moving out");
-  };
-
-  $scope.scheduleFollowUpClicked = function() {
-      console.log("scheduleFollowUpClicked : going in");
-
-      
-
-      console.log("scheduleFollowUpClicked : moving out");
-  };
-
-  $scope.doneClicked = function(id) {
-  		console.log("doneClicked : going in");
-
-      
-  		console.log("doneClicked : moving out");
-  };
+    $scope.reviewScreen.chart1Data = [
+        {label: 'Result', value: Number($scope.percentage + 20).toFixed(2)},
+        {label: 'Result', value: (100 - Number($scope.percentage + 20).toFixed(2))}];
 
 
-  
+    //to be removed in code cleanup
+
+
+    $scope.scheduleFollowUpClicked = function () {
+        var d = {
+            patientId: review.patientId,
+            doctorId: review.doctorId,
+            patientFileId: review.patientFileId
+        };
+        $http.post('/scheduleFollowup', d)
+            .success(function (data) {
+
+                if (data.success) {
+                    $scope.message = data.message;
+                }
+            })
+            .error(function (data) {
+            });
+    };
+
+    $scope.doneClicked = function (id) {
+
+        var d = {
+            followupId: review.id,
+            doctorId: review.doctorId
+        };
+
+        var note = {
+            email: review.email,
+            subject: $scope.reviewScreen.subject,
+            note: $scope.reviewScreen.notes
+        };
+
+        console.log(d);
+        $http.post('/submitReview', d)
+            .success(function (data) {
+                if (data) {
+                    if (note !== '' || subject !== '') {
+                        $http.post('/sendNote', note)
+                            .success(function (response) {
+                                if (response) {
+                                    console.log(response);
+                                    $location.path('/patients');
+                                    $location.replace();
+                                }
+                            })
+                            .error(function (data) {
+                            });
+                    }
+                }
+            })
+            .error(function (data) {
+            });
+
+
+    };
+
 
 }]);

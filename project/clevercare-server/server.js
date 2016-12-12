@@ -4,6 +4,8 @@ require('./model/mongoconnect');
 var signIn = require('./services/signin');
 var followup = require('./services/followup');
 var review = require('./services/review');
+var analytics = require('./services/analytics');
+
 ////////////////////////////
 
 var cnn = amqp.createConnection({host: '127.0.0.1'});
@@ -29,6 +31,38 @@ cnn.on('ready', function () {
             });
         });
     });
+
+    cnn.queue('change_queue', function (q) {
+        q.subscribe(function (message, headers, deliveryInfo, m) {
+            util.log(util.format(deliveryInfo.routingKey, message));
+            util.log("Message: " + JSON.stringify(message));
+            util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
+            signIn.changePassword(message, function (err, res) {
+                //return index sent
+                cnn.publish(m.replyTo, res, {
+                    contentType: 'application/json',
+                    contentEncoding: 'utf-8',
+                    correlationId: m.correlationId
+                });
+            });
+        });
+    });
+    cnn.queue('doctor_queue', function (q) {
+        q.subscribe(function (message, headers, deliveryInfo, m) {
+            util.log(util.format(deliveryInfo.routingKey, message));
+            util.log("Message: " + JSON.stringify(message));
+            util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
+            signIn.doctorList(message, function (err, res) {
+                //return index sent
+                cnn.publish(m.replyTo, res, {
+                    contentType: 'application/json',
+                    contentEncoding: 'utf-8',
+                    correlationId: m.correlationId
+                });
+            });
+        });
+    });
+
 
     cnn.queue('register_queue', function (q) {
         q.subscribe(function (message, headers, deliveryInfo, m) {
@@ -57,6 +91,16 @@ cnn.on('ready', function () {
             }
             if (message.method === "addPatient") {
                 signIn.addPatient(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
+                });
+            }
+            if (message.method === "addAdmin") {
+                signIn.addAdmin(message, function (err, res) {
                     //return index sent
                     cnn.publish(m.replyTo, res, {
                         contentType: 'application/json',
@@ -239,7 +283,75 @@ cnn.on('ready', function () {
             util.log(util.format(deliveryInfo.routingKey, message));
             util.log("Message: " + JSON.stringify(message));
             util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
-            signIn.notes(message, function (err, res) {
+            if (message.method === "noOfNotes") {
+                signIn.notes(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
+                });
+            }
+            if (message.method === "updateNotes") {
+                signIn.updateNotes(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
+                });
+            }
+            if (message.method === "addNote") {
+                signIn.addNote(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
+                });
+            }
+
+        });
+    });
+    cnn.queue('analytics_queue', function (q) {
+        q.subscribe(function (message, headers, deliveryInfo, m) {
+            util.log(util.format(deliveryInfo.routingKey, message));
+            util.log("Message: " + JSON.stringify(message));
+            util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
+
+            if (message.method === "doctorAnalysis") {
+                analytics.doctorAnalysis(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
+                });
+            }
+
+            if (message.method === "predictionAnalysis") {
+                analytics.predictionAnalysis(message, function (err, res) {
+                    //return index sent
+                    cnn.publish(m.replyTo, res, {
+                        contentType: 'application/json',
+                        contentEncoding: 'utf-8',
+                        correlationId: m.correlationId
+                    });
+                });
+            }
+        });
+    });
+
+    cnn.queue('uploadvideo_queue', function (q) {
+        q.subscribe(function (message, headers, deliveryInfo, m) {
+            util.log(util.format(deliveryInfo.routingKey, message));
+            util.log("Message: " + JSON.stringify(message));
+            util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
+            signIn.uploadVideo(message, function (err, res) {
                 //return index sent
                 cnn.publish(m.replyTo, res, {
                     contentType: 'application/json',
@@ -249,5 +361,4 @@ cnn.on('ready', function () {
             });
         });
     });
-
 });

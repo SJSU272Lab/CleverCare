@@ -1,0 +1,43 @@
+
+<div id="tutorialDiv" ng-controller="tutorialController">
+  
+  <div class="container bootcards-container" id="main">
+      
+    <div class="row">
+
+      <div class="bootcards-cards ">
+        <div class="col-sm-8 col-sm-offset-2" >
+  
+          <div class="panel panel-default bootcards-media"> 
+            <div class="panel-heading">Video</div>
+
+            <div class="panel-body">
+              <video class="col-sm-12 " width="100%"  controls>
+                <source ng-src="{{tutorialData.videoName}}" type="video/mp4">
+              </video>
+            </div>
+            <!--<div class="panel-footer">...</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="bootcards-cards ">
+        <div class="col-sm-8 col-sm-offset-2" >
+  
+          <div class="panel panel-default bootcards-media"> 
+            <div class="panel-heading">Video Description</div>
+
+            <div class="panel-body">
+              Description of video.
+            </div>
+            <!--<div class="panel-footer">...</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

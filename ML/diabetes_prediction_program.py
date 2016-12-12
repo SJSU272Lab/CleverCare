@@ -3,7 +3,6 @@ from __future__ import print_function
 import csv2libsvm
 
 import csv
-import os
 from flask import Flask,json,request,jsonify,session,Response
 from datetime import date
 from sqlalchemy.sql.expression import func
@@ -51,16 +50,8 @@ toNum = UserDefinedFunction(lambda k: binary_map[k], DoubleType())
 
 data = data.select('insulin', 'race', 'readmission_result').withColumn('readmission_result', toNum(data['readmission_result'])).withColumn('race', toNum(data['race'])).withColumn('insulin', toNum(data['insulin'])) 
 '''
-customSchema = StructType([ \
-    StructField("num_lab_procedures", StringType(), True), \
-    StructField("num_procedures", StringType(), True), \
-    StructField("num_medications", StringType(), True), \
-    StructField("number_outpatient", StringType(), True), \
-    StructField("number_emergency", StringType(), True), \
-    StructField("number_inpatient", StringType(), True), \
-    StructField("readmission_result", StringType(), True)])
 
-csv2libsvm.startHere("diabetes_learning_data.csv", "libsvm.txt", 6 , True)
+csv2libsvm.startHere("diabetes_data_modified.csv", "libsvm.txt", 7, True)
 
 data = sqlContext.read.format("libsvm").load("libsvm.txt")
 
@@ -77,7 +68,7 @@ data = sqlContext.read.format("libsvm").load("libsvm.txt")
 #featureIndexer = VectorIndexer(inputCol="features", outputCol="indexedFeatures", maxCategories=6).fit(data)
 
 # Split the data into training and test sets (30% held out for testing)
-(trainingData, testData) = data.randomSplit([0.999, 0.001])
+#(trainingData, testData) = data.randomSplit([0.999, 0.001])
 
 # Train a RandomForest model.
 rf = RandomForestClassifier(labelCol="label", featuresCol="features", numTrees=10)
@@ -86,9 +77,10 @@ rf = RandomForestClassifier(labelCol="label", featuresCol="features", numTrees=1
 pipeline = Pipeline(stages=[rf])
 
 # Train model.  This also runs the indexers.
-model = pipeline.fit(trainingData)
-
-predictions = model.transform(testData)
+model = pipeline.fit(data)
+'''
+#model = pipeline.fit(trainingData)
+#predictions = model.transform(testData)
 
 
 # Select (prediction, true label) and compute test error
@@ -99,9 +91,8 @@ print("Test Error = %g" % (1.0 - accuracy))
 
 rfModel = model.stages[0]
 print(rfModel) 
-
+'''
 spark = SparkSession.builder.master("local").appName("CleverCare").getOrCreate()
-
 ''''''
 
 @app.route("/v1/getScore",methods=['POST'])
@@ -109,22 +100,22 @@ def getScore():
     req_data = request.get_json()
     print(req_data)
 
-    arrayofdata=[[req_data['data1'],req_data['data2'],req_data['data3'],req_data['data4'],req_data['data5'],req_data['data6']]]
+    arrayofdata=[[req_data['gender'],req_data['age_category'],req_data['weight'],req_data['admission_type'],req_data['time_in_hospital'],req_data['insulin'],req_data['diabetesmed']]]
              
-    with open('local_temp_file.csv', 'w') as mycsvfile:
+    with open('mydata.csv', 'w') as mycsvfile:
          thedatawriter = csv.writer(mycsvfile)
          for row in arrayofdata:
              thedatawriter.writerow(row)
 
-    csv2libsvm.startHere("local_temp_file.csv", "libsvm.txt", -1 , False)
+    csv2libsvm.startHere("mydata.csv", "libsvm.txt", -1 , False)
     testData = sqlContext.read.format("libsvm").load("libsvm.txt")
 
-    os.remove("local_temp_file.csv")
-
     # Make predictions.
-    testData.show()
     predictions = model.transform(testData)
 
+    print("------------------------------------------------------------------------------------------------------------------------")
+    print(predictions)
+    print("------------------------------------------------------------------------------------------------------------------------")
     # Select (prediction, true label) and compute test error
     evaluator = MulticlassClassificationEvaluator(
         labelCol="label", predictionCol="prediction", metricName="accuracy")
@@ -138,12 +129,12 @@ def getScore():
     # Select example rows to display.
     rows = predictions.collect()
     row = rows[0]
-    print(row)
-    responsetempVar = { "result" : {"rawPrediction":row.rawPrediction.tolist(), "probability":row.probability.tolist(), "prediction":row.prediction} }
+    print(rows)
+    responsetempVar = { 'prediction' : row.prediction, 'probability' : row.probability.tolist(), 'accuracy' : accuracy }
     response = jsonify(responsetempVar)
     response.status_code = 200
     return response
     #sc.stop()
-    
+	
 if __name__ == "__main__":
-    app.run(debug=False,host="0.0.0.0",port=3000)
+	app.run(debug=False,host="0.0.0.0",port=3001)

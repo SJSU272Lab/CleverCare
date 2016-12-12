@@ -107,7 +107,6 @@ exports.submitReview = function (req, res) {
             res.end();
         }
         if (results) {
-            console.log(results);
             res.send(results);
             res.end();
         } else {
@@ -175,7 +174,7 @@ exports.sendNote = function (req, res) {
             });
             res.end();
         }
-        if (results) {
+        if (results.success) {
             res.send(results);
             res.end();
         } else {
