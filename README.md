@@ -19,4 +19,4 @@ Reducing Hospital Readmissions
 	so that received data can be fed to prediction engine and predict possibility of readmission for patients.
 	
 
-## Link to architecture diagram: [a link](https://github.com/user/repo/blob/branch/other_file.md)
+## Link to architecture diagram: [architecture diagram](https://github.com/SJSU272Lab/Fall16-Team3/blob/siddharth/Artifacts/272_architecture_diagram.png)
