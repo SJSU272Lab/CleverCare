@@ -1,7 +1,7 @@
 /**
  * Created by dthesiya on 12/11/2016.
  */
-rhrApp.controller('videoController', function tutorialController($scope, $routeParams, Upload) {
+rhrApp.controller('videoController', function tutorialController($scope, $routeParams, $location, Upload) {
 
     $scope.alertvideo = false;
     /*Video upload*/
@@ -20,10 +20,12 @@ rhrApp.controller('videoController', function tutorialController($scope, $routeP
                 file: file
             }
         }).then(function (resp) {
-            $scope.videoUrl = resp.data.url;
+            $location.path('/dashboard');
+            $location.replace();
             $scope.alertvideo = true;
         }, function (resp) {
-            console.log('Error status: ' + resp.statusCode);
+            $location.path('/dashboard');
+            $location.replace();
         }, function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);

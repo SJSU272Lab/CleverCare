@@ -4,7 +4,6 @@ var ejs = require("ejs");
 var fecha = require('fecha');
 var mq_client = require("../rpc/client.js");
 
-
 exports.listFollowUp = function (req, res) {
 
     var msg_payload = {
@@ -114,7 +113,6 @@ exports.submitFollowup = function (req, res) {
             res.end();
         }
         if (results) {
-            console.log(results);
             res.send(results);
             res.end();
         } else {
