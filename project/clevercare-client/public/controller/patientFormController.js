@@ -9,7 +9,6 @@ rhrApp.controller('patientFormController', function patientFormController($scope
 
     $scope.followup = JSON.parse(sessionStorage.getItem("followup"));
 
-    console.log($scope.followup);
     $scope.patientFormData = {};
 
     //dummy data

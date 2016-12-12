@@ -92,7 +92,7 @@ app.post('/submitReview', review.submitReview);
 app.post('/sendNote', review.sendNote);
 app.post('/updateNotes', signin.updateNotes);
 app.post('/addNote', signin.addNote);
-
+app.post('/changePassword' ,signin.changePassword);
 app.post('/uploadVideo', uploadContent.uploadVideo);
 
 // catch 404 and forward to error handler

@@ -37,6 +37,43 @@ exports.doLogin = function (msg, callback) {
     });
 };
 
+exports.changePassword = function (msg, callback) {
+        var oldpwd = msg.oldpwd;
+        var newpwd = msg.newpwd;
+        var userId = msg.userId;
+
+    console.log(oldpwd+ " "+newpwd+" "+userId);
+    User.findOne({_id: new ObjectId(userId)}, function (err, user) {
+        if (err) {
+            console.log("err in find");
+            callback(err, null);
+        }
+
+        if (!user) {
+            callback(null, null);
+        }
+        if (user) {
+            if (bcrypt.compareSync(oldpwd, user.password)) {
+                var salt = bcrypt.genSaltSync(10);
+                var passwordToSave = bcrypt.hashSync(newpwd, salt);
+               User.update({_id:new ObjectId(userId)},{$set:{password:passwordToSave}},function (err, response) {
+                   if(err){
+                       callback(err, null);
+                   }
+                   if(response){
+                       callback(null, response);
+                   }
+               })
+            } else {
+                callback(null, null);
+            }
+        }
+    });
+};
+
+
+
+
 exports.addDoctor = function (msg, callback) {
 
     var email = msg.email;

@@ -19,24 +19,32 @@
 
       <div class="list-group">
         <div class="list-group-item">
-          <label class="list-group-item-text">Username</label>
+          <label class="list-group-item-text">Old password</label>
           <div class="list-group-item-heading">
-            <input type="text" name="name" class="form-control" placeholder="Username"
-            ng-model="settingsData.username" ng-disabled="!settingsData.isEditClicked">
+            <input type="password" name="name" class="form-control" placeholder="Old Password"
+            ng-model="settingsData.oldpwd" ng-disabled="!settingsData.isEditClicked">
           </div>
         </div>
         <div class="list-group-item">
-          <label class="list-group-item-text">Password</label>
+          <label class="list-group-item-text">New Password</label>
           <div class="list-group-item-heading">
-            <input type="password" name="name" class="form-control" placeholder="Password"
-            ng-model="settingsData.password" ng-disabled="!settingsData.isEditClicked">
+            <input type="password" name="name" class="form-control" placeholder="New Password"
+            ng-model="settingsData.newpwd" ng-disabled="!settingsData.isEditClicked">
           </div>
         </div>
-        <div class="list-group-item">
-          <p class="list-group-item-text">Type</p>
-          <h4 class="list-group-item-heading">{{settingsData.userType}}</h4>
-        </div> 
-              
+
+        <div class="list-group-item" ng-show="isChanged">
+          <div class="alert alert-success">
+            <strong>{{msg}}</strong>
+          </div>
+        </div>
+
+        <div class="list-group-item" ng-show="isWrong">
+          <div class="alert alert-danger">
+            <strong>{{msg}}</strong>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
