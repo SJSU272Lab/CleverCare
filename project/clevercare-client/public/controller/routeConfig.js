@@ -1,4 +1,4 @@
-var rhrApp = angular.module('rhrApp', ['ngRoute', 'angular.morris', 'ngMaterial']);
+var rhrApp = angular.module('rhrApp', ['ngRoute', 'angular.morris', 'ngMaterial','ngFileUpload']);
 
 rhrApp.config(function ($routeProvider) {
     $routeProvider

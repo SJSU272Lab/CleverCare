@@ -281,7 +281,7 @@ exports.uploadVideo = function (msg, callback) {
     var userId = msg.userId;
     var fileName = msg.fileName;
 
-    User.findOneAndUpdate({_id: id},{$push: {"videos": fileName}}, function (err, result) {
+    User.findOneAndUpdate({_id: userId},{$push: {"videos": fileName}}, function (err, result) {
         if (err) {
             callback(err, null);
         }
