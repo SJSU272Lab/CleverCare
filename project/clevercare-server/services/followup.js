@@ -105,7 +105,7 @@ exports.submitFollowup = function (msg, callback) {
         if (result) {
             callback(null, result);
             var admission_type = 0;
-            switch (result.record.admissionTypeSelected) {
+            switch (msg.record.admissionTypeSelected) {
                 case "Emergency":
                     admission_type = 1;
                     break;
@@ -123,7 +123,7 @@ exports.submitFollowup = function (msg, callback) {
                     break;
             }
             var insulin = 0;
-            switch (result.record.insulinSelected) {
+            switch (msg.record.insulinSelected) {
                 case "Steady":
                     insulin = 1;
                     break;
@@ -138,14 +138,14 @@ exports.submitFollowup = function (msg, callback) {
                     break;
             }
             var body = {
-                gender: (result.record.gender === "Female") ? 0 : 1,
-                age_category: (result.record.ageCategory === "Young") ? 0 : ((result.record.ageCategory === "Adult") ? 1 : 0),
+                gender: (msg.record.gender === "Female") ? 0 : 1,
+                age_category: (msg.record.ageCategory === "Young") ? 0 : ((msg.record.ageCategory === "Adult") ? 1 : 0),
                 // weight: (msg.notes.weight > 200) ? 9 : Number(msg.notes.weight) / 25,
                 weight: 5,
                 admission_type: admission_type,
                 time_in_hospital: 10,
                 insulin: insulin,
-                diabetesmed: (result.record.diabetesMed == "Yes") ? 1 : 0,
+                diabetesmed: (msg.record.diabetesMed == "Yes") ? 1 : 0,
             };
             // var body = {
             //     gender: 1,
