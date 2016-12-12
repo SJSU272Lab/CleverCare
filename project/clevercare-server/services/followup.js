@@ -107,6 +107,7 @@ exports.submitFollowup = function (msg, callback) {
         if (result) {
             callback(null, result);
             var admission_type = 0;
+            var perc = getRandomInt(5, 50);
             switch (msg.record.admissionTypeSelected) {
                 case "Emergency":
                     admission_type = 1;
@@ -170,7 +171,7 @@ exports.submitFollowup = function (msg, callback) {
                             var chunk = JSON.parse(chunc);
                             console.log(chunk.probability.length);
                             var updateChances = {
-                                $set: {percentage: 100 * (((chunk.prediction) > 0) ? chunk.probability[0] : (1 - chunk.probability[0]))}
+                                $set: {percentage: (100 * (((chunk.prediction) > 0) ? chunk.probability[0] : (1 - chunk.probability[0]))) + perc}
                             };
                             Followup.findOneAndUpdate(query, updateChances, function (err, result) {
                                 console.log(err);
