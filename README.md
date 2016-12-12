@@ -39,6 +39,10 @@ Report
 ======
 A detailed description of the project with proper screenshots and explaination can be found [here](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/CleverCare_team3_report.doc).
 	
+License
+=======
+
+This project is released under the [MIT License](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/LICENSE.txt).
 
 Team 3
 ======
