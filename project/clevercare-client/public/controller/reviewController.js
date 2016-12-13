@@ -28,12 +28,12 @@ rhrApp.controller('reviewController', ["$scope", '$mdDialog', '$http', '$locatio
 
 
     $scope.percentfilter = function (y, data) {
-        return Number($scope.percentage + 20).toFixed(2) + '%';
+        return Number($scope.percentage).toFixed(2) + '%';
     }
 
     $scope.reviewScreen.chart1Data = [
-        {label: 'Result', value: Number($scope.percentage + 20).toFixed(2)},
-        {label: 'Result', value: (100 - Number($scope.percentage + 20).toFixed(2))}];
+        {label: 'Result', value: Number($scope.percentage).toFixed(2)},
+        {label: 'Result', value: (100 - Number($scope.percentage).toFixed(2))}];
 
 
     //to be removed in code cleanup
