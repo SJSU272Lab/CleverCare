@@ -57,8 +57,8 @@ rhrApp.controller('dashboardController', function dashboardController($scope, $h
         url.totals = "/listFollowUps/Total";
         url.critical = "/listFollowUps/Critical";
         url.notes = "/notes/"+userId+"?usertype="+usertype;
-        graphLabel = "Done";
-        graphLabelNot = "Not done";
+        graphLabel = "Completed";
+        graphLabelNot = "Pending";
     }
 
 

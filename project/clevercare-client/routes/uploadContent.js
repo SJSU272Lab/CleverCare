@@ -1,7 +1,7 @@
 var mq_client = require("../rpc/client.js");
 
 exports.uploadVideo = function (request, response) {
-    var fileName = Date.now() + '' + request.session.userId + '.mp4';
+    var fileName = 'Sample-' + getRandomInt(100, 10000) + '.mp4';
     var video = (request.files) ? request.files.file : null;
     if (video) {
         video.mv('../public/videos/' + fileName, function (err) {
@@ -19,8 +19,11 @@ exports.uploadVideo = function (request, response) {
                 });
             }
         });
-    }
-    else {
+    } else {
         response.send({statusCode: 201});
     }
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
