@@ -56,7 +56,7 @@ rhrApp.controller('reviewController', ["$scope", '$mdDialog', '$http', '$locatio
             });
     };
 
-    $scope.doneClicked = function (id) {
+    $scope.finishReview = function (id) {
 
         var d = {
             followupId: review.id,
