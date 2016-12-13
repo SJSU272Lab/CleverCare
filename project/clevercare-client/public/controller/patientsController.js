@@ -35,9 +35,9 @@ rhrApp.controller('patientsController', function ($scope, $http, $location, $roo
             for (var i = 0; i < response.length; i++) {
                 var patient = {
                     'id': response[i]._id,
-                    'patientId':response[i].patientId._id,
-                    'patientFileId':response[i].patientFileId._id,
-                    'doctorId':response[i].doctorId._id,
+                    'patientId': response[i].patientId._id,
+                    'patientFileId': response[i].patientFileId._id,
+                    'doctorId': response[i].doctorId._id,
                     'dischargeNotes': response[i].patientFileId.dischargeNote,
                     'disease': response[i].patientFileId.disease,
                     'age': response[i].patientId.age,
@@ -48,9 +48,9 @@ rhrApp.controller('patientsController', function ($scope, $http, $location, $roo
                     'followUpDueOn': $filter('date')(response[i].dueDate, "MM/dd/yyyy"),
                     'record': response[i].record,
                     'admissionType': response[i].patientFileId.admissionType,
-                    'ageCategory' : response[i].patientId.ageCategory,
-                    'percentage':response[i].percentage,
-                    'gender':response[i].patientId.gender
+                    'ageCategory': response[i].patientId.ageCategory,
+                    'percentage': response[i].percentage,
+                    'gender': response[i].patientId.gender
                 }
                 patientArr.push(patient);
             }
@@ -94,20 +94,20 @@ rhrApp.controller('patientsController', function ($scope, $http, $location, $roo
 
         $scope.patientScreen.patientList = $scope.patientScreen.patientListBackup;
 
-        if(searchString == ''){
+        if (searchString == '') {
             result = $scope.patientScreen.patientListBackup;
-        }else{
+        } else {
 
             searchString = searchString.toLowerCase();
-            angular.forEach($scope.patientScreen.patientList, function(item){
-                if(item.dischargeNotes.indexOf(searchString) !== -1
+            angular.forEach($scope.patientScreen.patientList, function (item) {
+                if (item.dischargeNotes.indexOf(searchString) !== -1
                     || item.disease.indexOf(searchString) !== -1
                     || item.email.indexOf(searchString) !== -1
                     || item.name.indexOf(searchString) !== -1
                     || item.contactNumber.indexOf(searchString) !== -1
                     || item.status.indexOf(searchString) !== -1
                     || item.followUpDueOn.indexOf(searchString) !== -1
-                    ){
+                ) {
 
                     result.push(item);
                 }
@@ -132,14 +132,18 @@ rhrApp.controller('patientsController', function ($scope, $http, $location, $roo
         $scope.patientScreen.currPatient = currPatient;
         $http.get(url.listFollowupByPatient + $scope.patientScreen.currPatient.patientId)
             .success(function (response) {
-
                 $scope.patientScreen.currPatient.files = response;
-
+                $scope.patientScreen.previousChancesData = [];
+                for (var i = 0; i < $scope.patientScreen.currPatient.files.length; i++) {
+                    var obj = {
+                        "followup": i + 1 + "",
+                        "percent": Number($scope.patientScreen.currPatient.files[i].percentage)
+                    }
+                    $scope.patientScreen.previousChancesData.push(obj);
+                }
             })
             .error(function (data) {
-
             });
-
     };
 
     $scope.editPatientDetails = function (id) {
@@ -152,13 +156,13 @@ rhrApp.controller('patientsController', function ($scope, $http, $location, $roo
 
 
     $scope.submitFollowup = function () {
-        sessionStorage.setItem("followupId",$scope.patientScreen.currPatient.id);
-        sessionStorage.setItem("followup",JSON.stringify($scope.patientScreen.currPatient));
+        sessionStorage.setItem("followupId", $scope.patientScreen.currPatient.id);
+        sessionStorage.setItem("followup", JSON.stringify($scope.patientScreen.currPatient));
         $location.path('/patientForm');
         $location.replace();
     };
     $scope.submitReview = function () {
-        sessionStorage.setItem("review",JSON.stringify($scope.patientScreen.currPatient));
+        sessionStorage.setItem("review", JSON.stringify($scope.patientScreen.currPatient));
         $location.path('/reviewForm');
         $location.replace();
     };

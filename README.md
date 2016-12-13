@@ -31,6 +31,12 @@ Architecture diagram
 * Further, the node.js client communicates with node.js server using MOM-RabbitMQ. 
 * The node.js server validates the credentials against encrypted credentials stored in mongoDb database.
 
+Working Model on AWS
+====================
+
+[CleverCare](http://ec2-35-165-244-171.us-west-2.compute.amazonaws.com:3000/#/).
+
+
 Flow Diagram
 ============
 ![Flow Diagram](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/272_flow_diagram.png)	
