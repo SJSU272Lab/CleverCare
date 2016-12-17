@@ -60,15 +60,15 @@ A detailed description of the project with proper screenshots and explaination c
 
 HOW TO START THIS PROJECT
 =========================
-0. Install mongodb on your machine, start mongodb service
+0. Install <b>mongodb</b> on your machine, start mongodb service
 
-0. Install node.js on your machine
+0. Install <b>node.js</b> on your machine
 
-0. Install rabbitmq on your machine, start rabbitmq service
+0. Install <b>rabbitmq</b> on your machine, start rabbitmq service
 
-0. Install python 2.7 on your machine
+0. Install <b>python 2.7</b> on your machine
 
-0. Download spark MLlib 2.0.2, extract, paste everything in ML directory into spark-*.*.*/bin/ directory
+0. Download <b>spark MLlib 2.0.2</b>, extract, paste everything in ML directory into spark-*.*.*/bin/ directory
 
 0. Run spark-submit diabetes_prediction_program.py from command line
 
