@@ -51,11 +51,11 @@ password: <b>admin</b>
 
 Flow Diagram
 ============
-![Flow Diagram](https://github.com/SJSU272Lab/CleverCare/Artifacts/272_flow_diagram.png)	
+![Flow Diagram](https://github.com/SJSU272Lab/CleverCare/blob/master/Artifacts/272_flow_diagram.png)	
 
 Report
 ======
-A detailed description of the project with proper screenshots and explaination can be found [here](https://github.com/SJSU272Lab/CleverCare/Artifacts/CleverCare_team3_report.doc).
+A detailed description of the project with proper screenshots and explaination can be found [here](https://github.com/SJSU272Lab/CleverCare/blob/master/Artifacts/CleverCare_team3_report.doc).
 
 
 HOW TO START THIS PROJECT
