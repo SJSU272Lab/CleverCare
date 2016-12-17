@@ -55,7 +55,7 @@ Flow Diagram
 
 Report
 ======
-A detailed description of the project with proper screenshots and explaination can be found [here](https://github.com/SJSU272Lab/CleverCare/blob/master/Artifacts/CleverCare_team3_report.doc).
+A detailed description of the project with proper screenshots and explaination can be found [here](https://github.com/SJSU272Lab/CleverCare/blob/master/Artifacts/CleverCare_team3_report_ieee_format.pdf).
 
 
 HOW TO START THIS PROJECT
