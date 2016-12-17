@@ -24,7 +24,7 @@ User Stories
 
 Architecture diagram
 ====================
-![Architecture diagram](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/272_architecture_diagram.png)
+![Architecture diagram](https://github.com/SJSU272Lab/CleverCare/blob/master/Artifacts/272_architecture_diagram.png)
 	
 * As shown above, the different components of system are connected with each other. 
 * For example, when a user submits credentials in order to log into the system, the browser forwards this request to node.js client. 
@@ -36,19 +36,52 @@ Working Model on AWS
 
 [CleverCare](http://ec2-35-165-244-171.us-west-2.compute.amazonaws.com:3000/#/).
 
+Sample Nurse Credentials:
+username: <b>bryony@clevercare.com</b>
+password: <b>test</b>
+
+Sample Doctor Credentials:
+username: <b>shannon@clevercare.com</b>
+password: <b>test</b>
+
+Sample Admin Credentials:
+username: <b>admin</b>
+password: <b>admin</b>
+
 
 Flow Diagram
 ============
-![Flow Diagram](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/272_flow_diagram.png)	
+![Flow Diagram](https://github.com/SJSU272Lab/CleverCare/blob/master/Artifacts/272_flow_diagram.png)	
 
 Report
 ======
-A detailed description of the project with proper screenshots and explaination can be found [here](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/Artifacts/CleverCare_team3_report.doc).
-	
+A detailed description of the project with proper screenshots and explaination can be found [here](https://github.com/SJSU272Lab/CleverCare/blob/master/Artifacts/CleverCare_team3_report.doc).
+
+
+HOW TO START THIS PROJECT
+=========================
+0. Install mongodb on your machine, start mongodb service
+
+0. Install node.js on your machine
+
+0. Install rabbitmq on your machine, start rabbitmq service
+
+0. Install python 2.7 on your machine
+
+0. Download spark MLlib 2.0.2, extract, paste everything in ML directory into spark-*.*.*/bin/ directory
+
+0. Run spark-submit diabetes_prediction_program.py from command line
+
+0. Start server.js file from project/clevercare-server/ directory
+
+0. Start www file from project/clevercare-client/bin/ directory
+
+0. your application will available on localhost:3000
+
 License
 =======
 
-This project is released under the [MIT License](https://github.com/SJSU272Lab/Fall16-Team3/blob/master/LICENSE.txt).
+This project is released under the [MIT License](https://github.com/SJSU272Lab/CleverCare/blob/master/LICENSE.txt).
 
 Team 3
 ======
@@ -60,4 +93,3 @@ Team 3
 > [Tanmay Bhatt](https://github.com/Tanmayb7)
 
 > [Vikas Miyani](https://github.com/vikasmiyani)
-	
