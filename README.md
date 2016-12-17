@@ -36,26 +36,26 @@ Working Model on AWS
 
 [CleverCare](http://ec2-35-165-244-171.us-west-2.compute.amazonaws.com:3000/#/).
 
-Sample Nurse Credentials:
-username: <b>bryony@clevercare.com</b>
-password: <b>test</b>
+Sample Nurse Credentials:<br>
+username: <b>bryony@clevercare.com</b><br>
+password: <b>test</b><br><br>
 
-Sample Doctor Credentials:
-username: <b>shannon@clevercare.com</b>
-password: <b>test</b>
+Sample Doctor Credentials:<br>
+username: <b>shannon@clevercare.com</b><br>
+password: <b>test</b><br><br>
 
-Sample Admin Credentials:
-username: <b>admin</b>
+Sample Admin Credentials:<br>
+username: <b>admin</b><br>
 password: <b>admin</b>
 
 
 Flow Diagram
 ============
-![Flow Diagram](https://github.com/SJSU272Lab/CleverCare/blob/master/Artifacts/272_flow_diagram.png)	
+![Flow Diagram](https://github.com/SJSU272Lab/CleverCare/Artifacts/272_flow_diagram.png)	
 
 Report
 ======
-A detailed description of the project with proper screenshots and explaination can be found [here](https://github.com/SJSU272Lab/CleverCare/blob/master/Artifacts/CleverCare_team3_report.doc).
+A detailed description of the project with proper screenshots and explaination can be found [here](https://github.com/SJSU272Lab/CleverCare/Artifacts/CleverCare_team3_report.doc).
 
 
 HOW TO START THIS PROJECT
